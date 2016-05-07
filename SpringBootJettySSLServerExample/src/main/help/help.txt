@@ -1,0 +1,3 @@
+how to create a keystore for the application
+------------------------------------------------
+keytool -genkeypair -dname "cn=localhost, ou=Espark, o=Adarsh, c=IN" -alias espark -keypass espark  -keystore espark.key -storepass espark -validity 360
