@@ -1,0 +1,102 @@
+to build the jar file
+-------------------------
+> mvn package
+
+To Execute the Application
+---------------------------
+>mvn spring-boot:run
+
+To get the output
+==============================================================
+url =>  http://localhost:8080/application/message
+Accept:application/json
+{
+    "message": "Hello adarsh kumar null",
+    "httpStatus": "200"
+}
+
+Accept:application/xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<responseBean>
+    <httpStatus>200</httpStatus>
+    <message>Hello adarsh kumar null</message>
+</responseBean>
+==============================================================
+url =>  http://localhost:8080/application/user/list
+Accept:application/xml
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<users>
+    <user>
+        <email>adarsh@kumar</email>
+        <firstName>adarsh</firstName>
+        <lastName>kumar</lastName>
+        <userId>100</userId>
+    </user>
+    <user>
+        <email>amit@kumar</email>
+        <firstName>amit</firstName>
+        <lastName>kumar</lastName>
+        <userId>101</userId>
+    </user>
+    <user>
+        <email>radha@singh</email>
+        <firstName>radha</firstName>
+        <lastName>singh</lastName>
+        <userId>102</userId>
+    </user>
+</users>
+
+==============================================================
+url =>  http://localhost:8080/application/user/list
+Accept:application/json
+[
+  {
+    "userId": 100,
+    "firstName": "adarsh",
+    "lastName": "kumar",
+    "email": "adarsh@kumar"
+  },
+  {
+    "userId": 101,
+    "firstName": "amit",
+    "lastName": "kumar",
+    "email": "amit@kumar"
+  },
+  {
+    "userId": 102,
+    "firstName": "radha",
+    "lastName": "singh",
+    "email": "radha@singh"
+  }
+]
+
+==============================================================
+url =>  http://localhost:8080/application/user/save
+Accept:application/json
+Content-Type:application/json
+input
+ {
+     "userId": 104,
+     "firstName": "sonu",
+     "lastName": "singh",
+     "email": "sonu@singh"
+ }
+output
+{
+  "message": "User Saved ",
+  "httpStatus": "200"
+}
+
+Accept:application/xml
+Content-Type:application/xml
+  <user>
+        <email>sonu@singh</email>
+        <firstName>sonu</firstName>
+        <lastName>singh</lastName>
+        <userId>104</userId>
+    </user>
+==============================================================
+To exit from Execution
+--------------------------
+ctrl-c
