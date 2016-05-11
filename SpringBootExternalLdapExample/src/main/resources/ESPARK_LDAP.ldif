@@ -1,0 +1,109 @@
+version: 1
+
+dn: ou=people,o=espark
+objectclass: organizationalUnit
+objectclass: top
+description: Contains entries which describe persons 
+ou: people
+
+dn: ou=groups,o=espark
+objectclass: organizationalUnit
+objectclass: top
+description: Contains entries which describe groups (user or admin)
+ou: groups
+
+dn: ou=users,ou=groups,o=espark
+objectclass: organizationalUnit
+objectclass: top
+description: Contains entries which describe users
+ou: users
+
+
+#super admin user
+dn: cn=Adarsh kumar,ou=people,o=espark
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: top
+cn: Adarsh kumar
+description: Super Admin User 
+givenname: Adarsh
+sn: Kumar
+uid: adarsh
+mail: adarsh.kumar@google.com
+userpassword: adarsh
+
+dn: cn=Super Admin,ou=people,o=espark
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: top
+cn: Super Admin
+description: Super Admin User 
+givenname: Super 
+sn: Admin
+uid: sadmin
+mail: sadmin.user@google.com
+userpassword: sadmin
+
+dn: cn=SUPER_ADMIN,ou=users,ou=groups,o=espark
+objectclass: groupOfUniqueNames
+objectclass: top
+cn: SUPER_ADMIN
+uniquemember: cn=Adarsh kumar,ou=people,o=espark
+uniquemember: cn=Super Admin,ou=people,o=espark
+
+# admin user
+dn: cn=Radha Singh,ou=people,o=espark
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: top
+cn: Radha Singh
+description: Admin User 
+givenname: Radha
+sn: Singh
+uid: radha
+mail: radha.singh@google.com
+userpassword: radha
+
+
+dn: cn=Admin User,ou=people,o=espark
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: top
+cn: Admin User
+description: Admin User 
+givenname: Admin 
+sn: User
+uid: admin
+mail: admin.user@google.com
+userpassword: admin
+
+dn: cn=ADMIN,ou=users,ou=groups,o=espark
+objectclass: groupOfUniqueNames
+objectclass: top
+cn: ADMIN
+uniquemember: cn=Radha Singh,ou=people,o=espark
+uniquemember: cn=Admin User,ou=people,o=espark
+
+# user 
+dn: cn=Normal User,ou=people,o=espark
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: top
+cn: Normal User
+description: Normal User 
+givenname: Normal 
+sn: User
+uid: user
+mail: user.noraml@google.com
+userpassword: user
+
+dn: cn=USER,ou=users,ou=groups,o=espark
+objectclass: groupOfUniqueNames
+objectclass: top
+cn: USER
+uniquemember: cn=Normal User,ou=people,o=espark
