@@ -1,7 +1,7 @@
 # espark_spring_boot
 Spring Boot Exmaple 
 
-**[Espark Youtube Spring Boot ](https://www.youtube.com/playlist?list=PLBH_SvM38ibHFj5ulvAobbYbd9dOiIAOW**
+**[Espark Youtube Spring Boot ](https://www.youtube.com/playlist?list=PLBH_SvM38ibHFj5ulvAobbYbd9dOiIAOW)**
 
 - Spring Boot Basic Example	
 - Spring Boot Security Embedded Ldap Example
