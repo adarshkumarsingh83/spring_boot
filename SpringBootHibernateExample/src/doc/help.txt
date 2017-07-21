@@ -1,0 +1,58 @@
+mvn clean install
+mvn package
+mvn spring-boot:run
+
+---------------------------------------------------------------------------------------
+http://localhost:8080/user/save
+Content-Type:application/json
+input
+{
+      "id": 2,
+      "email": "amit@kumar",
+      "name": "amit"
+}
+output
+{
+  "data": null,
+  "message": "User successfully saved!"
+}
+---------------------------------------------------------------------------------------
+http://localhost:8080/user/list
+output
+{
+  "data": [
+    {
+      "id": 1,
+      "email": "adarsh@kumar",
+      "name": "adarsh"
+    },
+    {
+      "id": 2,
+      "email": "amit@kumar",
+      "name": "amit"
+    }
+  ],
+  "message": "User Found "
+}
+---------------------------------------------------------------------------------------
+http://localhost:8080/user/delete?id=2
+output
+{
+  "data": null,
+  "message": "User successfully deleted!"
+}
+---------------------------------------------------------------------------------------
+http://localhost:8080/user/get-by-email?email=adarsh@kumar
+output
+{
+  "data": {
+    "id": 1,
+    "email": "adarsh@kumar",
+    "name": "adarsh"
+  },
+  "message": null
+}
+---------------------------------------------------------------------------------------
+
+
+
