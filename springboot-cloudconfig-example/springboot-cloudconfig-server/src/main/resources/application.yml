@@ -1,0 +1,5 @@
+server:
+  port: 8888
+
+# show full health details at /health
+endpoints.health.sensitive: false

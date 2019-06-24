@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: main-service
+  profiles:
+    active: testInDirect

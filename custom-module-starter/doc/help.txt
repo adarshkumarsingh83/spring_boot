@@ -1,0 +1,54 @@
+
+-----------------------------------------------------------------------------
+#How to build the project using maven cmd
+$ mvn clean package
+
+#Service end point
+$ curl localhost:8080/message/adarsh
+-----------------------------------------------------------------------------
+
+#Configurations and params to the application.
+a.application.properties
+mentioned prop is enabling and disabling the service module
+ espark.service.enable=true
+
+b.espark.properties
+ its mandatory to enable and pass the param to the service module
+
+-----------------------------------------------------------------------------
+#Use Case
+..............................................................................
+
+1.espark-service module is disable using
+ espark.service.enable=false
+then only in memo service will be instantiated and inject onto the conroller
+
+2.espark-service module is enable
+espark.service.enable=true
+
+A.Enabling the Different Services
+
+a.Enabling the local service in web module
+espark.service=local
+
+b.Enabling the remote service in web module
+espark.service=remote
+
+c.Enabling the default service in web module
+when the below prop is commented
+#espark.service=remote
+
+B.Passing different type of args to the services
+a.Passing the generic type of args to all the service type
+espark.msg=hello
+espark.type=local
+
+b.Passing the specific type of the service based on its existance in bean container
+#this param will pass to only local service
+local.espark.msg= hello from local
+
+#this param will pass to only remote service
+remote.espark.msg= hello from remote
+
+-----------------------------------------------------------------------------
+

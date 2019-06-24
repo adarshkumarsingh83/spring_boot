@@ -1,0 +1,4 @@
+jar {
+	baseName = project.name
+	version = '1.2.0-M1'
+}

@@ -1,0 +1,48 @@
+
+GET
+http://localhost:8080/msg
+{
+  "msg": "welcome",
+  "name": "adarsh kumar"
+}
+
+
+===================================
+Download the jar file from location 
+http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/2.16.0/wiremock-standalone-2.16.0.jar
+
+$ cd document
+$ java -jar wiremock-standalone-2.16.0.jar --port 9999 --verbose true
+
+TO REGISTER THE MOCKE RESPONSE
+------------------------------------------------------------------------
+1.To Configure Json
+------------------------------------------------------------------------
+$ curl -X POST --data '{ "request": { "url": "/get/msg", "method": "GET" }, "response": { "status": 200, "body": "welcome to Espark\n" }}' \
+http://localhost:9999/__admin/mappings/new
+
+To Get Back
+$ curl http://localhost:9999/get/msg
+
+------------------------------------------------------------------------
+2.To create a stub like the one above by this method, drop a file with a .json extension under mappings
+------------------------------------------------------------------------
+$ cd document
+$ cd mappings
+$ vi message.json
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/messages"
+  },
+  "response": {
+    "status": 200,
+    "body": '{"message":"welcome","name": "adarsh kumar"}',
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
+
+To Get Back
+$ curl http://localhost:9999/messages

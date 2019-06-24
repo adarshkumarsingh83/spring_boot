@@ -1,0 +1,13 @@
+<hazelcast xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.hazelcast.com/schema/config
+                               http://www.hazelcast.com/schema/config/hazelcast-config-3.10.xsd"
+           xmlns="http://www.hazelcast.com/schema/config">
+
+    <serialization>
+        <serializers>
+            <serializer type-class="Person" class-name="PersonStreamSerializer"/>
+            <serializer type-class="Car" class-name="CarStreamSerializer"/>
+            <serializer type-class="ExtendedArrayList" class-name="ExtendedArrayListSerializer"/>
+        </serializers>
+    </serialization>
+</hazelcast>

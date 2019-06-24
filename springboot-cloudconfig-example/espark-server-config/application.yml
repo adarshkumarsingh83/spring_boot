@@ -1,0 +1,9 @@
+# Config data exposed by config server
+
+info:
+  foo: bar
+  someList: [2, 3, 7]
+
+espark:
+  adarsh:
+    names: adarsh,radha,amit,sonu,monu

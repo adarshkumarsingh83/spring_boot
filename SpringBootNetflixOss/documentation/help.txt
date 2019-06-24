@@ -1,0 +1,89 @@
+
+EurekaServer=8761
+ZuulServer=8100
+ConfigurationServer=8100
+ZipkinServer=8300
+UserManagement=8400
+AddressManagement=8500
+ManagementAggregator=8600
+HystrixDashboardServer=8700
+
+#accessing boot admin via zuul
+http://localhost:8100/api/boot-admin
+
+#accessing boot admin directly
+http://localhost:1111
+
+---------------------------------------------------------
+to get the list of services and its link of description
+---------------------------------------------------------
+http://localhost:8100/api/boot-admin/service-discovery
+http://localhost:1111/service-discovery
+---------------------------------------------------------
+#instance info url fo user mgnt,address mgnt, aggregator mgnt.
+---------------------------------------------------------
+http://xxxx:xxx/service-instances/management-aggregator
+http://xxxx:xxx/service-instances/user-management
+http://xxxx:xxx/service-instances/address-management
+---------------------------------------------------------
+
+POST
+localhost:8100/api/user-management/user
+{
+    "id": 1002,
+    "name": "sonu",
+    "email": "sonu@singh"
+}
+
+GET
+localhost:8100/api/user-management/user/1002
+
+PUT
+localhost:8100/api/user-management/user/1002
+{
+    "id": 1002,
+    "name": "sonu singh",
+    "email": "sonu@singh"
+}
+
+DELETE
+localhost:8100/api/user-management/user/1002
+
+---------------------------------------------
+POST
+localhost:8100/api/address-management/address
+{
+    "id": 1002,
+    "phone": "1111",
+    "email": "sonu@singh"
+}
+
+GET
+localhost:8100/api/address-management/address/1002
+
+PUT
+localhost:8100/api/address-management/address/1002
+{
+    "id": 1002,
+    "phone": "10101",
+    "email": "sonu@singh"
+}
+DELETE
+localhost:8100/api/address-management/address/1002
+
+GET
+localhost:8100/api/management-aggregator/aggregator/1000
+localhost:8100/api/management-aggregator/aggregator/1001
+
+---------------------------------------------
+boot admin
+http://localhost:1111
+---------------------------------------------
+zipkin server
+http://localhost:8300/zipkin/
+---------------------------------------------
+hystrix dashboard
+http://localhost:8700/hystrix
+---------------------------------------------
+
+---------------------------------------------

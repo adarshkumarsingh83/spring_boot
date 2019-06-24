@@ -1,0 +1,15 @@
+
+
+change the profile
+adarsh or radha
+
+
+#to compile
+$ mvn clean package
+
+#to run
+$ mvn spring-boot:run
+
+#url
+http://localhost:8080/values/prop
+http://localhost:8080/values/yml

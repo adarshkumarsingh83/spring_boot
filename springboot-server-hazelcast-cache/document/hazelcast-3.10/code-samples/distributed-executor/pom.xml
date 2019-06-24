@@ -1,0 +1,58 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <artifactId>distributed-executor</artifactId>
+    <groupId>chapter-distributed-executor</groupId>
+    <name>Distributed Executor</name>
+    <description>
+        All the code samples for the distributed executor chapter
+    </description>
+
+    <parent>
+        <groupId>com.hazelcast.samples</groupId>
+        <artifactId>code-samples</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <properties>
+        <!-- needed for checkstyle/findbugs -->
+        <main.basedir>${project.parent.basedir}</main.basedir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <module>basic-executor</module>
+        <module>durable-executor-service</module>
+        <module>scheduling-on-key-owner-durable</module>
+        <module>scheduling-on-specific-member</module>
+        <module>scheduling-named-task</module>
+        <module>scheduling-stateful-task</module>
+        <module>scheduled-executor-retrieve-lost-future</module>
+        <module>scheduled-executor-retrieve-all-tasks</module>
+        <module>executing-on-all-members</module>
+        <module>executing-on-key-owner</module>
+        <module>executing-on-lite-members</module>
+        <module>executing-on-specific-member</module>
+        <module>execution-callback</module>
+        <module>futures</module>
+        <module>scale-out</module>
+        <module>scale-up</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-all</artifactId>
+            <version>${hazelcast.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hazelcast.samples</groupId>
+            <artifactId>helper</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

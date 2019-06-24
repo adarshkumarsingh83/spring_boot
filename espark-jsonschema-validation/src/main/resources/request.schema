@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Employee",
+  "description": "Description About Employee ",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The unique identifier for a Employee",
+      "type": "integer"
+    },
+    "name": {
+      "description": "Name of the Employee",
+      "type": "string"
+    },
+    "email": {
+      "description": "Email of the Employee",
+      "type": "string",
+      "maxLength": 30,
+      "format": "email"
+    },
+    "salary": {
+      "description": "Salary of the Employee",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "phone": {
+      "description": "Salary of the Employee",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "education": {
+      "type": "string",
+      "enum": [
+        "highschool",
+        "intermediate",
+        "graduate",
+        "post-graduate"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "email",
+    "salary"
+  ]
+}

@@ -1,0 +1,38 @@
+#to find the pid on the port
+$ sudo lsof -i :<port no>
+$ sudo kill -9 <pid>
+--------------------------------------------------------------------
+$ create database espark;
+$ sudo /usr/local/mysql/support-files/mysql.server start
+$ sudo /usr/local/mysql/support-files/mysql.server stop
+--------------------------------------------------------------------
+
+$ mvn clean package -Dmaven.test.skip=true
+$ docker build . -t springboot-react-restcall
+$ docker-compose up
+
+
+=======================================================
+EXECUTION PROCESS
+=======================================================
+1.Steps
+to start the process for ui build first
+------------------------------------------
+#to install the ui application dependency
+$ sudo npm install
+
+#to build the ui application
+$ sudo npm run build
+
+#to start only ui application
+$ npm start
+
+2.Step
+build the application backend and ui app
+------------------------------------------
+#build using maven cmd
+$ mvn clean package
+
+#execute the applications
+$ java -jar target/springboot-react-restcall.jar
+=======================================================

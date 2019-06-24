@@ -1,0 +1,36 @@
+buildscript {
+    repositories { mavenCentral() }
+    dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
+}
+
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    baseName = 'application-web'
+    version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = "${javaVersion}"
+targetCompatibility = "${javaVersion}"
+
+repositories {
+    mavenCentral()
+}
+
+bootRun {
+    attributes 'Start-Class' : 'com.espark.adarsh.ApplicationMain'
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:${groovyVersion}'
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile project(':application-core')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+

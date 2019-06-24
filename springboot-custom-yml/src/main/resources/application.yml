@@ -1,0 +1,63 @@
+spring:
+    profiles: adarsh
+yml:
+  personal:
+    name: adarsh kumar
+    country: india
+    website:
+        - www.adarsh.com
+        - www.kumar.com
+    address:
+      apt: 111
+      city: bangalore
+    educations:
+      - course: 10
+        institution: cbse
+        year: 1999
+        subjects:
+          - name: english
+            mark: 100
+          - name: hindi
+            mark: 85
+      - course: 12
+        institution: cbse
+        year: 2001
+        subjects:
+          - name: java
+            mark: 100
+          - name: clang
+            mark: 85
+
+---
+spring:
+    profiles: radha
+yml:
+  personal:
+    name: radha singh
+    country: usa
+    website:
+        - www.radha.com
+        - www.singh.com
+    address:
+      apt: 222
+      city: hyd
+    educations:
+      - course: 10
+        institution: ap board
+        year: 2001
+      - course: 12
+        institution: ap boad
+        year: 2004
+        subjects:
+          - name: english
+            mark: 100
+          - name: hindi
+            mark: 85
+      - course: 12
+        institution: cbse
+        year: 2001
+        subjects:
+          - name: java
+            mark: 100
+          - name: clang
+            mark: 85

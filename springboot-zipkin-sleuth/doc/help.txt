@@ -1,0 +1,10 @@
+$ mvn clean package
+
+url to hit service
+http://localhost:9090/wish
+
+zipkin server url
+http://localhost:9411/zipkin/
+
+select the date range and end date will be one day plus of current date
+

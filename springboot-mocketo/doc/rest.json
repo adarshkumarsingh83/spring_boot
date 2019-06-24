@@ -1,0 +1,86 @@
+#creating question
+POST
+http: //localhost:8080/questions
+{
+"title": "how r u ",
+"description": "want to know how r u"
+}
+#response
+{
+"createdAt": "2019-04-17T19:03:09.103+0000",
+"updatedAt": "2019-04-17T19:03:09.103+0000",
+"id": 1000,
+"title": "how r u ",
+"description": "want to know how r u"
+}
+
+
+#Get paginated Questions
+GET
+http: //localhost:8080/questions?page=0&size=2&sort=createdAt,desc
+#response
+{
+"content": [
+{
+"createdAt": "2019-04-17T19:03:09.103+0000",
+"updatedAt": "2019-04-17T19:03:09.103+0000",
+"id": 1000,
+"title": "how r u ",
+"description": "want to know how r u"
+}
+],
+"pageable": {
+"sort": {
+"sorted": true,
+"unsorted": false,
+"empty": false
+},
+"offset": 0,
+"pageSize": 2,
+"pageNumber": 0,
+"paged": true,
+"unpaged": false
+},
+"last": true,
+"totalPages": 1,
+"totalElements": 1,
+"size": 2,
+"number": 0,
+"first": true,
+"numberOfElements": 1,
+"sort": {
+"sorted": true,
+"unsorted": false,
+"empty": false
+},
+"empty": false
+}
+
+#creating answer
+POST
+http://localhost:8080/questions/{questionId}/answers
+http://localhost:8080/questions/1000/answers
+{
+"text": "i am good how about u "
+}
+#response
+{
+"createdAt": "2019-04-17T19:05:24.055+0000",
+"updatedAt": "2019-04-17T19:05:24.055+0000",
+"id": 1000,
+"text": "i am good how about u "
+}
+
+#Get all answers of a Question
+GET
+http: //localhost:8080/questions/{questionId}/answers
+http: //localhost:8080/questions/1000/answers
+##response
+[
+{
+"createdAt": "2019-04-17T19:05:24.055+0000",
+"updatedAt": "2019-04-17T19:05:24.055+0000",
+"id": 1000,
+"text": "i am good how about u "
+}
+]
