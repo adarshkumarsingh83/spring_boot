@@ -1,0 +1,29 @@
+group 'spring-boot-ms'
+version '0.0.1-SNAPSHOT'
+
+apply plugin: 'spring-boot'
+apply plugin: "io.spring.dependency-management"
+
+jar {
+    baseName = 'zuul-server'
+    version = null
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:${theSpringCloudVersion}'
+    }
+}
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-zuul')
+    compile('org.springframework.boot:spring-boot-starter-web')
+}
+
+springBoot {
+    executable = true
+}
+
+bootRun {
+    systemProperties System.properties
+}

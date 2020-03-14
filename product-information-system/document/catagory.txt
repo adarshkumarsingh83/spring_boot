@@ -1,0 +1,49 @@
+
+
+Department/Home/Indoor
+Department/Home/Indoor/Sports
+Department/Home/Indoor/Furniture
+Department/Home/Indoor/Electronic
+Department/Home/Indoor/Living Room
+Department/Home/Indoor/Bed Room
+Department/Home/Indoor/Kitchen
+
+Department/Home/Outdoor
+Department/Home/Outdoor/Sports
+Department/Home/Outdoor/Furniture
+Department/Home/Outdoor/Electronic
+Department/Home/Outdoor/Parking Garage
+Department/Home/Outdoor/Garden
+Department/Home/Outdoor/Terrace
+Department/Home/Outdoor/Pool
+Department/Home/Outdoor/Lawn
+
+Department/Office
+Department/Office/Stationary
+Department/Office/Furniture
+
+Department/Men/Cloths
+Department/Men/Accessory
+Department/Men/Health & Beauty
+
+Department/Women/Cloths
+Department/Women/Accessory
+Department/Women/Health & Beauty
+
+Department/kid/Cloths
+Department/kid/Accessory
+
+Department/Pets
+
+Department/Food
+Department/Food/Drinks
+Department/Food/Snacks
+Department/Food/Grocery
+Department/Food/Fruits
+Department/Food/Vegetable
+
+
+
+
+
+

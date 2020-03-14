@@ -1,0 +1,55 @@
+$ sh startup.sh
+
+$ sh stop.sh
+
+$ lsof -i :<port>
+$ kill -9 <pid>
+
+http://localhost:9002/api/notifications/profile
+POST
+{
+  "profileId": "200",
+  "person": {
+    "personName": "adarsh",
+    "personEmail": "adarsh@kumar",
+    "personPhone": "88888"
+  },
+  "address": {
+    "city": "firsco",
+    "state": "tx",
+    "country;": "usa"
+  }
+}
+
+
+http://localhost:9002/api/notifications/profile
+GET
+
+[
+    {
+        "profileId": "200",
+        "person": {
+            "personName": "adarsh",
+            "personEmail": "adarsh@kumar",
+            "personPhone": "88888"
+        },
+        "address": {
+            "city": "firsco",
+            "state": "tx",
+            "country": null
+        }
+    },
+    {
+        "profileId": "100",
+        "person": {
+            "personName": "adarsh",
+            "personEmail": "adarsh@kumar",
+            "personPhone": "99999"
+        },
+        "address": {
+            "city": "frisco",
+            "state": "tx",
+            "country": "usa"
+        }
+    }
+]

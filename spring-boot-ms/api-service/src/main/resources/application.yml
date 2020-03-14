@@ -1,0 +1,18 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: api-service
+    version: 1.0.0
+  mvc:
+    throw-exception-if-no-handler-found: true
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+feign: person-profile-ms

@@ -1,0 +1,6 @@
+rootProject.name = 'spring-boot-ms'
+include 'eureka-server'
+include 'person-profile-ms'
+include 'api-service'
+include 'zuul-server'
+

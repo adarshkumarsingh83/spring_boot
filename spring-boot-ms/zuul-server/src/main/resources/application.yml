@@ -1,0 +1,18 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: zuul-server
+
+zuul:
+  prefix: /api
+  routes:
+    api-service:
+      path: /notifications/profile
+      url: http://localhost:9000
+
+ribbon:
+  eureka:
+    enabled: false
+
