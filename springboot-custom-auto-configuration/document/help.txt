@@ -1,0 +1,33 @@
+#To build
+$ mvn clean package
+
+#to execute
+$ cd espark-web
+
+#To execute the application
+espark-web $ mvn spring-boot:run
+
+#To hit the end point
+$ curl http://localhsot:8080/message/adarsh
+
+
+---------------- configuration ----------------
+1.To Enable the Services
+#espark.service.enable=false
+#espark.service.enable=true
+
+2.to Enable the type of service from module
+#espark.service.type=local
+#espark.service.type=remote
+
+3.to provide custom msg to each service
+local.espark.msg=hello from local service
+remote.espark.msg=hello from remote service.
+
+4.to provide generic message for both service
+espark.application.msg=WELCOME TO THE ESPARK
+------------------------------------------------
+NOTE
+ IF MODULE IS NOT ACTIVE THEN DEFAULT SERVICE WILL BE ACTIVE
+ IF NON OF THE SERVICE IS ACTIVE THEN DEFAULT SERVICE WILL ACTIVE
+ OTHER WISE BASED ON TEH CONFIGURATION SERVICE WILL WORK
