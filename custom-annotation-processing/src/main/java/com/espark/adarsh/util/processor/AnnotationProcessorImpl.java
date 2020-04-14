@@ -22,8 +22,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 @Slf4j
-@Component
-@ConditionalOnBean(value = EsparkEnabler.class)
 public class AnnotationProcessorImpl implements AnnotationProcessor{
 
 

@@ -1,8 +1,11 @@
 package com.espark.adarsh.util.configuration;
 
+import com.espark.adarsh.util.processor.AnnotationProcessor;
+import com.espark.adarsh.util.processor.AnnotationProcessorImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -27,5 +30,11 @@ public class ApplicationConfiguration {
     public EsparkEnabler instantiateApplicationMessageBean() {
         log.info("label=configuration ApplicationMessageBean");
         return new EsparkEnabler();
+    }
+
+    @Bean
+    @ConditionalOnBean(value = EsparkEnabler.class)
+    AnnotationProcessor createAnnotationProcessorImpl(){
+        return new AnnotationProcessorImpl();
     }
 }
