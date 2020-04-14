@@ -1,0 +1,8 @@
+$ mvn clean package
+$mvn spring-boot:run
+
+#based on thie ApplicationConfiguration @EnableConfiguration("remote") value
+local
+or
+remote
+
