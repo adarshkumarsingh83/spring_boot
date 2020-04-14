@@ -1,14 +1,13 @@
-package com.espark.adarsh.processor;
+package com.espark.adarsh.util.processor;
 
-import com.espark.adarsh.annotation.EnableEspark;
-import com.espark.adarsh.annotation.EsparkLowerCase;
-import com.espark.adarsh.annotation.EsparkService;
-import com.espark.adarsh.annotation.EsparkUpperCase;
-import com.espark.adarsh.annotation.EsparkVar;
+import com.espark.adarsh.util.annotation.EsparkLowerCase;
+import com.espark.adarsh.util.annotation.EsparkService;
+import com.espark.adarsh.util.annotation.EsparkUpperCase;
+import com.espark.adarsh.util.annotation.EsparkVar;
+import com.espark.adarsh.util.configuration.EsparkEnabler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
@@ -24,8 +23,8 @@ import javax.annotation.PostConstruct;
 
 @Slf4j
 @Component
-@ConditionalOnBean(annotation = EnableEspark.class)
-public class AnnotationProcessor {
+@ConditionalOnBean(value = EsparkEnabler.class)
+public class AnnotationProcessorImpl implements AnnotationProcessor{
 
 
     @Autowired
@@ -73,14 +72,17 @@ public class AnnotationProcessor {
         }
     }
 
+    @Override
     public List<String> getLowerEsparkService() {
         return lowerEsparkService;
     }
 
+    @Override
     public List<String> getUpperEsparkService() {
         return upperEsparkService;
     }
 
+    @Override
     public Map<String, String> getMap() {
         return map;
     }

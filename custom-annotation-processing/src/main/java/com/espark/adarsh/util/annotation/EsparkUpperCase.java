@@ -1,4 +1,4 @@
-package com.espark.adarsh.annotation;
+package com.espark.adarsh.util.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,6 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
-public @interface EsparkService {
+@Target({ElementType.METHOD,ElementType.TYPE})
+public @interface EsparkUpperCase {
+
+    String serviceId() default "";
+
 }

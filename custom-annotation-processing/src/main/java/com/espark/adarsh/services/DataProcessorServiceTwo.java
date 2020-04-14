@@ -1,8 +1,8 @@
 package com.espark.adarsh.services;
 
-import com.espark.adarsh.annotation.EsparkService;
-import com.espark.adarsh.annotation.EsparkUpperCase;
-import com.espark.adarsh.annotation.EsparkVar;
+import com.espark.adarsh.util.annotation.EsparkService;
+import com.espark.adarsh.util.annotation.EsparkUpperCase;
+import com.espark.adarsh.util.annotation.EsparkVar;
 import org.springframework.stereotype.Service;
 
 @Service
