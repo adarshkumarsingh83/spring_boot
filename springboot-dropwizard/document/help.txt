@@ -1,0 +1,8 @@
+$ mvn clean package
+$ mvn spring-boot:run
+
+# api end point
+$ curl localhost:8080/message
+
+#drop wizard end point
+$ curl localhost:8080/metrics
