@@ -16,7 +16,7 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 
 @Slf4j
-//@Component
+@Component
 public class PostgresDatasourceConfigurer implements HealthIndicator {
 
     HikariDataSource ds;
