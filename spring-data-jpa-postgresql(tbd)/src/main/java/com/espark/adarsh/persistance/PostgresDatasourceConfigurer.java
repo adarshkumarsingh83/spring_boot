@@ -98,10 +98,8 @@ public class PostgresDatasourceConfigurer implements HealthIndicator {
 
     @PreDestroy
     public void destroy() {
-
         if (ds != null) {
             ds.close();
         }
     }
-
 }

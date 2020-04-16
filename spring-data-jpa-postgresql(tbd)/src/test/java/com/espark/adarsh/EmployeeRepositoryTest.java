@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class BookRepositoryTest {
+public class EmployeeRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -29,10 +29,8 @@ public class BookRepositoryTest {
     public void testFindByName() {
 
         entityManager.persist(new Employee("C++"));
-
         List<Employee> books = repository.findByName("C++");
         assertEquals(1, books.size());
-
         Assertions.assertThat(books).extracting(Employee::getName).containsOnly("C++");
 
     }
