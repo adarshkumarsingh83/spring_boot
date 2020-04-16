@@ -7,6 +7,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -26,41 +27,29 @@ public class PostgresDatasourceConfigurer implements HealthIndicator {
     @Autowired
     HealthCheckRegistry healthCheckRegistry;
 
-    @Value("${authoring.datasource.class:org.postgresql.ds.PGSimpleDataSource}")
+    @Value("${espark.driver.class}")
     String datasourceClass;
 
-    @Value("${authoring.database.name}")
+    @Value("${espark.datasource.db.name}")
     String databaseName;
 
-    @Value("${authoring.database.host}")
+    @Value("${espark.datasource.host.name}")
     String databaseHost;
 
-    @Value("${authoring.database.port}")
+    @Value("${espark.datasource.host.port}")
     String databasePort;
 
-    @Value("${authoring.database.username}")
+    @Value("${espark.datasource.username}")
     String datasourceUsername;
 
-    @Value("${authoring.database.password}")
+    @Value("${espark.datasource.password}")
     String datasourcePassword;
 
-    @Value("${authoring.datasource.poolName}")
+    @Value("${espark.datasource.pool.name}")
     String poolName;
 
-    @Value("${documentMK.nodeCachePerc:1}")
-    int nodeCachePerc;
-
-    @Value("${documentMK.prevDocCachePerc:1}")
-    int prevDocCachePerc;
-
-    @Value("${documentMK.childrenCachePerc:1}")
-    int childrenCachePerc;
-
-    @Value("${documentMK.diffCachePerc:1}")
-    int diffCachePerc;
-
-    @Value("${activeCluster:true}")
-    boolean activeCluster;
+    @Value("${espark.datasource.db.schema}")
+    String schema;
 
     @PostConstruct
     public void init() {
@@ -71,7 +60,7 @@ public class PostgresDatasourceConfigurer implements HealthIndicator {
         props.setProperty("dataSource.databaseName", databaseName);
         props.setProperty("dataSource.serverName", databaseHost);
         props.setProperty("dataSource.portNumber", databasePort);
-        props.setProperty("dataSource.currentSchema", "public");
+        props.setProperty("dataSource.currentSchema", schema);
 
         log.info("label=postgresDatasourceProperties user={} host={} port={} database={}", datasourceUsername,
                 databaseHost, databasePort, databaseName);
@@ -87,6 +76,7 @@ public class PostgresDatasourceConfigurer implements HealthIndicator {
         ds = new HikariDataSource(config);
     }
 
+    @Bean
     public DataSource getDataSource() {
         return (DataSource) ds;
     }
