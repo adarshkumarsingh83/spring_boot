@@ -10,4 +10,5 @@ CREATE TABLE employee (
 INSERT INTO employee (first_name, last_name, career) VALUES
   ('adarsh', 'kumar', 'It'),
   ('radha', 'singh', 'IT'),
+  ('sonu', 'singh', 'IT'),
   ('amit', 'kumar', 'Finance');
