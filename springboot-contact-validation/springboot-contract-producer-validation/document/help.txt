@@ -1,0 +1,2 @@
+# To build the app
+$ mvn clean install -DskipTests
