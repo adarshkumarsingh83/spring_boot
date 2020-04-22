@@ -13,4 +13,11 @@ public class MessageBean<T> implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "MessageBean{" +
+                "data=" + data.toString() +
+                '}';
+    }
 }
