@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.espark.adarsh</groupId>
-	<artifactId>springboot-one-to-one</artifactId>
+	<artifactId>springboot-many-to-many-unidirectional</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-one-to-one</name>
+	<name>springboot-many-to-many-unidirectional</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
