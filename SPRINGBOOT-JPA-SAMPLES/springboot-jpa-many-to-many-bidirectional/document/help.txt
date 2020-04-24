@@ -1,0 +1,12 @@
+
+# to build
+$ mvn clean package
+
+#to run
+$ mvn spring-boot:run
+
+$ curl http://localhost:8080/api/employee
+$ curl http://localhost:8080/api/employee-project
+
+## h2 db console url
+http://localhost:8080/h2-console
