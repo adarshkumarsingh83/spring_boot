@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: DEBUG
+
+spring:
+  application:
+    name: springboot-swagager-yml
