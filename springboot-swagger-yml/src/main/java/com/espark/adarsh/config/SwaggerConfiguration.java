@@ -1,5 +1,7 @@
 package com.espark.adarsh.config;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -12,29 +14,42 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
 
+@Slf4j
 @Configuration
 public class SwaggerConfiguration {
+
+
+    @Autowired
+    SwaggerLocations swaggerLocations;
 
     @Primary
     @Bean
     public SwaggerResourcesProvider swaggerResourcesProvider() {
         return () -> {
             List<SwaggerResource> resources = new ArrayList<>();
-            Arrays.asList("api1", "api2")
-                    .forEach(resourceName -> resources.add(loadResource(resourceName)));
+            if (swaggerLocations.getDirectories() != null && !swaggerLocations.getDirectories().isEmpty()) {
+                swaggerLocations.getDirectories()
+                        .forEach(directories -> resources.addAll(loadResource(directories)));
+            }
+            resources.forEach(resource ->
+                    log.info("label=swagger-configuration {}", resource.getUrl()));
             return resources;
         };
     }
 
-    private SwaggerResource loadResource(String resource) {
-        SwaggerResource wsResource = new SwaggerResource();
-        wsResource.setName(resource);
-        wsResource.setSwaggerVersion("2.0");
-        wsResource.setLocation("/swagger-apis/" + resource + "/swagger.yaml");
-        return wsResource;
+    private List<SwaggerResource> loadResource(SwaggerLocations.Directories directories) {
+        List<SwaggerResource> swaggerResourceList = directories.locations.stream().map(location -> {
+            SwaggerResource wsResource = new SwaggerResource();
+            wsResource.setName(location);
+            wsResource.setSwaggerVersion("2.0");
+            wsResource.setLocation("/" + directories.getDirectory() + "/" + location + "/" + directories.getFileName());
+            return wsResource;
+        }).collect(Collectors.toList());
+        return swaggerResourceList;
     }
 
     @Bean
