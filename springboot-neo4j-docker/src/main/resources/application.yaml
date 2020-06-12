@@ -1,0 +1,25 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: springboot-neorj-docker
+  data:
+    neo4j:
+      uri: bolt://localhost
+      username: neo4j
+      password: secret
+
+
+---
+
+spring:
+  application:
+    name: springboot-neorj-docker
+  profiles:
+    - docker
+  data:
+    neo4j:
+      uri: bolt://neo4j
+      username: neo4j
+      password: secret

@@ -1,0 +1,28 @@
+
+$ mvn clean package
+
+$ docker-compose up
+$ docker-compose down
+
+
+@post
+curl -X POST http://localhost:9090/api/employee -d '{"id":"100","name":"adarsh kumar"}' -H "Content-Type: application/json"
+curl -X POST http://localhost:9090/api/department -d '{"id":"1","name":"it",}' -H "Content-Type: application/json"
+
+
+
+@get
+curl  -X GET http://localhost:9090/api/employee/100
+
+
+#TO LIST DOWN ALL THE IMAGES
+$ docker images
+
+#TO LIST ALL THE PROCESS
+$ docker ps -a
+
+# TO DELETE ALL THE CONTAINERS WITH VOLUMES
+$ docker rm -vf $(docker ps -a -q)
+
+# TO DELETE ALL THE IMAGES
+$ docker rmi -f $(docker images -a -q)
