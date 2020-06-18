@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: logback-runtime-change
+
+#LOGGER CONFIGURATIONS
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    com.espark.adarsh: DEBUG
