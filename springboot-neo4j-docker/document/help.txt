@@ -1,3 +1,8 @@
+#TO SETUP NEW4J LOCALLY
+$ brew install neo4j
+$ neo4j start
+$ curl -v -u neo4j:neo4j POST localhost:7474/user/neo4j/password -H "Content-type:application/json" -d "{\"password\":\"secret\"}"
+-------------------------------------------------------------------------------------------------------------------------
 
 $ mvn clean package
 

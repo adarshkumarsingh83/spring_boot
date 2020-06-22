@@ -3,10 +3,10 @@ server:
 
 spring:
   application:
-    name: springboot-neorj-docker
+    name: springboot-neo4j-docker
   data:
     neo4j:
-      uri: bolt://localhost
+      uri: bolt://localhost:7687
       username: neo4j
       password: secret
 
@@ -15,11 +15,11 @@ spring:
 
 spring:
   application:
-    name: springboot-neorj-docker
+    name: springboot-neo4j-docker
   profiles:
     - docker
   data:
     neo4j:
-      uri: bolt://neo4j
+      uri: bolt://localhost:7687
       username: neo4j
       password: secret

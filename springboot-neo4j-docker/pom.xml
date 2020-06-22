@@ -16,37 +16,31 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<neo4j-ogm.version>3.2.8</neo4j-ogm.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-neo4j</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.neo4j</groupId>
-			<artifactId>neo4j</artifactId>
-			<version>3.5.14</version>
-			<scope>runtime</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-neo4j</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.neo4j</groupId>
-			<artifactId>neo4j-ogm-embedded-driver</artifactId>
+			<artifactId>neo4j-ogm-core</artifactId>
 			<version>${neo4j-ogm.version}</version>
-			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j-ogm-bolt-driver</artifactId>
 			<version>${neo4j-ogm.version}</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>

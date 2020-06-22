@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -40,13 +41,15 @@ public class DepartmentService {
 
 
     @Transactional(readOnly = true)
-    public List<Department> getAll() {
-        log.info("label=DepartmentService getAll()");
-        List<Department> departments = new LinkedList<>();
-        this.departmentRepository
-                .findAll()
-                .forEach(department -> departments.add(department));
-        return departments;
+    public List<Department> findByName(String name) {
+        log.info("label=DepartmentService findByName()");
+        return this.departmentRepository.findByNameContaining(name);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Map<String,Object>> graph(int limit){
+        log.info("label=DepartmentService graph()");
+        return this.departmentRepository.graph(limit);
     }
 
 }
