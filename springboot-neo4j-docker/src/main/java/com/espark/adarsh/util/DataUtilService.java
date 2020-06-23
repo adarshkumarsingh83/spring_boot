@@ -2,7 +2,6 @@ package com.espark.adarsh.util;
 
 import com.espark.adarsh.enitity.Department;
 import com.espark.adarsh.enitity.Employee;
-import com.espark.adarsh.enitity.Work;
 import com.espark.adarsh.repository.DepartmentRepository;
 import com.espark.adarsh.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,31 +21,35 @@ public class DataUtilService {
 
     @PostConstruct
     public void init() {
-        Department it = new Department();
-        it.setName("IT DEPT");
-        this.departmentRepository.save(it);
 
         Employee adarsh = new Employee();
         adarsh.setName("Adarsh kumar");
-        this.employeeRepository.save(adarsh);
+        adarsh = this.employeeRepository.save(adarsh);
 
         Employee radha = new Employee();
-        adarsh.setName("Radha Singh");
-        this.employeeRepository.save(radha);
+        radha.setName("Radha Singh");
+        radha = this.employeeRepository.save(radha);
 
-        Work workAsManager = new Work();
-        workAsManager.setEmployee(adarsh);
-        workAsManager.setDepartment(it);
-        workAsManager.setWork(Arrays.asList("manager"));
-        it.getWorks().add(workAsManager);
+        Department itdept = new Department();
+        itdept.setName("IT DEPT");
+        itdept.getWorks().add(radha);
+        itdept.getWorks().add(adarsh);
+        this.departmentRepository.save(itdept);
 
-        Work workAsLead = new Work();
-        workAsLead.setEmployee(adarsh);
-        workAsLead.setDepartment(it);
-        workAsLead.setWork(Arrays.asList("Lead"));
-        it.getWorks().add(workAsLead);
 
-        this.departmentRepository.save(it);
+        Employee amit = new Employee();
+        amit.setName("Amit Kumar");
+        amit = this.employeeRepository.save(amit);
+
+        Employee geeta = new Employee();
+        geeta.setName("Geeta Singh");
+        geeta = this.employeeRepository.save(geeta);
+
+        Department accountDept = new Department();
+        accountDept.setName("ACCOUNT DEPT");
+        accountDept.getWorks().add(amit);
+        accountDept.getWorks().add(geeta);
+        this.departmentRepository.save(accountDept);
     }
 
 }

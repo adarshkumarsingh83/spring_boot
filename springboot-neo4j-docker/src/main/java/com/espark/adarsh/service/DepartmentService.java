@@ -41,13 +41,13 @@ public class DepartmentService {
 
 
     @Transactional(readOnly = true)
-    public List<Department> findByName(String name) {
+    public List<Department> findByNameLike(String name) {
         log.info("label=DepartmentService findByName()");
-        return this.departmentRepository.findByNameContaining(name);
+        return this.departmentRepository.findByNameLike(name);
     }
 
     @Transactional(readOnly = true)
-    public List<Map<String,Object>> graph(int limit){
+    public List<Department> graph(int limit){
         log.info("label=DepartmentService graph()");
         return this.departmentRepository.graph(limit);
     }

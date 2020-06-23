@@ -38,13 +38,13 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/{name}")
-    public List<Department> getByName(@PathVariable("name") String name) {
+    public List<Department> getByNameLike(@PathVariable("name") String name) {
         log.info("label=DepartmentController getByName()");
-        return this.departmentService.findByName(name);
+        return this.departmentService.findByNameLike(name);
     }
 
     @GetMapping("/graph/{limit}")
-    public List<Map<String, Object>> graph(@PathVariable("limit") Integer limit) {
+    public List<Department> graph(@PathVariable("limit") Integer limit) {
         log.info("label=DepartmentController graph()");
         return this.departmentService.graph(limit);
     }

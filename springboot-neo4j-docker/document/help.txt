@@ -1,19 +1,20 @@
-#TO SETUP NEW4J LOCALLY
-$ brew install neo4j
-$ neo4j start
-$ curl -v -u neo4j:neo4j POST localhost:7474/user/neo4j/password -H "Content-type:application/json" -d "{\"password\":\"secret\"}"
--------------------------------------------------------------------------------------------------------------------------
 
 $ mvn clean package
 
 $ docker-compose up
 $ docker-compose down
 
+#To log into the console of the neo4j
+http://localhost:7474/browser/
+user/pwd => neo4j/secret
+
 
 @post
 curl -X POST http://localhost:9090/api/employee -d '{"id":"100","name":"adarsh kumar"}' -H "Content-Type: application/json"
-curl -X POST http://localhost:9090/api/department -d '{"id":"1","name":"it",}' -H "Content-Type: application/json"
+curl -X POST http://localhost:9090/api/department -d '{"id":"1","name":"it"}' -H "Content-Type: application/json"
 
+curl http://localhost:9090/api/graph/10
+curl http://localhost:9090/api/departments/it
 
 
 @get
