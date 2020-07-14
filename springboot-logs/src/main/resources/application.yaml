@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: springboot-logs
+
+info:
+  app:
+    name: log-sample
+    description: log0sample
+    version: 1.0.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    info:
+      enabled: true
+    health:
+      enabled: true
+    env:
+      enabled: true
+  security:
+    enabled: false
+
+logging:
+  level:
+    root: DEBUG
+    com.espark.adarsh: DEBUG
+    org.springframework.web: DEBUG
+    group:
+      com.espark.adarsh: DEBUG
+      org.springframework.web: DEBUG
+  file:
+    name: logs/application.log
+    max-size: 1MB
+    max-history: 10
+  pattern:
+    rolling-file-name: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.zip
+    level: '${spring.application.name} - [%X{traceId}/%X{spanId}] %X{sessionId}  %-5p [%t] %C{2} - %m%n'

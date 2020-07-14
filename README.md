@@ -708,3 +708,9 @@ SpringBootWebMvcJspExample
 > .
 > .
 > .
+
+* ### springboot-logs
+> descripition:
+> . sample application which demo the 
+> . different log configuraiton like rolling file appender 
+> . and sluth configuraitons for tracid and spanid 
