@@ -34,7 +34,7 @@ logging:
       com.espark.adarsh: DEBUG
       org.springframework.web: DEBUG
   file:
-    name: logs/application.log
+    name: /var/logs/application.log
     max-size: 1MB
     max-history: 10
   pattern:
