@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: DEBUG
+
+spring:
+  application:
+    name: springboot-elasticsearch
+  profiles:
+    - defualt
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      cluster-nodes: 'localhost:9300'
+      cluster-name: 'elasticsearch'
+
+
+elasticsearch:
+  index:
+    name: epsark-index
+  user:
+    type: user
+
