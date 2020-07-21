@@ -112,9 +112,9 @@ server.ssl.key-alias: espark
 - https://localhost:8443/actuator/metrics
 
 ### To Test the services from client 
-* http://localhost:9090/list
-* http://localhost:9090/services/info 
-* http://localhost:9090/services/env 
-* http://localhost:9090/services/health 
-* http://localhost:9090/services/metrics  
-* http://localhost:9090/services/beans 
+* http://localhost:9090/api/list
+* http://localhost:9090/api/services/info 
+* http://localhost:9090/api/services/env 
+* http://localhost:9090/api/services/health 
+* http://localhost:9090/api/services/metrics  
+* http://localhost:9090/api/services/beans 
