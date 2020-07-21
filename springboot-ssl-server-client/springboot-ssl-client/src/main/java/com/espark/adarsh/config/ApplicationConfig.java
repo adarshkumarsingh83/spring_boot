@@ -2,6 +2,8 @@ package com.espark.adarsh.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
@@ -45,11 +47,13 @@ public class ApplicationConfig {
                 .loadTrustMaterial(ResourceUtils.getFile(applicationConfigProps.getKeyStore()),
                         applicationConfigProps.getKeyStorePassword().toCharArray())
                 .loadTrustMaterial(null, acceptingTrustStrategy)
+                .loadTrustMaterial(null, new TrustSelfSignedStrategy())
                 .setProtocol(applicationConfigProps.getProtocall())
                 .build();
 
         HttpClient httpClient = HttpClients.custom()
                 .setSSLContext(sslContext)
+                .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
                 .build();
 
         HttpComponentsClientHttpRequestFactory requestFactory

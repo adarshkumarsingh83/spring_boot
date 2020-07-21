@@ -4,6 +4,11 @@
 >
 
 
+### Build & Execution 
+* $ mvn clean package 
+
+### To Execute the application 
+* $ java -jar ./target/springboot-ssl-server.jar
 
 ### Test the Service 
 - https://localhost:8443/actuator/health

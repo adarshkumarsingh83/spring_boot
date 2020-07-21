@@ -3,142 +3,118 @@
 > spring boot application enabled with ssl  \
 > and rest client is https enabled for accessing services 
 
+----
+### To delte keystore for ssl 
+* $ keytool -delete -noprompt -alias espark  -keystore keystore.jks -storepass esparkpwd
 
+### Create a Keystore for SSL
+
+* $ keytool -genkey -alias espark -keyalg RSA -keysize 2048 -validity 700 -keypass esparkpwd -storepass esparkpwd -keystore keystore.jks
+````
+What is your first and last name?
+  [Unknown]:  localhost
+What is the name of your organizational unit?
+  [Unknown]:  espark
+What is the name of your organization?
+  [Unknown]:  espark
+What is the name of your City or Locality?
+  [Unknown]:  dallas
+What is the name of your State or Province?
+  [Unknown]:  tx
+What is the two-letter country code for this unit?
+  [Unknown]:  us
+Is CN=localhost, OU=espark, O=espark, L=dallas, ST=tx, C=us correct?
+  [no]:  yes
+
+
+Warning:
+The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS12 which is an industry standard format using "keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.jks -deststoretype pkcs12".
+
+````
 ----
 
-### Generate Self-Signed Certificate
+### List and Verify Certificate Entry
 
-* without localhost 
+* $ keytool -list -keystore keystore.jks
 ````
-$ keytool -genkeypair -alias espark -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore espark.p12 -validity 3650 -storepass esparkpwd
-
-````
-* Example
-````
-$ cd src/main/resources
-$ keytool -genkeypair -alias espark -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore espark.p12 -validity 3650 -storepass esparkpwd
-What is your first and last name?
-  [Unknown]:  adarsh kumar
-What is the name of your organizational unit?
-  [Unknown]:  esparkorg
-What is the name of your organization?
-  [Unknown]:  espark
-What is the name of your City or Locality?
-  [Unknown]:  dallas
-What is the name of your State or Province?
-  [Unknown]:  tx
-What is the two-letter country code for this unit?
-  [Unknown]:  us
-Is CN=adarsh kumar, OU=esparkorg, O=espark, L=dallas, ST=tx, C=us correct?
-  [no]:  yes
-
-````
-
-* with localhost
-````
-$ keytool -genkeypair -alias espark -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore espark.p12 -validity 3650 -storepass esparkpwd -ext "SAN:c=DNS:localhost,IP:127.0.0.1"
-````
-* Example 
-````
-$ cd src/main/resources
-$ keytool -genkeypair -alias espark -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore espark.p12 -validity 3650 -storepass esparkpwd -ext "SAN:c=DNS:localhost,IP:127.0.0.1"
-What is your first and last name?
-  [Unknown]:  adarsh kumar
-What is the name of your organizational unit?
-  [Unknown]:  espark
-What is the name of your organization?
-  [Unknown]:  espark
-What is the name of your City or Locality?
-  [Unknown]:  dallas
-What is the name of your State or Province?
-  [Unknown]:  tx
-What is the two-letter country code for this unit?
-  [Unknown]:  us
-Is CN=adarsh kumar, OU=espark, O=espark, L=dallas, ST=tx, C=us correct?
-  [no]:  yes
-
-````
-
-* to verify the file 
-````
-$ keytool -list -v -storetype pkcs12 -keystore <YOUR KEYSTORE FILE NAME HERE>.p12
-$ keytool -list -v -storetype pkcs12 -keystore espark.p12
-````
-* Example 
-````
-$ keytool -list -v -storetype pkcs12 -keystore espark.p12
 Enter keystore password:  esparkpwd
-Keystore type: PKCS12
-Keystore provider: SunJSSE
+Keystore type: jks
+Keystore provider: SUN
 
 Your keystore contains 1 entry
 
-Alias name: espark
-Creation date: Jul 20, 2020
-Entry type: PrivateKeyEntry
-Certificate chain length: 1
-Certificate[1]:
-Owner: CN=adarsh kumar, OU=espark, O=espark, L=dallas, ST=tx, C=us
-Issuer: CN=adarsh kumar, OU=espark, O=espark, L=dallas, ST=tx, C=us
-Serial number: 34c00821
-Valid from: Mon Jul 20 18:33:51 CDT 2020 until: Thu Jul 18 18:33:51 CDT 2030
-Certificate fingerprints:
-	 MD5:  B3:8F:FC:FF:BF:08:88:86:E3:64:1B:74:22:85:EF:82
-	 SHA1: 79:13:A8:14:76:A3:01:7B:91:FF:BA:1F:60:78:A2:2B:09:B1:85:FE
-	 SHA256: AA:DC:22:F7:AB:0F:1A:73:F2:1C:5C:55:EC:2C:ED:89:99:7D:94:20:C3:D1:53:C9:CF:B8:08:52:D1:1B:CF:70
-Signature algorithm name: SHA256withRSA
-Subject Public Key Algorithm: 2048-bit RSA key
-Version: 3
+espark, Jul 21, 2020, PrivateKeyEntry, 
+Certificate fingerprint (SHA1): 86:3E:82:DB:62:78:83:E7:D1:31:8B:ED:0B:25:54:43:FD:FD:36:72
 
-Extensions: 
-
-#1: ObjectId: 2.5.29.17 Criticality=true
-SubjectAlternativeName [
-  DNSName: localhost
-  IPAddress: 127.0.0.1
-]
-
-#2: ObjectId: 2.5.29.14 Criticality=false
-SubjectKeyIdentifier [
-KeyIdentifier [
-0000: 83 D0 3A 46 42 E4 7C 96   9F 63 51 18 7B F7 02 4C  ..:FB....cQ....L
-0010: DE BA C7 62                                        ...b
-]
-]
-
-*******************************************
-*******************************************
-````
-
-### To Enable chrome to trust certificate 
+Warning:
+The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS12 which is an industry standard format using "keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.jks -deststoretype pkcs12".
 
 ````
-hit below url in chrom and enable the 
-"Allow invalid certificates for resources loaded from localhost" enabled 
- 
-chrome://flags/#allow-insecure-localhost
+----
+
+### Converting to PKCS12 format
+
+* $ keytool -importkeystore -srckeystore keystore.jks -destkeystore espark.p12 -deststoretype pkcs12
+````
+Importing keystore keystore.jks to espark.p12...
+Enter destination keystore password:  esparkpwd
+Re-enter new password: esparkpwd
+Enter source keystore password:  esparkpwd
+Entry for alias espark successfully imported.
+Import command completed:  1 entries successfully imported, 0 entries failed or cancelled
 
 ````
+----
 
-* genkeypair: generates a key pair;
-* alias: the alias name to access the item in a keystore file. Choose Your own alias name;
-* keyalg: the cryptographic algorithm to generate the key pair;
-* keysize: the size of the key;
-* storetype: the type of keystore;
-* keystore: the name of the keystore file;
-* validity: the number of days this certificate should be valid;
-* storepass: a password to access the keystore file. Choose your own password.
+### Import Self Signed Certificate into Java
 
-### To Delete the key file for keystore 
+* $ keytool -exportcert -keystore keystore.jks -alias espark -file espark.cer
 ````
-$ keytool -delete -noprompt -alias ${cert.alias}  -keystore ${keystore.file}  -storepass ${keystore.pass}
-$ keytool -delete -noprompt -alias espark  -keystore espark.p12  -storepass esparkpwd
+Enter keystore password:  esparkpwd
+Certificate stored in file <espark.cer>
+
+Warning:
+The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS12 which is an industry standard format using "keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.jks -deststoretype pkcs12".
 
 ````
+----
+### Copy the espark.cer to JAVA_HOME/jre/lib/security and execute the below command 
+
+* $ keytool -importcert -keystore cacerts -alias espark -file espark.cer 
+
+
+#### application.yml
+````
+# The format used for the keystore. It could be set to JKS in case it is a JKS file
+server.ssl.key-store-type: PKCS12
+# The path to the keystore containing the certificate
+server.ssl.key-store: classpath:esaprk.p12
+# The password used to generate the certificate
+server.ssl.key-store-password: esparkpwd
+# The alias mapped to the certificate
+server.ssl.key-alias: espark
+````
+
+
 ----
 ### Build & Execution 
 * $ mvn clean package 
 
-### To Execut the application 
+### To Execute the application 
 * $ java -jar ./springboot-ssl-server/target/springboot-ssl-server.jar
 * $ java -jar ./springboot-ssl-client/target/springboot-ssl-client.jar
+
+### To Test the service from server 
+- https://localhost:8443/actuator/health
+- https://localhost:8443/actuator/info
+- https://localhost:8443/actuator/env
+- https://localhost:8443/actuator/beans
+- https://localhost:8443/actuator/metrics
+
+### To Test the services from client 
+* http://localhost:9090/list
+* http://localhost:9090/services/info 
+* http://localhost:9090/services/env 
+* http://localhost:9090/services/health 
+* http://localhost:9090/services/metrics  
+* http://localhost:9090/services/beans 

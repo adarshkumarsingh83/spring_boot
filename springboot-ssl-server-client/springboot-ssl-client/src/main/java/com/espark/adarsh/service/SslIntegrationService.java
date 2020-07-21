@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,10 +25,10 @@ public class SslIntegrationService {
     @Autowired
     RestTemplate restTemplate;
 
-    public String getData(String key) {
+    public HashMap getData(String key) {
         log.info("label=SslIntegrationService getData() {}", key);
         String url = applicationConfig.getServiceHost()+applicationConfig.getServiceUrl().get(key);
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY, String.class);
+        ResponseEntity<HashMap> response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY, HashMap.class);
         return response.getBody();
     }
 

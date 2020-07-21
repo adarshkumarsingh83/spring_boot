@@ -14,13 +14,14 @@ server:
   port: 9090
   key-store: classpath:espark.p12
   key-store-password: esparkpwd
-  serviceHost: http://localhost:8443
+  serviceHost: https://localhost:8443
   protocall: TLSv1.2
   serviceUrl:
     info: /actuator/info
     beans: /actuator/beans
     health: /actuator/health
     metrics: /actuator/metrics
+    env: /actuator/env
 
 logging:
   level:
