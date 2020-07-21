@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: springboot-ssl-server
+  sleuth:
+    traceId128: true
+    sampler:
+      probability: 1.0
+  output:
+    ansi:
+      enabled: DETECT
+
+server:
+  ssl:
+    key-store: classpath:espark.p12
+    key-store-password: esparkpwd
+    key-store-type: pkcs12
+    key-alias: espark
+    key-password: esparkpwd
+  port: 8443
+  security:
+    require-ssl: true
+
+logging:
+  level:
+    root: DEBUG
+    com.espark.adarsh: DEBUG
+    org.springframework.web: DEBUG
+    group:
+      com.espark.adarsh: DEBUG
+      org.springframework.web: DEBUG
+  file:
+    name: /var/logs/application.log
+    max-size: 1MB
+    max-history: 10
+  pattern:
+    rolling-file-name: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.zip
+
+
+info:
+  app:
+    name: springboot-sslservice-client
+    description: springboot-sslservice-client
+    version: 1.0.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  security:
+    enabled: false
