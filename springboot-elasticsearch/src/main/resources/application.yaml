@@ -24,3 +24,31 @@ elasticsearch:
   user:
     type: user
 
+---
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: DEBUG
+
+spring:
+  application:
+    name: springboot-elasticsearch
+  profiles:
+    - docker
+    - kubernetes
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      cluster-nodes: ${ELASTIC_NODES:'localhost:9300'}
+      cluster-name: ${ELASTIC_NAME:'elasticsearch'}
+
+
+elasticsearch:
+  index:
+    name: ${ELASTIC_INDEX:'epsark-index'}
+  user:
+    type: user
