@@ -725,3 +725,9 @@ SpringBootWebMvcJspExample
 > descripition: \
 > spring boot self signed certificate configure rest server \
 > spring boot self signed certificate configure rest template client \
+
+* ### [springboot-redis-cache](https://github.com/adarshkumarsingh83/spring_boot/tree/master/springboot-redis-cache)
+> descripition: \
+> . spring boot sample to connect to the redis Cache  \
+> . it used spring data project which has repositories \
+> . to perform the curd operation on the redis cache
