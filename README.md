@@ -9,725 +9,731 @@ ESPARK SPRING BOOT EXAMPLES
 ---------------------------------------------
 
 * ### EmbededSolar	
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootSecurityHsSqlDbExample		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-cloudconfig-example
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### EsparkSpringBootFileUload			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootSecurityMongoDbExample		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-conditions
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootSocialFbAndGitLoginExample		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-contact-validation
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootSolr					
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-custom-auto-configuration		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootSwaggerExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-custom-module
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SPRING-BOOT-ELASIC-MQ				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootTokenAuthenticatoinHibernateExample
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-custom-yml
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SPRINGBOOT-JPA-SAMPLES		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootTomcatSSLServerExample		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-custominterceptor
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootAopExample				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootTomcatServerExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-docker-maven
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootBasicExample				
-> descripition:
+> description:
 > .
 > .
 > .
 
 SpringBootWebMvcJspExample	
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-dropwizard
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootCasandraBasicExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootWebMvcProfileExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-espark-json
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootEmbeddedLdapExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootZuulProxyServerExample		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-gradle-standalone
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootEmbidedKafkaExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringSecurityBootDaoAuthenticationExample	
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-gradle-web
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootExternalLdapExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringSecurityMvcEmbeddedLdap			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-groovy-java
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootFileUploadExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringSolarExample				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-h2-jpa
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootHibernateExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringbootJackRabbit				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-hibrenate-plugin
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootInMemoSecurityExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### completable-future-async			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-import-selector
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootJerseyExample				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### custom-annotation-processing			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-inmemo-hazelcast-cache
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootJettySSLServerExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### custom-module-starter				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-jelasticsearch-restclient
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootJettyServerExample								
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-kinesis
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootJpaExample				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### elsatic-mq					
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-maven-profiling
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootJpaMongoExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### espark-jsonschema-validation			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-messges
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootJpaOneToOneMappingExample		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### logback-runtime-change				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-mock-test
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootJsonXmlRequestResponseExample		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### product-information-system			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-mocketo
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootJspJettyExample						
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-module-gradle
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootJspTomcatExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### solr-client-query-example			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-multimodule-gradle
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootMockitoExmaple			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### sprinboot-sqs-elastic-queue			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-neo4j-docker
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootMultiContextExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### spring-boot-admin				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-nginx-docker
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootMvcAndRestExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### spring-boot-hystrix				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-react
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootMvcAndRestSecurityExample		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### spring-boot-reference.pdf			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-react-restcall
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootMvcJspSecurityExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### spring-cloud-stream-kafka-master		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-restart-programatically 
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootMvcSecurityExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### spring-data-jpa-postgresql			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-server-hazelcast-cache
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootOAuthExample				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### spring-framework-reference.pdf			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-ssl
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootParallelAsynchronousCallExample	
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### spring-kafka-producer-consumer			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-swagger-yml
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootParallelAsynchronousCallServer&Client	
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### spring-mvc-annoation				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-vault
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootProfileExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### spring-reflection				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-version
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootProfileTest				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-annotation-module			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-web-rest
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootRabbitMqExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-async-example			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-wiremock
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootRestMvcExample			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-awssqs-elasticmq			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-xml-jsonparsing
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootRestMvcSecurityExample		
-> descripition:
+> description:
 > .
 > .
 > .
 * ###  springboot-batch				
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-zipkin-sleuth
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootSecurityDaoAuthenticationExample	
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-batch-example			
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springbootautoconfiguraiton.txt
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### SpringBootSecurityHibernateExample		
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-cassandra
-> descripition:
+> description:
 > .
 > .
 > .
 
 * ### springboot-logs
-> descripition: \
+> description: \
 > . sample application which demo the 
 > . different log configuraiton like rolling file appender 
 > . and sluth configuraitons for tracid and spanid 
 
 * ### springboot-elasticsearch
-> descripition: \
+> description: \
 > . spring boot sample to connect to the elastic search 
 > . and elastic search is spinned using docker and kibina to 
 > . view the elastic search connect indexed on the elastic search 
 
 * ### springboot-ssl-server-client
-> descripition: \
+> description: \
 > spring boot self signed certificate configure rest server \
 > spring boot self signed certificate configure rest template client \
 
 * ### [springboot-redis-cache](https://github.com/adarshkumarsingh83/spring_boot/tree/master/springboot-redis-cache)
-> descripition: \
+> description: \
 > . spring boot sample to connect to the redis Cache  \
 > . it used spring data project which has repositories \
 > . to perform the curd operation on the redis cache
+
+* ### [springboot-embedded-hazelcast-cache](https://github.com/adarshkumarsingh83/spring_boot/tree/master/springboot-embedded-hazelcast-cache)
+> description: \
+> spring boot hazel cast embedded cache example \
+> where data is stored in cache and retived from cache\
+> management-center help to connect to the cache and give indepth 
