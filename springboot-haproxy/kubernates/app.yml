@@ -1,0 +1,40 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: springboot-haproxy
+spec:
+  selector:
+    app: springboot-haproxy
+  ports:
+    - name: 8080-8080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-haproxy
+spec:
+  selector:
+    matchLabels:
+      app: springboot-haproxy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: springboot-haproxy
+    spec:
+      containers:
+        - name: springboot-haproxy
+          image: "adarshkumarsingh83/springboot-haproxy"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: springboot-haproxy
+              mountPath: /var/logs
+      volumes:
+        - name: springboot-haproxy
+          emptyDir: {}
