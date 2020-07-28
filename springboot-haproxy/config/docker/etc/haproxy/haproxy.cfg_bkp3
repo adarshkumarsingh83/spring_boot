@@ -1,0 +1,29 @@
+global
+    daemon
+    maxconn 256
+    log stdout  format raw  local0  info
+
+defaults
+    log global
+    option httplog
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+    # check webservers for health, taking them out of the queue as necessary
+    option httpchk HEAD /actuator/health
+    http-check expect status 200
+
+
+frontend firstbalance
+    bind *:80
+    option http-server-close
+    option forwardfor
+    default_backend springbboot_application
+
+backend springbboot_application
+    balance roundrobin
+    server ws1 localhost:8081 maxconn 32
+    server ws2 localhost:8082 maxconn 32
+    server ws3 localhost:8083 maxconn 32
+    server ws4 localhost:8084 maxconn 32

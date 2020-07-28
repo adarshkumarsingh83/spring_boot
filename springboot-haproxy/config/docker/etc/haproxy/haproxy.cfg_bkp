@@ -1,6 +1,5 @@
 global
   maxconn 4096
-  log /dev/log local0
 
 defaults
   log   global
@@ -16,7 +15,7 @@ defaults
   timeout server 5000
 
   # check webservers for health, taking them out of the queue as necessary
-  option httpchk HEAD /actuator/health
+  option httpchk GET /actuator/health
   http-check expect status 200
 
 listen www
