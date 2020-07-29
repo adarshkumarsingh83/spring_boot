@@ -27,7 +27,7 @@ http://localhost/actuator/metrics
 http://localhost/actuator/health
 
 ### for admin ui 
-http:localhost:9999/stats
+http://localhost:9999/stats
 
 ### To kill process on port 80 
  $ sudo lsof -i tcp:80
@@ -97,41 +97,12 @@ listen: a shorthand notation that combines frontend and backend features into a 
 * http://localhost:8080/actuator/metrics
 
 
-### KUBERNATES BUILD & DOCKER IMAGE CREATION AND PUSH TO DOCKER HUB.
-* $ mvn clean package 
-* $ docker build -f Dockerfile -t adarshkumarsingh83/springboot-haproxy .
-* $ docker container run  -p 8080:8080  -v $HOME/log:/var/logs adarshkumarsingh83/springboot-haproxy
-* $ docker push adarshkumarsingh83/springboot-haproxy
-
-* $ kubectl cluster-info
-* $ kubectl apply -f $(pwd)/kubernates/app.yml
-* $ kubectl get all
-
-### TO VIEW THE LOGS IN THE K8 POD 
-* $ kubectl get pod 
-* $ kubectl exec -it <pod-name> -- /bin/bash
-* $ cd /var/logs
-* $ cat application.log
-
-
-### TO VIEW THE POD DETAILS
-$ kubectl get pod
-
-### TO VIEW THE LOGS OF THE POD
-$ kubectl logs <pod-name> -f
-
-
-### TO DELETE DEPLOYMENT & SERVICE 
-$ kubectl delete services springboot-haproxy
-$ kubectl delete deployment springboot-haproxy
-
 
 ### TO DELETE ALL THE CONTAINERS WITH VOLUMES
 * $ docker rm -vf $(docker ps -a -q)
 ### TO DELETE ALL THE IMAGES
 * $ docker rmi -f $(docker images -a -q)
 
-
-
+---- 
 
 
