@@ -738,6 +738,6 @@ SpringBootWebMvcJspExample
 > where data is stored in cache and retived from cache\
 > management-center help to connect to the cache and give indepth 
 
-* ###[springboot-haproxy](https://github.com/adarshkumarsingh83/spring_boot/tree/master/springboot-haproxy)
+* ### [springboot-haproxy](https://github.com/adarshkumarsingh83/spring_boot/tree/master/springboot-haproxy)
 > description: \
 > spring boot haproxy sample with load balancing example \
