@@ -28,12 +28,12 @@ management:
 
 logging:
   level:
-    root: DEBUG
+    root: INFO
     com.espark.adarsh: DEBUG
-    org.springframework.web: DEBUG
+    org.springframework.web: INFO
     group:
       com.espark.adarsh: DEBUG
-      org.springframework.web: DEBUG
+      org.springframework.web: INFO
   file:
     name: /var/logs/application.log
     max-size: 1MB

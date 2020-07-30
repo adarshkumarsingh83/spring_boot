@@ -83,20 +83,17 @@ listen: a shorthand notation that combines frontend and backend features into a 
 * $ docker ps -a 
 * $ docker exec -it [container-name] /bin/bash
 
+---- 
+### DOCKER COMPOSE TESTING 
+* $ docker-compose up 
+* $ docker-compose down 
 
 ### FOR TESTING 
-* http://localhost:8081/actuator/info
-* http://localhost:8082/actuator/info
-* http://localhost:8083/actuator/info
-* http://localhost:8084/actuator/info
-
-* http://localhost:8080/actuator/health
-* http://localhost:8080/actuator/info
-* http://localhost:8080/actuator/env
-* http://localhost:8080/actuator/beans
-* http://localhost:8080/actuator/metrics
-
-
+* http://localhost/actuator/health
+* http://localhost/actuator/info
+* http://localhost/actuator/env
+* http://localhost/actuator/beans
+* http://localhost/actuator/metrics
 
 ### TO DELETE ALL THE CONTAINERS WITH VOLUMES
 * $ docker rm -vf $(docker ps -a -q)

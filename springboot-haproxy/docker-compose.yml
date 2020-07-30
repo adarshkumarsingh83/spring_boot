@@ -50,6 +50,7 @@ services:
     container_name: haproxy
     ports:
       - 80:80
+      - 9999:9999
     volumes:
       - ./config/docker/etc/haproxy:/usr/local/etc/haproxy:ro
     depends_on:
