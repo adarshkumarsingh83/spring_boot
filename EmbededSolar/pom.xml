@@ -32,7 +32,7 @@
         <dependency>
             <artifactId>solr-core</artifactId>
             <groupId>org.apache.solr</groupId>
-            <version>5.5.0</version>
+            <version>8.4.0</version>
         </dependency>
 
         <dependency>
