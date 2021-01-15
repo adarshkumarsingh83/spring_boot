@@ -1,9 +1,0 @@
-
-http://localhost:8080/save
-
-{
-	"data":{
-	    "id":100,
-	    "type":"user"
-	 }
-}

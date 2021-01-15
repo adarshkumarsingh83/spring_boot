@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/message"
+  },
+  "response": {
+    "status": 200,
+    "body": '{"message":"welcome","name": "adarsh kumar"}',
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

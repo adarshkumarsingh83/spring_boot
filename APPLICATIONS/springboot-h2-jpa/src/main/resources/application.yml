@@ -1,0 +1,35 @@
+## http://localhost:8080/h2-console
+server:
+  port: 8080
+
+spring:
+  h2:
+    console:
+      enabled: true
+  application:
+    name: h2-jpa
+  datasource:
+    url: jdbc:h2:mem:db
+    username: root
+    password: root
+    driver-class-name: org.h2.Driver
+    initialization-mode: always
+    hikari:
+      connection-timeout: 20000 #maximum number of milliseconds that a client will wait for a connection
+      minimum-idle: 10 #minimum number of idle connections maintained by HikariCP in a connection pool
+      maximum-pool-size: 10 #maximum pool size
+      idle-timeout: 10000 #maximum idle time for connection
+      max-lifetime: 1000 # maximum lifetime in milliseconds of a connection in the pool after it is closed.
+      auto-commit: true #default auto-commit behavior.
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    naming:
+      implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+logging:
+  level:
+    root: DEBUG

@@ -1,0 +1,5 @@
+$ mvn clean package
+
+$ mvn jetty:run
+
+$ curl http://localhost:8080/spring-mvc-annoation/welcome

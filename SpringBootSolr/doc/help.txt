@@ -1,9 +1,0 @@
-$ brew install solr
-$ brew services start solr
-$ brew services stop solr
-url => http://localhost:8983/solr
-$ sudo chown -R `whoami` /usr/local/Cellar/solr/
-$ solr create -c customer
-$ curl http://localhost:8983/solr/customer/config -d '{"set-user-property": {"update.autoCreateFields":"false"}}'
-
-$ brew uninstall solr

@@ -1,5 +1,0 @@
-$ mvn clean package
-
-GET method
-http://localhost:8080/espark/wish
-

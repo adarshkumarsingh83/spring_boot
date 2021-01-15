@@ -1,0 +1,10 @@
+http://localhost:8080/emp/fetch/100
+
+http://localhost:8080/api1-dev/emp/fetch/100
+http://localhost:8080/api2-dev/emp/fetch/100
+http://localhost:8080/api3-dev/emp/fetch/100
+
+
+http://localhost:8080/api1-prod/emp/fetch/100
+http://localhost:8080/api2-prod/emp/fetch/100
+http://localhost:8080/api3-prod/emp/fetch/100

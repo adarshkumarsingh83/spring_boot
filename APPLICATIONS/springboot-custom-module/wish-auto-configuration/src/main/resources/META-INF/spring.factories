@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.espark.adarsh.autoconfigure.GreeterAutoConfiguration

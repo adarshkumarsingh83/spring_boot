@@ -1,0 +1,15 @@
+
+spring:
+  application:
+    name: springboot-embedded-hazelcast-cache
+  hazelcast:
+    instanceName: hazelcast-instance
+    cacheName: espark-cache
+    repCacheName: espark-rep-cache
+    managementUrl: http://localhost:8080/hazelcast-mancenter
+    userName: espark-dev
+    userPwd: dev-pass
+    publicAddress: 10.67.6.67:5701
+
+server:
+  port: 0

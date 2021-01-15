@@ -1,7 +1,0 @@
-server:
-  port: 8080
-
-kafka:
-  producer:
-    bootstrap: localhost:9092
-    topic: workunits

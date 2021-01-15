@@ -1,0 +1,27 @@
+
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active:
+    #active: prodprofile
+    #active: localprofile
+
+
+spring.cloud.vault:
+  host: localhost
+  port: 8200
+  scheme: http
+  token: myroot
+  uri: http://localhost:8200
+  connection-timeout: 5000
+  read-timeout: 15000
+  config:
+    order: -10
+  generic:
+    enabled: true
+    backend: secret
+    profile-separator: '/'
+    default-context: springboot-vault-app
+    application-name: springboot-vault-app

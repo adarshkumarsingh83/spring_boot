@@ -1,6 +1,0 @@
-
-copy the mysql or driver class jar from the m2 dir of the user.home
-got to userhome dir then 
-cmd+shift + . to show the hidden dir .m2
-
-jdbc:mysql://localhost:3306/dbname?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC

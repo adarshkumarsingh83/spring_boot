@@ -1,8 +1,0 @@
-Color - Red, Green, Blue
-Size -
-Price -
-Brand - adidas reebok puma nike
-Gender - male female others
-type - shirt pant suite short capri
-
-

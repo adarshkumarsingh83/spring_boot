@@ -1,7 +1,0 @@
-applications:
-- name: espark-springboot-sample
-  instances: 1
-  disk_quota: 1G
-  memory: 128M
-  docker:
-    image: adarshkumarsingh83/espark

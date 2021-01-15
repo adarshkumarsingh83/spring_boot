@@ -1,0 +1,5 @@
+>mvn clean install
+>mvn clean package
+>mvn spring-boot:run
+
+url=localhost:8080/

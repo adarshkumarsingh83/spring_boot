@@ -1,0 +1,29 @@
+version: "3.2"
+services:
+  espark-mysql:
+    image: mysql:5.7
+    container_name: espark-mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=espark
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3306:3306
+
+  springboot-jpa-mysql-docker:
+    image: springboot-react-restcall
+    depends_on:
+      - espark-mysql
+    links:
+      - espark-mysql
+    ports:
+      - 9090:9090
+    environment:
+      - DATABASE_HOST=espark-mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=espark
+      - DATABASE_PORT=3306
+

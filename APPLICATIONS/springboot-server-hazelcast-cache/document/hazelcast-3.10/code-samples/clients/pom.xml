@@ -1,0 +1,39 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <artifactId>clients</artifactId>
+    <name>Clients</name>
+    <groupId>book.hazelcast.client</groupId>
+    <description>
+        All the code samples for the Hazelcast clients
+    </description>
+
+    <parent>
+        <groupId>com.hazelcast.samples</groupId>
+        <artifactId>code-samples</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <properties>
+        <main.basedir>${project.parent.basedir}</main.basedir>
+    </properties>
+
+    <modules>
+        <module>basic</module>
+        <module>client-near-cache</module>
+        <module>client-rest</module>
+        <module>client-statistics</module>
+        <module>user-code-deployment</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-all</artifactId>
+            <version>${hazelcast.version}</version>
+        </dependency>
+    </dependencies>
+</project>

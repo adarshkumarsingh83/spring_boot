@@ -1,0 +1,171 @@
+#To build the application
+$ mvn clean package
+
+#To create a docker tags
+$ docker build -t <tag image name> <path | . (dot for current path)>
+Example
+$ docker build -t espark-springboot-sample .
+
+#To list the docker tags
+$ docker image ls
+
+#To Run the Docker image
+$ docker run -p 5000:8080 <docker image tag>
+Example
+$ docker run -p 5000:8080 espark-springboot-sample
+
+#To hit the endpoint and get the response
+$ curl http://localhost:5000/wish
+
+#To Run the Docker image in background
+$ docker run -d -p 5000:8080 espark-springboot-sample
+
+#To list the docker containers
+$ docker container ls
+Example
+CONTAINER ID        IMAGE                      COMMAND                  CREATED              STATUS              PORTS                    NAMES
+1c3fea2d6064        espark-springboot-sample   "java -Djava.securit…"   About a minute ago   Up About a minute   0.0.0.0:5000->8080/tcp   reverent_stallman
+
+#To kill the container
+$ docker stop <container id>
+Example
+$ docker stop 1c3fea2d6064
+
+
+#To Login in Docker
+$ docker login
+
+Example
+Username: adarshkumarsingh83
+Password: *****************
+Login Succeeded
+
+
+#To Tag the Docker image
+$ docker tag image username/repository:tag
+Example
+$ docker tag espark-springboot-sample:latest adarshkumarsingh83/espark:espark-springboot-sample.0.0.1-SNAPSHOT
+
+
+#To Push the Docker image to the docker
+$ docker push <docker repository>:<tag name>
+Example
+$ docker push adarshkumarsingh83/espark:espark-springboot-sample.0.0.1-SNAPSHOT
+
+
+#To pull the image from docker
+$ docker pull adarshkumarsingh83/espark:espark-springboot-sample.0.0.1-SNAPSHOT
+
+#To Pull the images from the Docker and running
+$ docker run -p 5000:8080 <docker repository>/<docker image tag>
+Example
+$ docker run -p 5000:8080 adarshkumarsingh83/espark:espark-springboot-sample.0.0.1-SNAPSHOT
+
+#To hit the endpoint and get the response
+$ curl http://localhost:5000/wish
+
+#To List the docker locally repository
+$ docker images
+
+#To Delete the docker image form docker locally
+$ docker image rm -f <image id>
+
+
+##STEP BY STEP DOCKER IMAGE TO PFC
+------------------------------------------
+#Sign in to PWS:
+$ cf login -a https://api.run.pivotal.io
+
+#Create a space
+cf create-space <SPACE_NAME> [-o ORG] [-q SPACE_QUOTA]
+$ cf create-space espark-space -o espark-adarsh
+
+#Target the space of the pcf
+$ cf target [-o ORG] -s <SPACE_NAME>
+$ cf target -o espark-adarsh -s espark-space
+
+#To push the docker image to the pivitol cloud foundry
+$ cf push APP-NAME --docker-image REPO/IMAGE:TAG
+$ cf push <application-name> --docker-image <docker repository>:<tags>
+Example
+$ cf push espark-springboot-docker --docker-image adarshkumarsingh83/espark:espark-springboot-sample.0.0.1-SNAPSHOT –random-route -i 1 -m 512M -t 180
+
+#To View the logs
+$ cf logs espark-springboot-docker --recent
+
+#To list the apps in PCF
+$ cf apps
+-----------------------------------------------------------------------------------------------------------------------
+Example
+Getting apps in org espark-adarsh / space espark-space as adarshkumarsingh83@gmail.com...
+OK
+name                       requested state   instances   memory   disk   urls
+espark-springboot-docker   started           1/1         512M     1G     espark-springboot-docker.cfapps.io
+-----------------------------------------------------------------------------------------------------------------------
+
+#To hit the application
+ $ curl espark-springboot-docker.cfapps.io/wish
+ welcome to the espark
+
+
+#To start the stop application
+$ cf start espark-springboot-docker
+
+#To stop the running application
+$ cf stop espark-springboot-docker
+
+#To remove the application from pcf
+$ cf delete [-r routs] <APPLICATION_NAME>
+$ cf delete -r espark-springboot-docker
+--------------------------------------------------------
+Example
+cf delete -r espark-springboot-docker
+Really delete the app espark-springboot-docker?> yes
+--------------------------------------------------------
+
+
+#To delete the space
+cf delete-space <SPACE_NAME> [-o ORG]
+$ cf delete-space  espark-space -o espark-adarsh
+---------------------------------------------------------
+Example
+$ cf delete-space  espark-space -o espark-adarsh
+Really delete the space espark-space? [yN]: y
+Deleting space espark-space in org espark-adarsh as adarshkumarsingh83@gmail.com...
+---------------------------------------------------------
+
+#logout from PWS
+$ cf logout
+
+************************************************************************************************************************
+============================================================================================
+<plugin>
+	<groupId>com.spotify</groupId>
+	<artifactId>dockerfile-maven-plugin</artifactId>
+	<version>1.4.0</version>
+	<configuration>
+		<repository>adarshkumarsingh83/espark/espark-springboot-sample</repository>
+		<tag>${project.version}</tag>
+		<buildArgs>
+			<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+		</buildArgs>
+	</configuration>
+	<executions>
+		<execution>
+			<id>default</id>
+			<phase>install</phase>
+			<goals>
+				<goal>build</goal>
+				<goal>push</goal>
+			</goals>
+		</execution>
+	</executions>
+</plugin>
+============================================================================================
+#To build the image
+$ mvn package dockerfile:build
+
+#To push the docker image
+$ mvn dockerfile:push
+
+************************************************************************************************************************

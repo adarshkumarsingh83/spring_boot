@@ -1,0 +1,24 @@
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: springboot-one-one-mapping
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      format-sql: true
+  h2:
+    console:
+      enabled: true
+
+
+

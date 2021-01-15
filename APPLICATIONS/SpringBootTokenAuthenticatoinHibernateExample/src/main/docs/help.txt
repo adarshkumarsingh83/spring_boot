@@ -1,0 +1,31 @@
+mvn clean install
+
+mvn spring-boot:run
+
+url=> http://localhost:9090/
+
+url=> http://localhost:9090/rest/authenticate/login
+
+Content-Type:application/json
+{"username":"adarsh", "password":"adarsh"}
+Response:=>
+{
+  "User-Name": "adarsh",
+  "User-Password": "adarsh",
+  "Authentication-token": "YWRhcnNoISEhMTQ1ODgwNTQyODUxNyEhIUYEkvI7jEpLVfViLgOoX6s=",
+  "Response-Message": "LOGIN SUCCESSFUL",
+  "Response-Status": 200
+}
+
+------------------------------------------------------------------------------------
+url=> http://localhost:9090/rest/welcome
+Content-Type:application/json
+Authentication-token : YWRhcnNoISEhMTQ1ODgwNTQyODUxNyEhIUYEkvI7jEpLVfViLgOoX6s=
+
+{
+  "data": {
+    "time": 1458915713171,
+    "message": "welcome to the application adarkuma"
+  },
+  "message": "Request Process Successful"
+}

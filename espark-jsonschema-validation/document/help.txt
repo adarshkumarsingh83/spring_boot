@@ -1,5 +1,0 @@
-POST REQUEST
-HTTP URL =  http://localhost:9090/espark/data
-HEADER = Content-Type:application/json
-POST BODY DATA=
-{"id":100,"name":"adarsh kumar","email":"adarsh@kumar.com","salary":1000,"phone":["123456789","1234568"],"education":"post-graduate"}

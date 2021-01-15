@@ -1,0 +1,52 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <artifactId>learning-basics</artifactId>
+    <name>Learning Basics</name>
+    <groupId>com.hazelcast.samples.basics</groupId>
+
+    <description>
+        All the code samples for the learning basics chapter
+    </description>
+
+    <parent>
+        <groupId>com.hazelcast.samples</groupId>
+        <artifactId>code-samples</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <properties>
+        <!-- needed for checkstyle/findbugs -->
+        <main.basedir>${project.parent.basedir}</main.basedir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <module>configure-logging</module>
+        <module>configure-programmatic</module>
+        <module>configure-xml</module>
+        <module>destroying-instances</module>
+        <module>loading-instances</module>
+        <module>multiple-hazelcast-instances</module>
+        <module>unique-names</module>
+        <module>wildcard-configuration</module>
+        <module>configure-datastructures-at-runtime</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-all</artifactId>
+            <version>${hazelcast.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hazelcast.samples</groupId>
+            <artifactId>helper</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

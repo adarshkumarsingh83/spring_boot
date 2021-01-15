@@ -1,0 +1,8 @@
+# to build the app
+$ mvn clean package
+
+#to execute the app
+$ mvn spring-boot:run
+
+# to test the url
+$ curl http://localhost:8080/api/employees

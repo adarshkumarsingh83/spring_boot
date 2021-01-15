@@ -1,0 +1,10 @@
+
+$ mvn clean package
+
+$ mvn spring-boot:run
+
+$ curl localhost:8080/listmethod
+$ curl localhost:8080/listfield
+
+#To Enable to disable the functionality
+espark.enable=true

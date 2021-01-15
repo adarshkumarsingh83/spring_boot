@@ -1,9 +1,0 @@
-
-
-
-$ sudo -u postgres psql
-$ sudo -u postgres createdb espark
-$ sudo -u postgres createuser admin
-$ sudo -u postgres psql
-$  alter user admin with encrypted password 'admin';
-$ grant all privileges on database espark to admin ;

@@ -1,0 +1,70 @@
+version: '3'
+services:
+
+  springboot-haproxy1:
+    container_name: springboot-haproxy1
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure:5
+    ports:
+      - '8081:8081'
+    networks:
+      - spring-ms
+
+  springboot-haproxy2:
+    container_name: springboot-haproxy2
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure:5
+    ports:
+      - '8082:8082'
+    networks:
+      - spring-ms
+
+  springboot-haproxy3:
+    container_name: springboot-haproxy3
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure:5
+    ports:
+      - '8083:8083'
+    networks:
+      - spring-ms
+
+  springboot-haproxy4:
+    container_name: springboot-haproxy4
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure:5
+    ports:
+      - '8084:8084'
+    networks:
+      - spring-ms
+
+  haproxy:
+    image: haproxy
+    container_name: haproxy
+    ports:
+      - 80:80
+      - 9999:9999
+    volumes:
+      - ./config/docker/etc/haproxy:/usr/local/etc/haproxy:ro
+    depends_on:
+      - springboot-haproxy1
+      - springboot-haproxy2
+      - springboot-haproxy3
+      - springboot-haproxy4
+    links:
+      - springboot-haproxy1
+      - springboot-haproxy2
+      - springboot-haproxy3
+      - springboot-haproxy4
+    networks:
+      - spring-ms
+
+networks:
+  spring-ms:

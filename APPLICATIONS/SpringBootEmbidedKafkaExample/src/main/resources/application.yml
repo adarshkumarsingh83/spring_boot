@@ -1,0 +1,9 @@
+spring:
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      group-id: boot
+
+kafka:
+  topic:
+    boot: boot.t

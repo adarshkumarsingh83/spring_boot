@@ -1,0 +1,43 @@
+<hazelcast xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.hazelcast.com/schema/config
+                               http://www.hazelcast.com/schema/config/hazelcast-config-3.10.xsd"
+           xmlns="http://www.hazelcast.com/schema/config">
+
+    <group>
+        <name>clusterA</name>
+        <password>clusterA-pass</password>
+    </group>
+    <license-key>YOUR_LICENSE_KEY</license-key>
+
+    <network>
+        <port>5701</port>
+        <join>
+            <multicast enabled="false"/>
+            <tcp-ip enabled="true">
+                <member>127.0.0.1:5701</member>
+            </tcp-ip>
+        </join>
+    </network>
+
+    <wan-replication name="AtoB">
+        <wan-publisher group-name="clusterB">
+            <class-name>com.hazelcast.enterprise.wan.replication.WanBatchReplication</class-name>
+            <properties>
+                <property name="group.password">clusterB-pass</property>
+                <property name="endpoints">127.0.0.1:5702</property>
+                <!-- Acknowledge type is optional, defaults to ACK_ON_OPERATION_COMPLETE  -->
+                <property name="ack.type">ACK_ON_OPERATION_COMPLETE</property>
+                <!-- <property name="ack.type">ACK_ON_TRANSMIT</property> -->
+            </properties>
+        </wan-publisher>
+    </wan-replication>
+    <map name="default">
+        <wan-replication-ref name="AtoB">
+            <merge-policy>com.hazelcast.map.merge.PassThroughMergePolicy</merge-policy>
+            <!-- Filters are optional -->
+            <filters>
+                <filter-impl>com.hazelcast.wan.batch.map.filter.SampleMapWanEventFilter</filter-impl>
+            </filters>
+        </wan-replication-ref>
+    </map>
+</hazelcast>

@@ -1,0 +1,138 @@
+
+
+-------------------------------------------------------------
+ http://localhost:8080/employee/list
+ Content-Type :application/json
+  "data": [
+    {
+      "employeeId": 1,
+      "employeeName": "adarsh kumar",
+      "address": {
+        "addressId": 1,
+        "addressCountry": "india",
+        "addressCity": "bangalore",
+        "employee": null
+      }
+    },
+    {
+      "employeeId": 2,
+      "employeeName": "radha singh",
+      "address": {
+        "addressId": 2,
+        "addressCountry": "india",
+        "addressCity": "hyderabad",
+        "employee": null
+      }
+    }
+  ],
+  "message": "Employees Found "
+}
+
+-------------------------------------------------------------
+http://localhost:8080/employee/get/1
+{
+  "data": {
+    "employeeId": 1,
+    "employeeName": "adarsh kumar",
+    "address": {
+      "addressId": 1,
+      "addressCountry": "india",
+      "addressCity": "bangalore",
+      "employee": null
+    }
+  },
+  "message": "Employees Found "
+}
+-------------------------------------------------------------
+http://localhost:8080/employee/save
+ Content-Type :application/json
+ Accept :application/json
+
+{
+      "employeeId": 3,
+      "employeeName": "sonu singh",
+      "address": {
+        "addressId": 2,
+        "addressCountry": "india",
+        "addressCity": "hyderabad"
+      }
+}
+-------------------------------------------------------------
+http://localhost:8080/employee/delete/3
+{
+  "data": {
+    "employeeId": 3,
+    "employeeName": "sonu singh",
+    "address": {
+      "addressId": 2,
+      "addressCountry": "india",
+      "addressCity": "hyderabad",
+      "employee": null
+    }
+  },
+  "message": "Employees Deleted "
+}
+-------------------------------------------------------------
+http://localhost:8080/address/list
+{
+  "data": [
+    {
+      "addressId": 1,
+      "addressCountry": "india",
+      "addressCity": "bangalore",
+      "employee": {
+        "employeeId": 1,
+        "employeeName": "adarsh kumar",
+        "address": null
+      }
+    },
+    {
+      "addressId": 2,
+      "addressCountry": "india",
+      "addressCity": "hyderabad",
+      "employee": {
+        "employeeId": 2,
+        "employeeName": "radha singh",
+        "address": null
+      }
+    }
+  ],
+  "message": "AddressBean Found "
+}
+-------------------------------------------------------------
+http://localhost:8080/address/get/1
+{
+  "data": {
+    "addressId": 1,
+    "addressCountry": "india",
+    "addressCity": "bangalore",
+    "employee": {
+      "employeeId": 1,
+      "employeeName": "adarsh kumar",
+      "address": null
+    }
+  },
+  "message": "AddressBean Found "
+}
+-------------------------------------------------------------
+http://localhost:8080/address/save
+ Content-Type :application/json
+ Accept :application/json
+ {
+     "addressId": 3,
+     "addressCountry": "india",
+     "addressCity": "hyderabad"
+ }
+-------------------------------------------------------------
+http://localhost:8080/address/delete/3
+
+{
+  "data": {
+    "addressId": 3,
+    "addressCountry": "india",
+    "addressCity": "hyderabad",
+    "employee": null
+  },
+  "message": "AddressBean Deleted "
+}
+-------------------------------------------------------------

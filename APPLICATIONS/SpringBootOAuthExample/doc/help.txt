@@ -1,0 +1,18 @@
+http://localhost:9191/espark/oauth/token
+
+--------Authroization----------------------------------------------------------
+Type : Basic Auth
+Username : html5
+Password : password
+--------Header----------------------------------------------------------
+Accept : application/json
+--------Body----------------------------------------------------------
+username : adarsh
+password : adarsh
+grant_type : password
+scope : openid
+client_id : html5
+client_secret : password
+------------------------------------------------------------------
+
+curl -H"Authorization: bearer 279ab4d7-f54e-46ff-9493-f564aedecc43" http://localhost:8080/espark/welcome

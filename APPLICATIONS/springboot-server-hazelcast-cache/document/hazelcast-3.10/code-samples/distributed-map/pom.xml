@@ -1,0 +1,62 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <artifactId>distributed-map</artifactId>
+    <name>DistributedMap</name>
+    <groupId>com.hazelcast.samples.distributed-map</groupId>
+    <description>
+        about the distributed Map
+    </description>
+
+    <parent>
+        <groupId>com.hazelcast.samples</groupId>
+        <artifactId>code-samples</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <properties>
+        <!-- needed for checkstyle/findbugs -->
+        <main.basedir>${project.parent.basedir}</main.basedir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <module>aggregations</module>
+
+        <module>backup</module>
+        <module>basics</module>
+        <module>continuous-query</module>
+        <module>continuous-query-cache</module>
+        <module>criteria-api</module>
+        <module>custom-attributes</module>
+        <module>data-locality</module>
+        <module>entry-listener</module>
+        <module>entry-processor</module>
+        <module>eviction</module>
+        <module>hashcode-and-equals</module>
+        <module>in-memory-format</module>
+        <module>index</module>
+        <module>locking</module>
+        <module>map-interceptor</module>
+        <module>mapstore</module>
+        <module>multi-map</module>
+        <module>nearcache</module>
+        <module>paging-predicate</module>
+        <module>partition-lost-listener</module>
+        <module>query-collections</module>
+        <module>sqlquery</module>
+        <module>fast-aggregations</module>
+        <module>projections</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-all</artifactId>
+            <version>${hazelcast.version}</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,18 @@
+logging:
+  level:
+    root: DEBUG
+    org:
+      springframework:
+        web: INFO
+
+spring:
+  application:
+    name: springboot-restart-app
+
+server:
+  port: 8080
+
+management:
+  endpoint:
+    restart:
+      enabled: true

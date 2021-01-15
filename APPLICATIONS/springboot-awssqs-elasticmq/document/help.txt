@@ -1,0 +1,58 @@
+$ cd document/
+
+$ pwd
+/springboot-awssqs-elasticmq/document
+
+$ vi custom.conf
+-------------------------------------------------
+include classpath("application.conf")
+
+// What is the outside visible address of this ElasticMQ node
+// Used to create the queue URL (may be different from bind address!)
+node-address {
+    protocol = http
+    host = localhost
+    port = 9325
+    context-path = ""
+}
+
+rest-sqs {
+    enabled = true
+    bind-port = 9325
+    bind-hostname = "0.0.0.0"
+    // Possible values: relaxed, strict
+    sqs-limits = strict
+}
+
+// Should the node-address be generated from the bind port/hostname
+// Set this to true e.g. when assigning port automatically by using port 0.
+generate-node-address = false
+
+queues {
+    queue1 {
+        defaultVisibilityTimeout = 10 seconds
+        delay = 5 seconds
+        receiveMessageWait = 0 seconds
+        deadLettersQueue {
+            name = "espark"
+            maxReceiveCount = 3 // from 1 to 1000
+    	}
+    }
+    espark { }
+}
+
+-------------------------------------------------
+$ java -Dconfig.file=custom.conf -Dlogback.configurationFile=my_logback.xml -jar elasticmq-server-0.13.9.jar
+
+
+$ mvn clean package
+
+http post
+http://localhost:9090/espark/msg
+{
+ "queueName":"espark",
+ "msg":"radha u r my life"
+}
+
+http get
+http://localhost:9090/espark/msg/espark

@@ -1,0 +1,73 @@
+https://hub.docker.com/_/mysql/
+mysql
+
+#to list the local docker images
+$ docker images
+
+#to pull the mysql image to the local
+$ docker pull mysql
+
+#to run the mysql docker image
+$ docker run --name <mysql-instance-name> -e MYSQL_ROOT_PASSWORD=<root-user-ped> -e MYSQL_DATABASE=<mysql-db-name> -d mysql:<5.6]>
+$ docker run --name espark-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=espark -d mysql:5.6
+
+#docker container listing
+$ docker container ls
+
+------------------------------------------------------
+#chagne in the configuraiton file of spring data source
+
+spring.datasource.url = jdbc:mysql://espark-mysql:3306/espark
+spring.datasource.username = root
+spring.datasource.password = root
+------------------------------------------------------
+#create a docker file in the application
+$ vi Dockerfile
+
+FROM openjdk:8
+ADD target/product-information-system.jar product-information-system.jar
+EXPOSE 9090
+ENTRYPOINT ["java","-jar","product-information-system.jar"]
+------------------------------------------------------
+#to build the spring boot jar file
+$ mvn clean package -Dmaven.test.skip=true
+
+#to build the docker image of the spring mysql application
+$ docker build . -t product-information-system
+
+#list the images
+$ docker images
+
+#to run the docker container
+$ docker run -p 9090:9090 --name spring-boot-docker-mysql --link espark-mysql:mysql -d product-information-system
+
+
+#to list the container
+$ docker container ls
+
+#to check the log of the mysql
+$ docker logs espark-mysql
+
+#to check the log of the spring boot application
+$ docker logs spring-boot-docker-mysql
+
+#to stop the docker container of application
+$ docker stop spring-boot-docker-mysql
+
+#to stp the docker container of the mysql
+$ docker stop espark-mysql
+
+#To remove the docker iamge
+$ docker image rm product-information-system
+$ docker image rm mysql
+
+
+#To remove the docker container
+$ docker container rm spring-boot-docker-mysql
+$ docker container rm espark-mysql
+
+-----------------------------------------------------------------------------
+NOTE : CONFIGURATION WILL BE READ FROM .env FILE
+#to run from docker compose
+$ docker-compose up
+-----------------------------------------------------------------------------

@@ -1,7 +1,0 @@
-
-espark:
-  default:
-    value:
-      preTask: 'defaultPreExecutionTask'
-      task: 'defaultExecutionTask'
-      postTask: 'defaultPostExecutionTask'

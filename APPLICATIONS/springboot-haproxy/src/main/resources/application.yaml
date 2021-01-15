@@ -1,0 +1,43 @@
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: springboot-haproxy
+
+info:
+  app:
+    name: springboot-haproxy
+    description: springboot-haproxy
+    version: 1.0.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    info:
+      enabled: true
+    health:
+      enabled: true
+    env:
+      enabled: true
+  security:
+    enabled: false
+
+logging:
+  level:
+    root: INFO
+    com.espark.adarsh: DEBUG
+    org.springframework.web: INFO
+    group:
+      com.espark.adarsh: DEBUG
+      org.springframework.web: INFO
+  file:
+    name: /var/logs/application.log
+    max-size: 1MB
+    max-history: 10
+  pattern:
+    rolling-file-name: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.zip
+    level: '${spring.application.name} - [%X{traceId}/%X{spanId}] %X{sessionId}  %-5p [%t] %C{2} - %m%n'

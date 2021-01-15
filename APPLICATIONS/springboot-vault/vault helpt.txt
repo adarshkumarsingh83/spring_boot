@@ -1,0 +1,62 @@
+
+
+# To install vault from brew 
+$ brew install vault
+
+or download from the page 
+https://www.vaultproject.io/downloads
+$ unzip vault_*.zip
+
+
+#To start the vault 
+$ vault server — dev — dev-root-token-id=”00000000–0000–0000–0000–000000000000"
+
+#Insert/Update Vault Key/Values and Versioning
+$ vault kv <subcommand> [options] [args]
+
+a.Insert
+$ vault kv put secret/my-secret my-value=demo
+
+b.Read
+$ vault kv get secret/my-secret
+
+c.Update (Version Update)
+$ vault kv put -cas=1 secret/my-secret my-value=itsasecret
+
+d.Delete
+$ `vault kv delete` and `vault kv destroy`.
+
+##Soft delete 
+$ vault kv delete secret/my-secret
+# then recover  
+$ vault kv undelete -versions=2 secret/my-secret
+# then read back
+$ vault kv get secret/my-secret
+
+
+###Hard Delete 
+$ vault kv destroy -versions=2 secret/my-secret
+
+
+###FOR SPRING APPLICTAION WE CAN USE BELOW CONFIG#########
+$ vault write secret/gs-vault-config example.username=demouser example.password=demopassword
+$ vault write secret/gs-vault-config/cloud example.username=clouduser example.password=cloudpassword
+
+
+boostrap.yaml
+spring.application.name: SPRINGBOOT-VALUT-APP
+spring.cloud.vault:
+       host: $HOST_NAMR (localhost or ipaddress)
+       port: 8200
+       scheme: https
+       token: 00000000-0000-0000-0000-000000000000
+       authentication: TOKEN (or AWS, anything).
+       
+$ vault kv put secret/springboot-vault-app espark.key=defualtprofile espark.value=espark@defulat espark.message='welcome to default espark'
+$ vault kv put secret/springboot-vault-app/localprofile espark.key=localprofile espark.value=espark@local espark.message='welcome to local espark'
+$ vault kv put secret/springboot-vault-app/prodprofile espark.key=prodprofile espark.value=espark@prod espark.message='welcome to prod espark'
+
+
+$ vault kv get secret/springboot-vault-app
+$ vault kv get secret/springboot-vault-app/localprofile
+$ vault kv get secret/springboot-vault-app/prodprofile

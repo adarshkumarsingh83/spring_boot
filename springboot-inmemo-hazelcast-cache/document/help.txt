@@ -1,9 +1,0 @@
-http post
-localhost:8080/write
-{
-	"id":"100",
-	"name":"adarsh kumar"
-}
-
-http get
-localhost:8080/read/100

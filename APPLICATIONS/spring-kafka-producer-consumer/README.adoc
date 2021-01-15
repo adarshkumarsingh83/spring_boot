@@ -1,0 +1,41 @@
+## Getting Started
+These instructions will show how to run kafka locally and how to install kafkacat, a tool to display messages in a kafka topic
+
+### Run kafka locally
+In a terminal cd to the root of this project and run
+```
+docker-compose up -d
+```
+Check both kafka and zookeeper are running
+```
+docker ps
+```
+### Install kafkacat
+Install kafkacat utility using the local package manager.
+
+```
+sudo apt-get install kafkacat
+```
+
+# Start up the Producer, from the root of the project
+
+[source, java]
+----
+cd sample-spring-kafka-producer
+../gradlew bootRun
+----
+
+# Start up the Consumer
+
+[source, java]
+----
+cd sample-spring-kafka-consumer
+../gradlew bootRun
+----
+
+
+## At this point some sample messages can be generated using this endpoint:
+
+http://localhost:8080/generateWork?id=1&definition=thisIsCool
+
+The producer should print a message on the console that the Work unit has been dispatched and the consumer should receive and process the Work unit

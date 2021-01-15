@@ -1,6 +1,0 @@
-http://localhost:8080/employee
-
-{
- "id":"100",
- "name":"adarsh kumar"
-}

@@ -1,0 +1,7 @@
+#build
+$ mvn clean package
+
+program args in run configuration in intellj
+--command.line.args=dataDisplayJob
+
+

@@ -1,0 +1,40 @@
+cmd line arugments
+
+preTask=a,b,c  task=x,y   postTask=p,q
+
+preTask=<name of the pre execution task separated by comma>
+task=<name of the execution task separated by comma>
+postTask=<name of the post execution task separated by comma>
+
+cmd will look like this
+preTask=samplePreExecutionTask task=sampleExecutionTask,sampleExecutionOneTask,sampleExecutionTwoTask postTask=samplePostExecutionTask
+
+task=sampleExecutionOneTask,sampleExecutionTask,sampleExecutionTwoTask postTask=samplePostExecutionTask
+
+preTask=samplePreExecutionTask task=sampleExecutionTask,sampleExecutionOneTask,sampleExecutionTwoTask
+
+task=sampleExecutionTask,sampleExecutionOneTask,sampleExecutionTwoTask
+
+#by default default pre execution and post task will execute.
+#all the operation execution will be created under operation dir
+
+#for preTask
+implement the PreExecutionTask
+#use annotation and give the bean name
+@PreExecutionOperation(name = "defaultPreExecutionTask")
+
+#for task
+implement the ExecutionTask
+#use annotation and give the bean name
+@ExecutionOperation(name = "defaultExecutionTask")
+
+#for postTask
+implement the PostExecutionTask
+#use annotation and give the bean name
+@PostExecutionOperation(name = "defaultPostExecutionTask")
+
+#cmd to build the code
+$ mvn clean package
+
+
+
