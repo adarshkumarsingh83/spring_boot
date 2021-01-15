@@ -47,7 +47,7 @@ import java.util.Map;
  */
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/application")
+@RequestMapping("/api")
 @PropertySource("classpath:application.properties")
 public class SpringBootController {
 
