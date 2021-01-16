@@ -2,29 +2,30 @@ package com.espark.adarsh;
 
 import com.espark.adarsh.entity.Employee;
 import com.espark.adarsh.service.EmployeeService;
+import com.espark.adarsh.web.EmployeeController;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import java.util.LinkedList;
 import java.util.List;
+
 import static org.mockito.Mockito.times;
 
 /**
- * load the whole context but with server start
+ * load the whole context but without server start
  */
 @Slf4j
-@SpringBootTest
-@AutoConfigureMockMvc
-public class EmployeeControllerMockTest {
+@WebMvcTest(EmployeeController.class)
+public class OnlyEmployeeControllerMockTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -33,7 +34,7 @@ public class EmployeeControllerMockTest {
     private EmployeeService employeeService;
 
     @Test
-    public void getAllEmployeeTest() throws Exception{
+    public void getAllEmployeeTest() throws Exception {
         List<Employee> employeeList = new LinkedList<>();
         Employee employee = new Employee();
         employee.setId(1L);
