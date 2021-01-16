@@ -32,11 +32,6 @@ public class EmployeeControllerMockTest {
     private EmployeeService employeeService;
 
     @Test
-    void contextLoads() {
-    }
-
-
-    @Test
     public void getAllEmployeeTest() throws Exception{
         List<Employee> employeeList = new LinkedList<>();
         Employee employee = new Employee();
@@ -50,7 +45,6 @@ public class EmployeeControllerMockTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("ooo")));
-
         Mockito.verify(employeeService, times(1)).getAllEmployee();
     }
 }

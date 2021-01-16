@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-public class EmployeeRepositoryServiceControllerSmokeTest {
+public class RepositoryServiceControllerSmokeTest {
 
     @Autowired
     private EmployeeRepository employeeRepository;
