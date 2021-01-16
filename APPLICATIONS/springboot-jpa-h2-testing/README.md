@@ -1,5 +1,6 @@
 # springboot-jpa-h2-testing
 
+> unit testing, mock testing and smoke testing of repository, service and controller 
 ---
 
 ### to build the application
