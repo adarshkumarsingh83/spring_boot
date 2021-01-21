@@ -4,6 +4,7 @@
 ---
 
 ### to build the application
+### Docker must be running in local env to build this code 
 * $ mvn clean package
 * $ mvn spring-boot:run
 
