@@ -50,6 +50,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- for docker build in support for springboot 2.4.x -->
 				<executions>
 					<execution>
 						<goals>
