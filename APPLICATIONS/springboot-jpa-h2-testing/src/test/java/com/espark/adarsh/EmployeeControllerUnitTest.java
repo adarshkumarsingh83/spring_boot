@@ -24,7 +24,8 @@ public class EmployeeControllerUnitTest {
 
     @Test
     public void getAllEmployeeTest() throws Exception {
-        Employee[] employeeArray = this.restTemplate.getForObject("http://localhost:" + port + "/api/employees", Employee[].class);
+        String url = "http://localhost:" + port + "/api/employees";
+        Employee[] employeeArray = this.restTemplate.getForObject(url, Employee[].class);
         List<Employee> employeeList = Arrays.asList(employeeArray);
         Assertions.assertThat(employeeList.get(0).getId()).isEqualTo(1);
         Assertions.assertThat(employeeList.get(1).getId()).isEqualTo(2);
