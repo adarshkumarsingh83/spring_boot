@@ -1,5 +1,7 @@
 package com.espark.adarsh;
 
+import com.github.tomakehurst.wiremock.http.HttpHeader;
+import com.github.tomakehurst.wiremock.http.HttpHeaders;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,25 +40,45 @@ public class SpringbootWiremockApplicationTests {
     @Test
     @DisplayName("Get Api Data Endpoint ")
     public void testGetApiDataEndpoint() {
+        HttpHeaders headers = new HttpHeaders(
+                new HttpHeader("Name", "API"),
+                new HttpHeader("Type", "MOBILE"),
+                new HttpHeader("Content-Type", "application/json")
+        );
         wireMockServer.stubFor(get(urlEqualTo("/api/data"))
-                .willReturn(aResponse().withHeader("Content-Type", "application/json")
+                .willReturn(aResponse()
+                        .withHeaders(headers)
                         .withStatus(200)
                         .withBodyFile("json/data.json")));
         ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:8080/api/data", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getHeaders().get("Name").get(0))
+                .isEqualTo("API");
+        assertThat(response.getHeaders().get("Type").get(0))
+                .isEqualTo("MOBILE");
     }
 
     @Test
     @DisplayName("Post Api Data Endpoint ")
     public void testPostApiDataEndpoint() {
         String data = "{ 'data':'some test data'}";
+        HttpHeaders headers = new HttpHeaders(
+                new HttpHeader("Name", "API"),
+                new HttpHeader("Type", "WEB"),
+                new HttpHeader("Content-Type", "application/json")
+        );
         wireMockServer.stubFor(post(urlEqualTo("/api/data"))
                 .withRequestBody(equalToJson(data))
-                .willReturn(aResponse().withHeader("Content-Type", "application/json")
+                .willReturn(aResponse()
+                        .withHeaders(headers)
                         .withStatus(200)
                         .withBodyFile("json/data.json")));
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8080/api/data", data, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getHeaders().get("Name").get(0))
+                .isEqualTo("API");
+        assertThat(response.getHeaders().get("Type").get(0))
+                .isEqualTo("WEB");
     }
 
     @AfterEach
