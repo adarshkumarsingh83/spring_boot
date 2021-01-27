@@ -5,7 +5,7 @@
   },
   "response": {
     "status": 200,
-    "body": '{"message":"welcome","name": "adarsh kumar"}',
+    "body": "{'message':'welcome','name': 'adarsh kumar'}",
     "headers": {
       "Content-Type": "application/json"
     }
