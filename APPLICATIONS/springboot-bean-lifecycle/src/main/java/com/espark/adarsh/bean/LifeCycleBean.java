@@ -25,7 +25,7 @@ public class LifeCycleBean implements InitializingBean, DisposableBean,
         MessageSourceAware, NotificationPublisherAware,
         ResourceLoaderAware , BeanPostProcessor {
 
-    @Value("espark.adarsh.name")
+    @Value("${espark.adarsh.name}")
     String name;
 
     @Override
