@@ -16,8 +16,8 @@
 * curl -X GET http://localhost:8080/employees
 
 
-#log into the homepage of db
-http://localhost:8080/h2-console
+# log into the homepage of db
+* http://localhost:8080/h2-console
 * username, pwd , db url and db driver class is mentioned in application.properties file
 
 
