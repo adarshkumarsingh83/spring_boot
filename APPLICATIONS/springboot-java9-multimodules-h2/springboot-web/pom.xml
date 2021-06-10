@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>springboot-java-multimodules</artifactId>
+        <artifactId>springboot-java9-multimodules-h2</artifactId>
         <groupId>com.espark.adarsh</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>

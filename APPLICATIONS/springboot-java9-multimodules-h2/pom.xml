@@ -21,10 +21,10 @@
     </modules>
 
     <groupId>com.espark.adarsh</groupId>
-    <artifactId>springboot-java-multimodules</artifactId>
+    <artifactId>springboot-java9-multimodules-h2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>springboot-java-multimodules</name>
+    <name>springboot-java9-multimodules-h2</name>
     <description>Demo project for Spring Boot and java 9 multi modules</description>
 
     <properties>
