@@ -23,3 +23,7 @@
 
 ### Maven dependency tree 
 *  mvn dependency:tree -Dverbose
+
+
+### To View jar content 
+* jar tvf springboot-web/target/springboot-web-1.0-SNAPSHOT.jar

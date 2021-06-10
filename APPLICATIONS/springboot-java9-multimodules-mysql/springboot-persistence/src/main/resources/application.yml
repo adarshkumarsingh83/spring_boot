@@ -1,0 +1,14 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/espark?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: 'create-drop'
+    properties:
+      hibernate:
+        format-sql: true
+    generate-ddl: true
+    show-sql: true
