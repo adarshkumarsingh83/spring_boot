@@ -21,3 +21,5 @@
 * username, pwd , db url and db driver class is mentioned in application.properties file
 
 
+### Maven dependency tree 
+*  mvn dependency:tree -Dverbose
