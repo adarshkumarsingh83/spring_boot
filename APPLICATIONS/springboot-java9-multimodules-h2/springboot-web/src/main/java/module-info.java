@@ -14,5 +14,7 @@ module springboot.web {
     requires springboot.services;
     requires com.fasterxml.classmate;
     requires spring.boot.autoconfigure;
+    requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
+    opens com.espark.adarsh.web;
 }

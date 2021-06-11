@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>springboot-persistence</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+     <packaging>jar</packaging>
     <name>espark-persistence</name>
 
     <properties>
