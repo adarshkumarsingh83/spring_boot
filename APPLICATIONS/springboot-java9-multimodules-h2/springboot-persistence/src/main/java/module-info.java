@@ -14,5 +14,6 @@ module springboot.persistence {
     requires spring.jdbc;
     requires spring.core;
     requires java.sql;
-    requires java.persistence;
+    requires com.zaxxer.hikari;
+    requires transitive java.persistence;
 }

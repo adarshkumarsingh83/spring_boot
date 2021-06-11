@@ -11,6 +11,7 @@ module springboot.web {
     requires net.bytebuddy;
     requires spring.context;
     requires java.xml.bind;
+    requires java.instrument;
     requires springboot.services;
     requires com.fasterxml.classmate;
     requires spring.boot.autoconfigure;
