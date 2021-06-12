@@ -5,7 +5,6 @@
 ### To build 
 * mvn clean package 
 
-
 ### To Run 
 * mvn install && mvn spring-boot:run -pl spring-web
 * cd spring-web
