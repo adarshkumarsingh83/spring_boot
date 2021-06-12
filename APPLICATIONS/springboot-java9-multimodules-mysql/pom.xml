@@ -15,9 +15,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>springboot-persistence</module>
-        <module>springboot-services</module>
-        <module>springboot-web</module>
+        <module>espark-persistence</module>
+        <module>espark-services</module>
+        <module>espark-web</module>
     </modules>
 
     <groupId>com.espark.adarsh</groupId>
