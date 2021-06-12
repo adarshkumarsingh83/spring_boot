@@ -27,4 +27,4 @@
 
 
 ### To View jar content 
-* jar tvf springboot-web/target/springboot-web-1.0-SNAPSHOT.jar
+* jar tvf espark-web/target/espark-web-1.0-SNAPSHOT.jar
