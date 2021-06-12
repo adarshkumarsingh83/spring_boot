@@ -6,10 +6,10 @@
 * mvn clean package 
 
 ### To Run 
-* mvn install && mvn spring-boot:run -pl springboot-web
-* cd springboot-web
+* mvn install && mvn spring-boot:run -pl espark-web
+* cd espark-web
     * mvn spring-boot:run 
-* java -jar springboot-web/target/springboot-web-1.0-SNAPSHOT.jar
+* java -jar espark-web/target/espark-web-0.0.1-SNAPSHOT.jar
 
 ### To Access Application 
 * http://localhost:8080/employees

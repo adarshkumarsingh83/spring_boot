@@ -7,18 +7,10 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.0</version>
-        <relativePath/>
+        <version>2.5.1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>springboot-persistence</module>
-        <module>springboot-services</module>
-        <module>springboot-web</module>
-    </modules>
 
     <groupId>com.espark.adarsh</groupId>
     <artifactId>springboot-java9-multimodules-h2</artifactId>
@@ -31,14 +23,32 @@
         <java.version>11</java.version>
     </properties>
 
-    <dependencies>
+    <packaging>pom</packaging>
 
+    <modules>
+        <module>espark-persistence</module>
+        <module>espark-services</module>
+        <module>espark-web</module>
+    </modules>
+
+    <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>jakarta.activation</groupId>
+                    <artifactId>jakarta.activation</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
