@@ -10,6 +10,7 @@ module springboot.web {
     requires spring.webmvc;
     requires net.bytebuddy;
     requires spring.context;
+    requires java.annotation;
     requires java.xml.bind;
     requires java.instrument;
     requires springboot.services;

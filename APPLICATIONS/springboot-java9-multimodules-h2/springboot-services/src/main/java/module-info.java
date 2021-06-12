@@ -2,6 +2,8 @@ module springboot.services {
     requires org.slf4j;
     requires spring.beans;
     requires spring.context;
+    requires spring.core;
+    requires java.annotation;
     requires spring.boot.autoconfigure;
     requires transitive springboot.persistence;
     exports com.espark.adarsh;

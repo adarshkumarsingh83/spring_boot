@@ -14,6 +14,7 @@
 ### To Access Application 
 * http://localhost:8080/employees
 * curl -X GET http://localhost:8080/employees
+* curl -X GET http://localhost:8080/api/wish
 
 
 ### log into the homepage of db
