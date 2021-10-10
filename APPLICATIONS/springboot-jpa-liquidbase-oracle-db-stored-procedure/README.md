@@ -273,9 +273,23 @@ EMPLOYEE UPDATED SUCCESSFUL 1UPDATED EMPLOYEE DATA5 adiii adi@kumar
 EMPLOYEE DELETED SUCCESSFUL 1 EMPLOYEE DELETED 5 adiii adi@kumar
 ```
 
+## To fetch employee 
+* $ curl -X GET http://localhost:8080/employee/1
+```   
+  {"empNo":1,"empName":"adarsh","empEmail":"adarsh@kumar"}
+```
+
 ## To Fetch employee using procedure 
 * curl -X GET http://localhost:8080/employee/pro/1
+``` 
+{"empNo":1,"empName":"adarsh","empEmail":"adarsh@kumar"}
+```
 
+## To fetch employees 
+* $ curl -X GET http://localhost:8080/employees
+``` 
+[{"empNo":1,"empName":"adarsh","empEmail":"adarsh@kumar"},{"empNo":2,"empName":"radha","empEmail":"radha@singh"},{"empNo":3,"empName":"sonu","empEmail":"sonu@singh"},{"empNo":4,"empName":"amit","empEmail":"amit@kumar"}]
+```
 
 ## To Fetch employees using procedure 
 * $ curl -X GET http://localhost:8080/employees/pro
