@@ -25,6 +25,10 @@ public class EmployeeService {
         return employeeList;
     }
 
+    public List<Employee> getEmployeesByProcedure() {
+        return this.employeeSpRepository.getEmployeesByProcedure();
+    }
+
 
     public Employee getEmployee(Long id) {
         return employeeRepository.findById(id).get();
@@ -32,9 +36,8 @@ public class EmployeeService {
 
     public Employee getEmployeeByProcedure(Long id) {
 
-        //this.employeeSpRepository.getEmployeeByProcedure(id).get(0);
-         this.employeeRepository.getEmployeeByProcedure(id);
-         return null;
+        return  this.employeeSpRepository.getEmployeeByProcedure(id).get(0);
+         //this.employeeRepository.getEmployeeByProcedure(id);
     }
 
     public String getEmployeeStringByProcedure(Long id) {
