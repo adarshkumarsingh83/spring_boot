@@ -1,57 +1,66 @@
 package com.espark.adarsh.web;
 
 import com.espark.adarsh.entity.Employee;
-import com.espark.adarsh.respository.EmployeeRepository;
-import com.espark.adarsh.respository.EmployeeSpRepository;
+import com.espark.adarsh.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @RestController
 public class EmployeeController {
 
     @Autowired
-    EmployeeRepository employeeRepository;
-
-    @Autowired
-    EmployeeSpRepository employeeSpRepository;
+    EmployeeService employeeService;
 
     @GetMapping("/employees")
     public List<Employee> getAllEmployee() {
-        List<Employee> employeeList = new LinkedList<>();
-        this.employeeRepository.findAll().forEach(employee -> employeeList.add(employee));
-        return employeeList;
+        return this.employeeService.getAllEmployee();
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/employee/{id}")
     public Employee getEmployee(@PathVariable("id") Long id) {
-       // return employeeRepository.getEmployee(id);
-        return this.employeeSpRepository.execStoredProdDirectly(id).get(0);
+        return this.employeeService.getEmployee(id);
     }
 
+    @GetMapping("/employee/pro/{id}")
+    public Employee getEmployeeByProcedure(Long id) {
+        return this.employeeService.getEmployeeByProcedure(id);
+    }
 
-    @GetMapping("/employee/data/{id}")
+    @GetMapping("/employee/pro/str/{id}")
     public String getEmployeeData(@PathVariable("id") Long id) {
-        return this.employeeRepository.getEmployeeData(id);
+        return this.employeeService.getEmployeeStringByProcedure(id);
     }
 
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/employee/{id}")
     public Employee removeEmployee(@PathVariable("id") Long id) {
-        Employee employee = this.employeeRepository.findById(id).get();
-        this.employeeRepository.deleteById(id);
-        return employee;
+        return this.employeeService.removeEmployee(id);
+    }
+
+    @DeleteMapping("/employee/pro/{id}")
+    public String removeEmployeeByProcedure(@PathVariable("id") Long id) {
+        return this.employeeService.removeEmployeeByProcedure(id);
     }
 
     @PostMapping("/employee")
     public Employee saveEmployee(@RequestBody Employee employee) {
-        return this.employeeRepository.save(employee);
+        return this.employeeService.saveEmployee(employee);
     }
 
-    @PostMapping("/employee/{id}")
+    @PostMapping("/employee/pro")
+    public String saveEmployeeByProcedure(@RequestBody Employee employee) {
+        return this.employeeService.saveEmployeeByProcedure(employee);
+    }
+
+    @PutMapping("/employee/{id}")
     public Employee updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
-        return this.employeeRepository.save(employee);
+        return this.employeeService.updateEmployee(id, employee);
+    }
+
+    @PutMapping("/employee/pro/{id}")
+    public String updateEmployeeByProcedure(@PathVariable("id") Long id, @RequestBody Employee employee) {
+        return this.employeeService.updateEmployeeByProcedure(id, employee);
     }
 
 }

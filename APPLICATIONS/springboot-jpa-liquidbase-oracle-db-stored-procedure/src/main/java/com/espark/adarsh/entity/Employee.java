@@ -1,5 +1,7 @@
 package com.espark.adarsh.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,19 +16,21 @@ import javax.persistence.*;
                 , @StoredProcedureParameter(type = void.class, mode = ParameterMode.REF_CURSOR, name = "EMP_DATA_CURSOR")
         })
 )
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee {
 
     public final static String getEmpProcedure = "GET_EMP_PROCEDURE";
 
     @Id
-    @Column(name = "empNo")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "EMP_NO")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMP_SEQ")
+    @SequenceGenerator(sequenceName = "EMPLOYEE_SEQ", allocationSize = 1, name = "EMP_SEQ")
     private Long empNo;
 
-    @Column(name = "empName")
+    @Column(name = "EMP_NAME")
     private String empName;
 
-    @Column(name = "empEmail")
+    @Column(name = "EMP_EMAIL")
     private String empEmail;
 
     public Employee() {

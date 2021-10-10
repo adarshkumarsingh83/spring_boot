@@ -78,9 +78,9 @@ SET SERVEROUTPUT ON;
 ``` 
 SET SERVEROUTPUT ON;
 DECLARE
-   DATA VARCHAR(50) ;
+   DATA VARCHAR2(500) ;
 BEGIN
-insertEmpProcedure(&EMPNO,'&EMPNAME','&EMPEMAIL' ,DATA);
+insertEmpProcedure('&EMPNAME','&EMPEMAIL' ,DATA);
 DBMS_OUTPUT.PUT_LINE(DATA);
 END;
 /
@@ -90,7 +90,7 @@ END;
 ``` 
 SET SERVEROUTPUT ON;
 DECLARE
-   DATA VARCHAR(50) ;
+   DATA VARCHAR2(500) ;
 BEGIN
 updateEmpProcedure(&EMPNO,'&EMPNAME','&EMPEMAIL' ,DATA);
 DBMS_OUTPUT.PUT_LINE(DATA);
@@ -102,7 +102,7 @@ END;
 ``` 
 SET SERVEROUTPUT ON;
 DECLARE
-   V_EMP_DEL_MSG VARCHAR(50) ;
+   V_EMP_DEL_MSG VARCHAR2(500) ;
 BEGIN
 	deleteEmpProcedure(&EMPNO,V_EMP_DEL_MSG);
 	DBMS_OUTPUT.PUT_LINE(V_EMP_DEL_MSG);
@@ -230,3 +230,45 @@ Password: 12345
 
 [HELP FROM BLOG](https://www.codesanook.com/setup-oracle-xe-database-on-docker-container-and-connect-with-dbeaver)
 
+## Api Testing 
+### To Fetch the Employee 
+* $ curl -X GET http://localhost:8080/employee/1
+``` 
+{"empNo":1,"empName":"adarsh","empEmail":"adarsh@kumar"}
+```
+
+### To Creating the Employee
+* $ curl -X POST http://localhost:8080/employee -H 'Content-Type: application/json' -d '{"empName":"adi","empEmail":"adi@kumar"}'
+``` 
+  {"empNo":5,"empName":"adi","empEmail":"adi@kumar"}
+```
+
+### To Create employee using procedure 
+* $ curl -X POST http://localhost:8080/employee/pro -H 'Content-Type: application/json' -d '{"empName":"adi","empEmail":"adi@kumar"}'
+```  
+EMPLOYEE INSERT SUCCESSFUL 1 EMPLOYEE DATA 5 adi adi@kumar
+```
+
+### To Update employee 
+* $ curl -X PUT http://localhost:8080/employee/5 -H 'Content-Type: application/json' -d '{"empNo":5,"empName":"adik","empEmail":"adi@kumar"}'
+``` 
+{"empNo":5,"empName":"adik","empEmail":"adi@kumar"}
+```
+
+### To Update employee using procedure
+* $ curl -X PUT http://localhost:8080/employee/pro/5 -H 'Content-Type: application/json' -d '{"empNo":5,"empName":"adiii","empEmail":"adi@kumar"}'
+``` 
+EMPLOYEE UPDATED SUCCESSFUL 1UPDATED EMPLOYEE DATA5 adiii adi@kumar
+```
+
+## To Delete employee 
+* curl -X DELETE http://localhost:8080/employee/5
+``` 
+{"empNo":5,"empName":"adik","empEmail":"adi@kumar"}
+```
+
+## To Delete employee using procedure
+* curl -X DELETE http://localhost:8080/employee/pro/5
+```
+EMPLOYEE DELETED SUCCESSFUL 1 EMPLOYEE DELETED 5 adiii adi@kumar
+```
