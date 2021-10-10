@@ -29,9 +29,9 @@
  SET SERVEROUTPUT ON;
  DECLARE
    V_ONE_EMP_DATA_CURSOR SYS_REFCURSOR;
-   V_EMPNO EMPLOYEE.EMPNO%TYPE;
-   V_EMPNAME EMPLOYEE.EMPNAME%TYPE;
-   V_EMPEMAIL EMPLOYEE.EMPEMAIL%TYPE;
+   V_EMPNO EMPLOYEE.EMP_NO%TYPE;
+   V_EMPNAME EMPLOYEE.EMP_NAME%TYPE;
+   V_EMPEMAIL EMPLOYEE.EMP_EMAIL%TYPE;
    V_SELECT_ERROR_MSG VARCHAR(50);
  BEGIN
      V_ONE_EMP_DATA_CURSOR :=getEmpFunction(&EMPNO,V_SELECT_ERROR_MSG);
@@ -58,9 +58,9 @@
  SET SERVEROUTPUT ON;
  DECLARE
    V_EMP_ALL_DATA_CURSOR SYS_REFCURSOR;
-   V_EMPNO EMPLOYEE.EMPNO%TYPE;
-   V_EMPNAME EMPLOYEE.EMPNAME%TYPE;
-   V_EMPEMAIL EMPLOYEE.EMPEMAIL%TYPE;
+   V_EMPNO EMPLOYEE.EMP_NO%TYPE;
+   V_EMPNAME EMPLOYEE.EMP_NAME%TYPE;
+   V_EMPEMAIL EMPLOYEE.EMP_EMAIL%TYPE;
    V_SELECT_ERROR_MSG VARCHAR(50);
  BEGIN
      V_EMP_ALL_DATA_CURSOR :=getAllEmpFunction(V_SELECT_ERROR_MSG);
@@ -82,9 +82,9 @@
 ``` 
 SET SERVEROUTPUT ON;
 DECLARE
-   DATA VARCHAR(50) ;
+   DATA VARCHAR2(500) ;
 BEGIN
-DATA :=insertEmpFunction(&EMPNO,'&EMPNAME','&EMPEMAIL');
+DATA :=insertEmpFunction('&EMPNAME','&EMPEMAIL');
 DBMS_OUTPUT.PUT_LINE(DATA);
 END;
 /
@@ -234,3 +234,72 @@ Password: 12345
 
 [HELP FROM BLOG](https://www.codesanook.com/setup-oracle-xe-database-on-docker-container-and-connect-with-dbeaver)
 
+---
+
+
+## Api Testing
+### To Fetch the Employee
+* $ curl -X GET http://localhost:8080/employee/1
+``` 
+{"empNo":1,"empName":"adarsh","empEmail":"adarsh@kumar"}
+```
+
+### To Creating the Employee
+* $ curl -X POST http://localhost:8080/employee -H 'Content-Type: application/json' -d '{"empName":"adi","empEmail":"adi@kumar"}'
+``` 
+  {"empNo":5,"empName":"adi","empEmail":"adi@kumar"}
+```
+
+### To Create employee using procedure
+* $ curl -X POST http://localhost:8080/employee/fun -H 'Content-Type: application/json' -d '{"empName":"adi","empEmail":"adi@kumar"}'
+```  
+EMPLOYEE INSERT SUCCESSFUL 1 EMPLOYEE DATA 5 adi adi@kumar
+```
+
+### To Update employee
+* $ curl -X PUT http://localhost:8080/employee/5 -H 'Content-Type: application/json' -d '{"empNo":5,"empName":"adik","empEmail":"adi@kumar"}'
+``` 
+{"empNo":5,"empName":"adik","empEmail":"adi@kumar"}
+```
+
+### To Update employee using procedure
+* $ curl -X PUT http://localhost:8080/employee/fun/5 -H 'Content-Type: application/json' -d '{"empNo":5,"empName":"adiii","empEmail":"adi@kumar"}'
+``` 
+EMPLOYEE UPDATED SUCCESSFUL 1UPDATED EMPLOYEE DATA5 adiii adi@kumar
+```
+
+## To Delete employee
+* curl -X DELETE http://localhost:8080/employee/5
+``` 
+{"empNo":5,"empName":"adik","empEmail":"adi@kumar"}
+```
+
+## To Delete employee using procedure
+* curl -X DELETE http://localhost:8080/employee/fun/5
+```
+EMPLOYEE DELETED SUCCESSFUL 1 EMPLOYEE DELETED 5 adiii adi@kumar
+```
+
+## To fetch employee
+* $ curl -X GET http://localhost:8080/employee/1
+```   
+  {"empNo":1,"empName":"adarsh","empEmail":"adarsh@kumar"}
+```
+
+## To Fetch employee using procedure
+* curl -X GET http://localhost:8080/employee/fun/1
+``` 
+{"empNo":1,"empName":"adarsh","empEmail":"adarsh@kumar"}
+```
+
+## To fetch employees
+* $ curl -X GET http://localhost:8080/employees
+``` 
+[{"empNo":1,"empName":"adarsh","empEmail":"adarsh@kumar"},{"empNo":2,"empName":"radha","empEmail":"radha@singh"},{"empNo":3,"empName":"sonu","empEmail":"sonu@singh"},{"empNo":4,"empName":"amit","empEmail":"amit@kumar"}]
+```
+
+## To Fetch employees using procedure
+* $ curl -X GET http://localhost:8080/employees/fun
+``` 
+[{"empNo":1,"empName":"adarsh","empEmail":"adarsh@kumar"},{"empNo":2,"empName":"radha","empEmail":"radha@singh"},{"empNo":3,"empName":"sonu","empEmail":"sonu@singh"},{"empNo":4,"empName":"amit","empEmail":"amit@kumar"}]
+```

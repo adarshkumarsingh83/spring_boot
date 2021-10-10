@@ -1,4 +1,4 @@
-INSERT INTO SYSTEM.Employee (EmpNo, EmpName, EmpEmail) VALUES (100,'adarsh', 'adarsh@kumar');
-INSERT INTO SYSTEM.Employee (EmpNo, EmpName, EmpEmail) VALUES (200,'radha', 'radha@singh');
-INSERT INTO SYSTEM.Employee (EmpNo, EmpName, EmpEmail) VALUES(300,'sonu', 'sonu@singh');
-INSERT INTO SYSTEM.Employee (EmpNo, EmpName, EmpEmail) VALUES(400,'amit', 'amit@kumar');
+INSERT INTO SYSTEM.Employee (EMP_NO, EMP_NAME, EMP_EMAIL) VALUES (SYSTEM.EMPLOYEE_SEQ.nextval,'adarsh', 'adarsh@kumar');
+INSERT INTO SYSTEM.Employee (EMP_NO, EMP_NAME, EMP_EMAIL) VALUES (SYSTEM.EMPLOYEE_SEQ.nextval,'radha', 'radha@singh');
+INSERT INTO SYSTEM.Employee (EMP_NO, EMP_NAME, EMP_EMAIL) VALUES(SYSTEM.EMPLOYEE_SEQ.nextval,'sonu', 'sonu@singh');
+INSERT INTO SYSTEM.Employee (EMP_NO, EMP_NAME, EMP_EMAIL) VALUES(SYSTEM.EMPLOYEE_SEQ.nextval,'amit', 'amit@kumar');

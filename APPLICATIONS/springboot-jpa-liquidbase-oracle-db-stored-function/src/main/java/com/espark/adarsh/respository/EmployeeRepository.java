@@ -10,9 +10,22 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
-    @Procedure(procedureName = "GET_EMPLOYEE_INFO", outputParameterName = "V_EMP_MSG")
+    @Procedure(procedureName = "GET_EMPLOYEE_INFO_FUNCTION", outputParameterName = "V_EMP_MSG")
     String getEmployeeData(@Param("V_EMP_NO") Long empNo);
 
-    @Procedure(name = Employee.getEmpProcedure, outputParameterName = "V_SELECT_ERROR_MSG")
-    Employee getEmployee(@Param("V_EMP_NO") Long empNo);
+
+    @Procedure(procedureName = "insertEmpFunction")
+    String saveEmployeeByFunction(
+            @Param("V_EMPNAME") String empName
+            , @Param("V_EMPEMAIL") String empEmail
+    );
+
+    @Procedure(procedureName = "updateEmpFunction")
+    String updateEmployeeByFunction(@Param("V_EMPNO") Long empNo
+            , @Param("V_EMPNAME") String empName
+            , @Param("V_EMPEMAIL") String empEmail
+    );
+
+    @Procedure(procedureName = "deleteEmpFunction")
+    String deleteEmployeeByFunction(@Param("V_EMP_NO") Long empNo);
 }
