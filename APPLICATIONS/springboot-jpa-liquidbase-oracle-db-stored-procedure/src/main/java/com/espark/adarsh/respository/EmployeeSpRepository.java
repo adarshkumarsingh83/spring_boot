@@ -16,11 +16,11 @@ public class EmployeeSpRepository {
 
     private final EntityManager entityManager;
 
-    public List<Employee> execStoredProdDirectly(Long empNo) {
+    public List<Object> getEmployeeByProcedure(Long empNo) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("getEmpProcedure", Employee.class);
         storedProcedureQuery.registerStoredProcedureParameter("V_EMP_NO", Long.class, ParameterMode.IN);
-        storedProcedureQuery.registerStoredProcedureParameter("V_SELECT_ERROR_MSG", String.class, ParameterMode.OUT);
         storedProcedureQuery.registerStoredProcedureParameter("EMP_DATA_CURSOR", List.class, ParameterMode.REF_CURSOR);
+        storedProcedureQuery.registerStoredProcedureParameter("V_SELECT_ERROR_MSG", String.class, ParameterMode.OUT);
         storedProcedureQuery.setParameter("V_EMP_NO", empNo);
         storedProcedureQuery.execute();
         return storedProcedureQuery.getResultList();

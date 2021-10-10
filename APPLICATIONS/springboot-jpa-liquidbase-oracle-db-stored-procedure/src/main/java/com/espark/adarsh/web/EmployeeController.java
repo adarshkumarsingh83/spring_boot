@@ -24,7 +24,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/pro/{id}")
-    public Employee getEmployeeByProcedure(Long id) {
+    public Employee getEmployeeByProcedure(@PathVariable("id")Long id) {
         return this.employeeService.getEmployeeByProcedure(id);
     }
 

@@ -6,6 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 
 @Repository
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
@@ -13,8 +15,8 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
     @Procedure(procedureName = "GET_EMPLOYEE_INFO", outputParameterName = "V_EMP_MSG")
     String getEmployeeStringByProcedure(@Param("V_EMP_NO") Long empNo);
 
-    @Procedure(name = Employee.getEmpProcedure, outputParameterName = "V_SELECT_ERROR_MSG")
-    Employee getEmployeeByProcedure(@Param("V_EMP_NO") Long empNo);
+    @Procedure(name = "Employee.getEmpProcedure")
+    Map<String, Object> getEmployeeByProcedure(@Param("V_EMP_NO") Long empNo);
 
     @Procedure(procedureName = "insertEmpProcedure", outputParameterName = "V_EMP_INSERT_MSG")
     String saveEmployeeByProcedure(

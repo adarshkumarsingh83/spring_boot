@@ -3,6 +3,7 @@ package com.espark.adarsh.service;
 import com.espark.adarsh.entity.Employee;
 import com.espark.adarsh.respository.EmployeeRepository;
 import com.espark.adarsh.respository.EmployeeSpRepository;
+import liquibase.pro.packaged.E;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +25,16 @@ public class EmployeeService {
         return employeeList;
     }
 
+
     public Employee getEmployee(Long id) {
         return employeeRepository.findById(id).get();
     }
 
     public Employee getEmployeeByProcedure(Long id) {
-        return this.employeeRepository.getEmployeeByProcedure(id);
+
+        //this.employeeSpRepository.getEmployeeByProcedure(id).get(0);
+         this.employeeRepository.getEmployeeByProcedure(id);
+         return null;
     }
 
     public String getEmployeeStringByProcedure(Long id) {

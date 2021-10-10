@@ -9,11 +9,11 @@ import javax.persistence.*;
 @NamedStoredProcedureQueries(
         @NamedStoredProcedureQuery(
                 name = Employee.getEmpProcedure
-                , procedureName = "getEmpProcedure"
-                , resultClasses = Employee.class
+                , procedureName = "SYSTEM.getEmpProcedure"
                 , parameters = {
-                   @StoredProcedureParameter(type = Long.class, mode = ParameterMode.IN, name = "V_EMP_NO")
+                  @StoredProcedureParameter(type = Long.class, mode = ParameterMode.IN, name = "V_EMP_NO")
                 , @StoredProcedureParameter(type = void.class, mode = ParameterMode.REF_CURSOR, name = "EMP_DATA_CURSOR")
+                , @StoredProcedureParameter(type = String.class, mode = ParameterMode.OUT, name = "V_SELECT_ERROR_MSG")
         })
 )
 @JsonIgnoreProperties(ignoreUnknown = true)
