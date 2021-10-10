@@ -6,20 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "employee")
-@NamedStoredProcedureQueries(
-        @NamedStoredProcedureQuery(
-                name = Employee.getEmpProcedure
-                , procedureName = "SYSTEM.getEmpProcedure"
-                , parameters = {
-                  @StoredProcedureParameter(type = Long.class, mode = ParameterMode.IN, name = "V_EMP_NO")
-                , @StoredProcedureParameter(type = void.class, mode = ParameterMode.REF_CURSOR, name = "EMP_DATA_CURSOR")
-                , @StoredProcedureParameter(type = String.class, mode = ParameterMode.OUT, name = "V_SELECT_ERROR_MSG")
-        })
-)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee {
-
-    public final static String getEmpProcedure = "GET_EMP_PROCEDURE";
 
     @Id
     @Column(name = "EMP_NO")
