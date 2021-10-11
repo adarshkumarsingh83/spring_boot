@@ -24,7 +24,7 @@
 * DROP TABLE SYSTEM.DATABASECHANGELOGLOCK;
 
 
-## To Test the getEmpProcedure 
+## To Test the getEmpFunction
 ``` 
  SET SERVEROUTPUT ON;
  DECLARE
@@ -53,7 +53,7 @@
  /
 ```
 
-### TO TEST getAllEmpProcedure 
+### TO TEST getAllEmpFunction 
 ````
  SET SERVEROUTPUT ON;
  DECLARE
@@ -78,7 +78,7 @@
  /
 ````
 
-### TO TEST insertEmpProcedure
+### TO TEST insertEmpFunction
 ``` 
 SET SERVEROUTPUT ON;
 DECLARE
@@ -90,11 +90,11 @@ END;
 /
 ```
 
-### TO TEST THE updateEmpProcedure
+### TO TEST THE updateEmpFunction
 ``` 
 SET SERVEROUTPUT ON;
 DECLARE
-   DATA VARCHAR(50) ;
+   DATA VARCHAR(500) ;
 BEGIN
 DATA :=updateEmpFunction(&EMPNO,'&EMPNAME','&EMPEMAIL');
 DBMS_OUTPUT.PUT_LINE(DATA);
@@ -102,11 +102,11 @@ END;
 /
 ```
 
-### TO TEST THE deleteEmpProcedure
+### TO TEST THE deleteEmpFunction
 ``` 
 SET SERVEROUTPUT ON;
 DECLARE
-   DATA VARCHAR(50) ;
+   DATA VARCHAR(500) ;
 BEGIN
 DATA := deleteEmpFunction(&EMPNO);
 DBMS_OUTPUT.PUT_LINE(DATA);

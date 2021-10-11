@@ -20,6 +20,7 @@ public class EmployeeSpRepository {
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("getEmpFunction", Employee.class);
         storedProcedureQuery.registerStoredProcedureParameter("V_EMP_NO", Long.class, ParameterMode.IN);
         storedProcedureQuery.registerStoredProcedureParameter("V_SELECT_ERROR_MSG", String.class, ParameterMode.OUT);
+        storedProcedureQuery.registerStoredProcedureParameter("V_EMP_DATA_CURSOR", List.class, ParameterMode.REF_CURSOR);
         storedProcedureQuery.setParameter("V_EMP_NO", empNo);
         storedProcedureQuery.execute();
         return storedProcedureQuery.getResultList();
