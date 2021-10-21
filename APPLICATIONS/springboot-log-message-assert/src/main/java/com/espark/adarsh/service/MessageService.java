@@ -11,4 +11,8 @@ public class MessageService {
         log.info(template + name);
         return template + name;
     }
+
+    public static String getName(){
+        return "adarsh";
+    }
 }
