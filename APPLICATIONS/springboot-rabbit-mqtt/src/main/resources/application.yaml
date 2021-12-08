@@ -1,0 +1,27 @@
+##
+## @author Adarsh
+## @author $LastChangedBy: adarsh $
+## @version $Revision: 0001 $, $Date:: 15/6/20 10:12 AM#$
+##
+
+spring:
+  profiles: default
+
+server:
+  servlet:
+    context-path: /espark    #context path for the rest services
+  port: 8080
+
+# Custom property mqtt configuration
+mqtt-properties:
+  host: tcp://localhost:1883                                       # mqtt host with port
+  clientId: espark-adarsh-                                         # client id for mqtt
+  username: adarsh                                                 # username for the mqtt
+  password: password                                               # user password for the mqtt
+  topicSub: /espark/adarsh/#                                       # top level topic name with regex
+  topicPublish: /espark/adarsh/data                                # top level topic name with regex
+  errorTopic: /amt/errors                                          # jrmi error message topic name
+  cleanSession: true
+  connectionTimeout: 300
+  keepAliveInterval: 60
+  automaticReconnect: true
