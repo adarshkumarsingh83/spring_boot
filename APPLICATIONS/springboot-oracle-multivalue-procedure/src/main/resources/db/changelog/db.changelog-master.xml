@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+   <!--SQL DIR INSIDE DB/CHANGELOG/CHANGES IN THE RESOURCES DIR -->
+ <changeSet id="1" author="adarsh">
+        <sqlFile path="db/changelog/changes/sql/create_schema.sql"
+                 dbms="h2, oracle"
+                 encoding="utf8"
+                 splitStatements="true"
+                 stripComments="true" />
+    </changeSet>
+
+    <changeSet id="2" author="radha">
+        <sqlFile path="db/changelog/changes/sql/insert_data.sql"
+                 dbms="h2, oracle"
+                 encoding="utf8"
+                 splitStatements="true"
+                 stripComments="true" />
+    </changeSet>
+
+    <changeSet id="3" author="radha" >
+        <sqlFile path="db/changelog/changes/sql/select_data.sql"
+                 dbms="h2, oracle"
+                 encoding="utf8"
+                 stripComments="true"
+                 endDelimiter="//"/>
+    </changeSet>
+
+    <!--SQL DIR INSIDE DB/CHANGELOG/CHANGES  IN THE RESOURCES DIR -->
+    <!--<include id="1" author="adarsh" file="changes/create_schema.xml" relativeToChangelogFile="true"/>
+    <include id="2" author="radha" file="changes/insert_data.xml" relativeToChangelogFile="true"/>
+    <include id="3" author="radha" file="changes/select_data.xml" relativeToChangelogFile="true"/>-->
+
+
+</databaseChangeLog>
