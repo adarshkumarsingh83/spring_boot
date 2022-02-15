@@ -15,7 +15,7 @@ public class ApplicationWebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        registry.addResourceHandler("/**")
+        registry.addResourceHandler("/", "/*.html", "/*.js", "/*.css", "/*.png", "/*.ico", "*.svg", "*.json")
                 .addResourceLocations("classpath:/static/")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {

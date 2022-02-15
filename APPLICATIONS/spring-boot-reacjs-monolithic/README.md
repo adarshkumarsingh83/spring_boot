@@ -233,3 +233,7 @@ test('renders learn react link', () => {
 * spring-boot-reactjs-monolithic $ mvn clean package 
 * spring-boot-reactjs-monolithic $  java -jar ./springboot-services/target/springboot-services-0.0.1-SNAPSHOT.jar
 * to access ui page `http://localhost:8080/`
+
+
+### To access the web api 
+* `http://localhost:8080/wish`
