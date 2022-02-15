@@ -4,12 +4,13 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-./reactjs-ui/build/
-./reactjs-ui/node/
-./reactjs-ui/node_modules/
-./reactjs-ui/package-lock.json
-./reactjs-ui/target/
-./reactjs-ui/yarn.lock
+/reactjs-ui/build/
+/reactjs-ui/node/
+/reactjs-ui/node/
+/reactjs-ui/node_modules/
+/reactjs-ui/package-lock.json
+/reactjs-ui/target/
+/reactjs-ui/yarn.lock
 
 .DS_Store
 *.DS_Store
