@@ -1,12 +1,14 @@
 package com.espark.adarsh.web;
 
 import com.espark.adarsh.entity.Employee;
+import com.espark.adarsh.exception.EmployeeNotFoundException;
 import com.espark.adarsh.respository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class EmployeeController {
@@ -21,14 +23,16 @@ public class EmployeeController {
         return employeeList;
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/employee/{id}")
     public Employee getEmployee(@PathVariable("id") Long id) {
-        return this.employeeRepository.findById(id).get();
+        return this.employeeRepository.findById(id)
+                .orElseThrow(()-> new EmployeeNotFoundException("employee not found"));
     }
 
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/employee/{id}")
     public Employee removeEmployee(@PathVariable("id") Long id) {
-        Employee employee = this.employeeRepository.findById(id).get();
+        Employee employee = this.employeeRepository.findById(id)
+                .orElseThrow(()-> new EmployeeNotFoundException("employee not found"));
         this.employeeRepository.deleteById(id);
         return employee;
     }
@@ -38,7 +42,7 @@ public class EmployeeController {
         return this.employeeRepository.save(employee);
     }
 
-    @PostMapping("/employee/{id}")
+    @PutMapping("/employee/{id}")
     public Employee updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
         return this.employeeRepository.save(employee);
     }
