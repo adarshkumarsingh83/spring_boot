@@ -1,4 +1,4 @@
-# springboot - welflow mqtt hivemq 
+# springboot - welflux mqtt hivemq 
 
 ----
 
@@ -13,10 +13,10 @@
 	* Password: hivemq
 
 # Producer Application 
-## [Hive Producer Application](./springboot-weblfow-mqtt-producer)
+## [Hive Producer Application](./springboot-welflux-mqtt-producer)
 
 # Consumer Application 
-## [Hive Consumer Application](./springboot-weblfow-mqtt-consumer)
+## [Hive Consumer Application](./springboot-welflux-mqtt-consumer)
 
 
 ## Rest End point to publish response 

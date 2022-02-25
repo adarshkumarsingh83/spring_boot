@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.espark.adarsh</groupId>
-	<artifactId>springboot-weblfow-mqtt-producer</artifactId>
+	<artifactId>springboot-welflux-mqtt-producer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-weblfow-mqtt-producer</name>
+	<name>springboot-welflux-mqtt-producer</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
