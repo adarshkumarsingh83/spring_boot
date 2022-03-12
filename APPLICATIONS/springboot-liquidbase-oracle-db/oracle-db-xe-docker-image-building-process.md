@@ -12,11 +12,11 @@
 12.1.0.2		18.3.0			19.3.0			buildContainerImage.sh
 ```
 
-## url to download the verion of oracle zip 
+## url to download the version of oracle zip 
 * https://www.oracle.com/database/technologies/xe18c-downloads.html
-* copy into the same directtoy of the version in ls cmd 
+* copy into the same directory of the version in ls cmd 
 
-## Build the docker iamge 
+## Build the docker image 
 * $  sh buildContainerImage.sh -v 18.4.0 -x
 
 ``` 
@@ -27,7 +27,7 @@ Oracle Database container image for 'xe' version 18.4.0 is ready to be extended:
   Build completed in 510 seconds.
 ```
 
-## db client opernsource 
+## db client opensource 
 * https://dbeaver.io/download/
 
 ##  launch the db 
