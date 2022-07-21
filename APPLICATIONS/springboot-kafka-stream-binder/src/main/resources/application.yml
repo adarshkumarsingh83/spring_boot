@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    function:
+      definition: kafkaApplicationMessageConsumer;kafkaApplicationMessageProducer
+    stream:
+      kafka:
+        bindings:
+          kafkaApplicationMessageProducer-out-0:
+            kafkaApplicationMessageProducer:
+              applicationId: KafkaApplicationMessageProducer
+              configuration:
+                value.serializer: com.espark.adarsh.coverters.MessageSerializer
+          kafkaApplicationMessageConsumer-in-0:
+            kafkaApplicationMessageConsumer:
+              applicationId: KafkaApplicationMessageConsumer
+              configuration:
+                value.deserializer: com.espark.adarsh.coverters.MessageDeSerializer
+        binder:
+          brokers: localhost:9092
+
+      bindings:
+        kafkaApplicationMessageProducer-out-0:
+          destination: espark-topic
+          kafkaApplicationMessageProducer:
+            useNativeEncoding: true # Enables using the custom serializer
+        kafkaApplicationMessageConsumer-in-0:
+          destination: espark-topic
+          kafkaApplicationMessageConsumer:
+            use-native-decoding: true # Enables using the custom deserializer
