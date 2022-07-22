@@ -1,0 +1,47 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          auto-create-topics: true
+          auto-alter-topics: false
+          brokers:
+            - localhost:9092
+      bindings:
+        espark-in-channel:
+          group: espark-group
+          destination: espark-topic
+          content-type: application/json
+          consumer:
+            maxAttempts: 5
+            backOffInitialInterval: 100
+            defaultRetryable: false
+            retryableExceptions:
+              com.espark.adarsh.exception.RetryableException: true
+            configuration:
+              value.deserializer: com.espark.adarsh.coverters.MessageDeSerializer
+              value.serializer: com.espark.adarsh.coverters.MessageSerializer
+            concurrency: 10
+            autoStartup: true
+        espark-out-channel:
+          group: espark-group
+          destination: espark-topic
+          content-type: application/json
+          producer:
+            configuration:
+              value.deserializer: com.espark.adarsh.coverters.MessageDeSerializer
+              value.serializer: com.espark.adarsh.coverters.MessageSerializer
+            autoStartup: true
+        espark-error-channel:
+          group: espark-group
+          destination: espark-error-topic
+          contentType: application/json
+          consumer:
+            maxAttempts: 5
+            backOffInitialInterval: 100
+            defaultRetryable: false
+            retryableExceptions:
+              com.espark.adarsh.exception.RetryableException: true
+            concurrency: 10
+            autoStartup: true
+

@@ -21,6 +21,6 @@ public class KafkaMessageProducer {
 
     @Scheduled(cron = "*/2 * * * * *")
     public void sendMessage() {
-        streamBridge.send(ApplicationConfig.OUT, new Message("PUBLISHER:-> Welcome to the espark " + timeUtil.getTime()));
+        streamBridge.send(ApplicationConfig.OUT_CHANNEL, new Message("PUBLISHER:-> Welcome to the espark " + timeUtil.getTime()));
     }
 }

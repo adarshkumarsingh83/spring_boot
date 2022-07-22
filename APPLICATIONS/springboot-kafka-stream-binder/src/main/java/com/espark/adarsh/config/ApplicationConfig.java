@@ -11,8 +11,8 @@ import java.util.function.Supplier;
 @Configuration
 public class ApplicationConfig {
 
-    public final static String OUT = "kafkaApplicationMessageProducer-out-0";
-    public final static String IN = "kafkaApplicationMessageConsumer-out-0";
+    public final static String OUT_CHANNEL = "kafkaApplicationMessageProducer-out-0";
+    public final static String IN_CHANNEL = "kafkaApplicationMessageConsumer-out-0";
 
 
     @Bean
