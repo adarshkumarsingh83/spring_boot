@@ -16,6 +16,7 @@ spring:
             maxAttempts: 5
             backOffInitialInterval: 100
             defaultRetryable: false
+            useNativeEncoding: true
             retryableExceptions:
               com.espark.adarsh.exception.RetryableException: true
             configuration:
@@ -29,6 +30,7 @@ spring:
           content-type: application/json
           producer:
             configuration:
+              useNativeEncoding: true
               value.deserializer: com.espark.adarsh.coverters.MessageDeSerializer
               value.serializer: com.espark.adarsh.coverters.MessageSerializer
             autoStartup: true
@@ -37,6 +39,7 @@ spring:
           destination: espark-error-topic
           contentType: application/json
           consumer:
+            useNativeEncoding: true
             maxAttempts: 5
             backOffInitialInterval: 100
             defaultRetryable: false
