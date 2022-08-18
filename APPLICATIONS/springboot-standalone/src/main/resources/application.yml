@@ -1,0 +1,12 @@
+
+app:
+  config:
+    message:
+      wish: welcome to espark
+      login: welcome to the system
+      logut: happy to serve you
+
+
+spring:
+  application:
+    name: spring-boot-standalone
