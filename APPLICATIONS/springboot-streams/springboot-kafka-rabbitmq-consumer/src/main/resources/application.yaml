@@ -1,0 +1,58 @@
+
+spring:
+  application:
+    name: @spring.application.name@
+  profiles:
+    active: @spring.profile.active@
+
+server:
+  port: 9090
+
+---
+spring:
+  application:
+    name: @spring.application.name@
+  profiles: rabbit
+  cloud:
+    stream:
+      bindings:
+        message-in:
+          contentType: application/json
+          destination: ${RABBITMQ_DESTINATION}
+          group: ${RABBITMQ_GROUP}
+          consumer:
+            durableSubscription: true
+            concurrency: 20
+      binder:
+        docker-rabbit:
+          type: rabbit
+          environment:
+            spring:
+              espark-rabbitmq:
+                host: ${RABBITMQ_HOST}
+                port: ${RABBITMQ_PORT}
+                username: ${RABBITMQ_USER}
+                password: ${RABBITMQ_PASSWORD}
+---
+
+spring:
+  application:
+    name: @spring.application.name@
+  profiles: kafka
+  cloud:
+    stream:
+      bindings:
+        message-in:
+          contentType: application/json
+          destination: ${KAFKA_DESTINATION}
+          group: ${KAFKA_GROUP}
+          consumer:
+            durableSubscription: true
+            concurrency: 20
+      kafka:
+        binder:
+          brokers:  ${KAFKA_BORKER}
+          zkNodes:  ${ZOOKEEPER_NODE}
+          minPartitionCount: 1
+          replicationFactor: 1
+          autoCreateTopics: true
