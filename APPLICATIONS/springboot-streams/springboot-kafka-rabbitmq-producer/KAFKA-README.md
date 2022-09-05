@@ -10,7 +10,7 @@
 
 ### To build for kafka
 * $ mvn clean package -DskipTests -P kafka
-* 
+ 
 ### To build docker image for kafka
 * docker build --build-arg JAR_FILE_NAME=kafka-producer.jar -t adarshkumarsingh83/kafka-producer .
 
