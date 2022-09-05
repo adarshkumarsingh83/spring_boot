@@ -1,5 +1,13 @@
 # SPRING BOOT STREAM CONSUMERS FOR KAFKA
 
+---
+
+### To build for kafka
+* $ mvn clean package -DskipTests -P kafka
+
+### To run the kafka producer on local
+* mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=9090,--KAFKA_DESTINATION=,--KAFKA_GROUP=,--KAFKA_BORKER=,--ZOOKEEPER_NODE=
+
 ----
 
 ### To create a new network
