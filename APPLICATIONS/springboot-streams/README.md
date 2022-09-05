@@ -10,10 +10,10 @@
 
 ## KAFKA PRODUCER AND CONSUME 
 
-[KAFKA-PRODUCER](./springboot-kafka-rabbitmq-producer/KAFKA-README.md)
-[KAFKA-CONSUMNER](./springboot-kafka-rabbitmq-consumer/KAFKA-README.md)
+* [KAFKA-PRODUCER](./springboot-kafka-rabbitmq-producer/KAFKA-README.md)
+* [KAFKA-CONSUMNER](./springboot-kafka-rabbitmq-consumer/KAFKA-README.md)
 
 
 ## RABBIT MQ PRODUCER AND CONSUME 
-[RABBIT-PRODUCER](./springboot-kafka-rabbitmq-producer/RABBIT-README.md)
-[RABBIT-CONSUMNER](./springboot-kafka-rabbitmq-consumer/RABBIT-README.md)
+* [RABBIT-PRODUCER](./springboot-kafka-rabbitmq-producer/RABBIT-README.md)
+* [RABBIT-CONSUMNER](./springboot-kafka-rabbitmq-consumer/RABBIT-README.md)
