@@ -23,7 +23,7 @@
  -e KAFKA_GROUP=    \
  -e KAFKA_BORKER=   \
  -e ZOOKEEPER_NODE=   \
- adarshkumarsingh83/kafka-producer \
+ adarshkumarsingh83/kafka-producer 
 
 ### To push docker image
 * docker push adarshkumarsingh83/kafka-producer
