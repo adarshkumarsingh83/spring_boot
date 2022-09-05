@@ -2,6 +2,13 @@
 
 ---
 
+### To build for Rabbitmq
+* $ mvn clean package -DskipTests -P rabbit
+
+### To run the Rabbit producer on local 
+* mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8080,--RABBITMQ_DESTINATION=,--RABBITMQ_GROUP=,--RABBITMQ_HOST=,--RABBITMQ_PORT=,--RABBITMQ_USER=,--RABBITMQ_PASSWORD=
+
+
 ### To create a new network
 * $ docker network create espark-net
 
