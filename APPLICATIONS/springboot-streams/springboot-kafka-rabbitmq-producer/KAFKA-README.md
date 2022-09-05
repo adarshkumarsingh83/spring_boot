@@ -19,10 +19,10 @@
  --name=kafka-producer  \
  --net espark-net  \
  -e JAVA_OPTS=-Dserver.port=8080 \
- -e KAFKA_DESTINATION=   \ 
- -e KAFKA_GROUP=   \ 
- -e KAFKA_BORKER=   \ 
- -e ZOOKEEPER_NODE=   \ 
+ -e KAFKA_DESTINATION= \\ 
+ -e KAFKA_GROUP=   \\ 
+ -e KAFKA_BORKER=   \\ 
+ -e ZOOKEEPER_NODE=   \\ 
  adarshkumarsingh83/kafka-producer
 
 ### To push docker image
