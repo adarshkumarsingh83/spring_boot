@@ -27,9 +27,9 @@
  --name=kafka-producer  \
  --net espark-net  \
  -e JAVA_OPTS=-Dserver.port=8080 \
- -e KAFKA_DESTINATION= \
- -e KAFKA_GROUP=    \
- -e KAFKA_BORKER=   \
+ -e KAFKA_DESTINATION=espark-topic\
+ -e KAFKA_GROUP=espark-group    \
+ -e KAFKA_BORKER=localhost:9092   \
  -e ZOOKEEPER_NODE=   \
  adarshkumarsingh83/kafka-producer 
 
