@@ -36,6 +36,15 @@ bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic espark-topic
 * [KAFKA-CONSUMNER](./springboot-kafka-rabbitmq-consumer/KAFKA-README.md)
 
 
+
+
+---
+
+### To run rabbit 
+* docker run --name espark-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+
+
+
 ## RABBIT MQ PRODUCER AND CONSUME 
 * [RABBIT-PRODUCER](./springboot-kafka-rabbitmq-producer/RABBIT-README.md)
 * [RABBIT-CONSUMNER](./springboot-kafka-rabbitmq-consumer/RABBIT-README.md)

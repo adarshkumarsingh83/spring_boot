@@ -6,7 +6,7 @@
 * $ mvn clean package -DskipTests -P kafka
 
 ### To run the kafka producer on local
-* mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=9090,--KAFKA_DESTINATION=,--KAFKA_GROUP=,--KAFKA_BORKER=,--ZOOKEEPER_NODE=
+* mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=9090,--KAFKA_DESTINATION=espark-topic,--KAFKA_GROUP=espark-group,--KAFKA_BORKER=localhost:9092,--ZOOKEEPER_NODE=localhost:2181
 
 ----
 
@@ -25,12 +25,12 @@
 ### To run docker
 * docker run -p 9090:9090 \
   --name=kafka-consumer  \
-  --net espark-net  \
-  -e JAVA_OPTS=-Dserver.port=9090 \
-  -e KAFKA_DESTINATION=   \
-  -e KAFKA_GROUP=   \
-  -e KAFKA_BORKER=   \
-  -e ZOOKEEPER_NODE=   \
+ --net espark-net  \
+ -e JAVA_OPTS=-Dserver.port=9090 \
+ -e KAFKA_DESTINATION=espark-topic\
+ -e KAFKA_GROUP=espark-group    \
+ -e KAFKA_BORKER=localhost:9092   \
+ -e ZOOKEEPER_NODE=localhost:2181   \
   adarshkumarsingh83/kafka-consumer
 
 ### To push docker image

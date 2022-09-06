@@ -6,7 +6,7 @@
 * $ mvn clean package -DskipTests -P rabbit
 
 ### To run the Rabbit producer on local 
-* mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8080,--RABBITMQ_DESTINATION=,--RABBITMQ_GROUP=,--RABBITMQ_HOST=,--RABBITMQ_PORT=,--RABBITMQ_USER=,--RABBITMQ_PASSWORD=
+* mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8080,--RABBITMQ_DESTINATION=espark_topic,--RABBITMQ_GROUP=espark_group,--RABBITMQ_HOST=localhost,--RABBITMQ_PORT=5672,--RABBITMQ_USER=guest,--RABBITMQ_PASSWORD=guest
 
 
 ### To create a new network
@@ -24,12 +24,12 @@
 * docker run -p 8080:8080 \
   --name=kafka-producer  \
   --net espark-net  \
-  -e RABBITMQ_DESTINATION=   \
-  -e RABBITMQ_GROUP=   \
-  -e RABBITMQ_HOST=   \
-  -e RABBITMQ_PORT=   \
-  -e RABBITMQ_USER=   \
-  -e RABBITMQ_PASSWORD=   \
+  -e RABBITMQ_DESTINATION=espark_topic \
+  -e RABBITMQ_GROUP=espark_group   \
+  -e RABBITMQ_HOST=localhost \
+  -e RABBITMQ_PORT=5672  \
+  -e RABBITMQ_USER=guest  \
+  -e RABBITMQ_PASSWORD=guest \
   adarshkumarsingh83/rabbitmq-producer
 
 ### To push docker image 
