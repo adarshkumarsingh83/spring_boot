@@ -4,6 +4,7 @@
 
 
 ### To build for Rabbitmq
+* $ mvn clean package -P rabbit
 * $ mvn clean package -DskipTests -P rabbit
 
 ### To run the Rabbit producer on local

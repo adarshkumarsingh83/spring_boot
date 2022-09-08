@@ -3,10 +3,12 @@
 ---
 
 ### To build for kafka
+* $ mvn clean package  -P kafka
 * $ mvn clean package -DskipTests -P kafka
 
 ### To run the kafka producer on local
-* mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=9090,--KAFKA_DESTINATION=espark-topic,--KAFKA_GROUP=espark-group,--KAFKA_BORKER=localhost:9092,--ZOOKEEPER_NODE=localhost:2181
+* mvn spring-boot:run -P kafka 
+* mvn spring-boot:run -P kafka -Dspring-boot.run.arguments=--KAFKA_DESTINATION=espark-topic,--KAFKA_GROUP=espark-group,--KAFKA_BORKER=localhost:9092,--ZOOKEEPER_NODE=localhost:2181
 
 ----
 

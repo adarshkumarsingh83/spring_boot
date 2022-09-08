@@ -41,18 +41,23 @@ spring:
   profiles: kafka
   cloud:
     stream:
+      kafka:
+        binder:
+          brokers:  localhost:9092
+          zkNodes:  localhost:2181
+          minPartitionCount: 1
+          replicationFactor: 1
+          auto-create-topics: true
+          auto-alter-topics: false
       bindings:
         message-out:
           contentType: application/json
-          destination: ${KAFKA_DESTINATION}
-          group: ${KAFKA_GROUP}
-          consumer:
+          destination: espark-topic
+          group: espark-group
+          producer:
+            configuration:
+              useNativeEncoding: true
+              value.serializer: com.espark.adarsh.converters.MessageSerializer
             durableSubscription: true
             concurrency: 20
-      kafka:
-        binder:
-          brokers:  ${KAFKA_BORKER}
-          zkNodes:  ${ZOOKEEPER_NODE}
-          minPartitionCount: 1
-          replicationFactor: 1
-          autoCreateTopics: true
+            autoStartup: true
