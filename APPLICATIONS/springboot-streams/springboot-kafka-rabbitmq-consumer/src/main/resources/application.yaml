@@ -6,7 +6,7 @@ spring:
     active: @spring.profile.active@
 
 server:
-  port: 8080
+  port: 9090
 
 ---
 spring:
@@ -18,21 +18,23 @@ spring:
       bindings:
         message-in:
           contentType: application/json
-          destination: ${RABBITMQ_DESTINATION}
-          group: ${RABBITMQ_GROUP}
+          destination: espark-topic
+          group: espark-group
           consumer:
+            configuration:
+              useNativeEncoding: true
             durableSubscription: true
             concurrency: 20
       binder:
-        docker-rabbit:
+        rabbit:
           type: rabbit
           environment:
             spring:
               espark-rabbitmq:
-                host: ${RABBITMQ_HOST}
-                port: ${RABBITMQ_PORT}
-                username: ${RABBITMQ_USER}
-                password: ${RABBITMQ_PASSWORD}
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
 ---
 
 spring:
@@ -64,4 +66,4 @@ spring:
             autoStartup: true
             configuration:
               useNativeEncoding: true
-              value.deserializer: com.espark.adarsh.converters.MessageDeSerializer
+              #value.deserializer: com.espark.adarsh.converters.MessageDeSerializer

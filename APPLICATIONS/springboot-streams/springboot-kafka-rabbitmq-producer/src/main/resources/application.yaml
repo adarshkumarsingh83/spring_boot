@@ -17,21 +17,24 @@ spring:
       bindings:
         message-out:
           contentType: application/json
-          destination: ${RABBITMQ_DESTINATION}
-          group: ${RABBITMQ_GROUP}
-          consumer:
+          destination: espark-topic
+          group: espark-group
+          producer:
+            configuration:
+              useNativeEncoding: true
             durableSubscription: true
             concurrency: 20
+            autoStartup: true
       binder:
-        docker-rabbit:
+        rabbit:
           type: rabbit
           environment:
             spring:
               espark-rabbitmq:
-                host: ${RABBITMQ_HOST}
-                port: ${RABBITMQ_PORT}
-                username: ${RABBITMQ_USER}
-                password: ${RABBITMQ_PASSWORD}
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
 
 ---
 
@@ -57,7 +60,6 @@ spring:
           producer:
             configuration:
               useNativeEncoding: true
-              value.serializer: com.espark.adarsh.converters.MessageSerializer
             durableSubscription: true
             concurrency: 20
             autoStartup: true

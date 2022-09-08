@@ -3,6 +3,7 @@
 ----
 
 ### To build for kafka
+* $ mvn clean package  -P kafka
 * $ mvn clean package -DskipTests -P kafka
 
 ### To run the kafka producer on local 
