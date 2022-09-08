@@ -8,8 +8,10 @@
 
 ### To run the Rabbit producer on local 
 * mvn spring-boot:run -P rabbit
-* mvn spring-boot:run -Dspring-boot.run.arguments=--RABBITMQ_DESTINATION=espark_topic,--RABBITMQ_GROUP=espark_group,--RABBITMQ_HOST=localhost,--RABBITMQ_PORT=5672,--RABBITMQ_USER=guest,--RABBITMQ_PASSWORD=guest
 
+---
+
+# For Container
 
 ### To create a new network
 * $ docker network create espark-net
