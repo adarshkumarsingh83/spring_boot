@@ -18,7 +18,7 @@
 * $ docker network list
 
 ### To build for Rabbitmq
-* $ mvn clean package -DskipTests -P rabbit
+* $ mvn clean package -DskipTests -P rabbit-container
 ### To build docker image for rabbit
 * docker build --build-arg JAR_FILE_NAME=rabbitmq-producer.jar  -t adarshkumarsingh83/rabbitmq-producer .
 
@@ -26,6 +26,7 @@
 * docker run -p 8080:8080 \
   --name=kafka-producer  \
   --net espark-net  \
+  -e SPRING_PROFILES_ACTIVE=rabbit-container \
   -e RABBITMQ_DESTINATION=espark_topic \
   -e RABBITMQ_GROUP=espark_group   \
   -e RABBITMQ_HOST=localhost \

@@ -23,15 +23,16 @@
 
 
 ### To build for Rabbitmq
-* $ mvn clean package -DskipTests -P rabbit
+* $ mvn clean package -DskipTests -P rabbit-container
 
 ### To build docker image for rabbit
 * docker build --build-arg JAR_FILE_NAME=rabbitmq-consumer.jar  -t adarshkumarsingh83/rabbitmq-consumer .
 
 ### To run docker
-* docker run -p 8090:8090 \
+* docker run -p 9090:9090 \
   --name=kafka-consumer  \
   --net espark-net  \
+  -e SPRING_PROFILES_ACTIVE=rabbit-container \
   -e RABBITMQ_DESTINATION=espark_topic \
   -e RABBITMQ_GROUP=espark_group   \
   -e RABBITMQ_HOST=localhost \

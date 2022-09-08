@@ -19,7 +19,7 @@
 * $ docker network list
 
 ### To build for kafka
-* $ mvn clean package -DskipTests -P kafka
+* $ mvn clean package -DskipTests -P kafka-container
  
 ### To build docker image for kafka
 * docker build --build-arg JAR_FILE_NAME=kafka-producer.jar -t adarshkumarsingh83/kafka-producer .
@@ -28,6 +28,7 @@
 * docker run -p 8080:8080 \
  --name=kafka-producer  \
  --net espark-net  \
+ -e SPRING_PROFILES_ACTIVE=kafka-container \
  -e JAVA_OPTS=-Dserver.port=8080 \
  -e KAFKA_DESTINATION=espark-topic\
  -e KAFKA_GROUP=espark-group    \

@@ -37,6 +37,35 @@ spring:
                 password: guest
 
 ---
+spring:
+  application:
+    name: @spring.application.name@
+  profiles: rabbit-container
+  cloud:
+    stream:
+      bindings:
+        message-out:
+          contentType: application/json
+          destination: ${RABBITMQ_DESTINATION}
+          group: ${RABBITMQ_GROUP}
+          producer:
+            configuration:
+              useNativeEncoding: true
+            durableSubscription: true
+            concurrency: 20
+            autoStartup: true
+      binder:
+        rabbit:
+          type: rabbit
+          environment:
+            spring:
+              espark-rabbitmq:
+                host: ${RABBITMQ_HOST}
+                port: ${RABBITMQ_PORT}
+                username: ${RABBITMQ_USER}
+                password: ${RABBITMQ_PASSWORD}
+
+---
 
 spring:
   application:
@@ -57,6 +86,34 @@ spring:
           contentType: application/json
           destination: espark-topic
           group: espark-group
+          producer:
+            configuration:
+              useNativeEncoding: true
+            durableSubscription: true
+            concurrency: 20
+            autoStartup: true
+
+---
+
+spring:
+  application:
+    name: @spring.application.name@
+  profiles: kafka-container
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ${KAFKA_BORKER}
+          zkNodes: ${ZOOKEEPER_NODE}
+          minPartitionCount: 1
+          replicationFactor: 1
+          auto-create-topics: true
+          auto-alter-topics: false
+      bindings:
+        message-out:
+          contentType: application/json
+          destination: ${KAFKA_DESTINATION}
+          group: ${KAFKA_GROUP}
           producer:
             configuration:
               useNativeEncoding: true
