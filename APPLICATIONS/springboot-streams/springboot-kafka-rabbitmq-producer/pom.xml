@@ -67,7 +67,7 @@
 
     <profiles>
         <profile>
-            <id>kafka</id>
+            <id>kafka-local</id>
             <properties>
                 <spring.application.name>kafka-producer</spring.application.name>
                 <spring.profile.active>kafka-local</spring.profile.active>
@@ -171,7 +171,7 @@
         </profile>
 
         <profile>
-            <id>rabbit</id>
+            <id>rabbit-local</id>
             <properties>
                 <spring.application.name>rabbitmq-producer</spring.application.name>
                 <spring.profile.active>rabbit-local</spring.profile.active>

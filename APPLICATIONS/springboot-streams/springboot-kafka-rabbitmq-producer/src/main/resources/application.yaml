@@ -61,11 +61,11 @@ spring:
             concurrency: 20
             autoStartup: true
       binder:
-        docker-rabbit:
+        rabbit:
           type: rabbit
           environment:
             spring:
-              espark-rabbitmq:
+              rabbitmq:
                 host: ${RABBITMQ_HOST}
                 port: ${RABBITMQ_PORT}
                 username: ${RABBITMQ_USER}
