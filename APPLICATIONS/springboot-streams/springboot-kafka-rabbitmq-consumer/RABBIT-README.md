@@ -4,11 +4,11 @@
 
 
 ### To build for Rabbitmq
-* $ mvn clean package -P rabbit
-* $ mvn clean package -DskipTests -P rabbit
+* $ mvn clean package -P rabbit-local
+* $ mvn clean package -DskipTests -P rabbit-local
 
 ### To run the Rabbit producer on local
-* mvn spring-boot:run -P rabbit
+* mvn spring-boot:run -P rabbit-local
 
 ----
 
@@ -28,21 +28,21 @@
 * $ mvn clean package -DskipTests -P rabbit-container
 
 ### To build docker image for rabbit
-* docker build --build-arg JAR_FILE_NAME=rabbitmq-consumer.jar  -t adarshkumarsingh83/rabbitmq-consumer .
+* docker build -t adarshkumarsingh83/rabbitmq-consumer --build-arg JAR_FILE_NAME=target/rabbitmq-consumer.jar .
 ``` 
-[+] Building 2.0s (7/7) FINISHED                                                                                                                                                                      
+[+] Building 0.9s (7/7) FINISHED                                                                                                                                                                      
  => [internal] load build definition from Dockerfile                                                                                                                                             0.0s
- => => transferring dockerfile: 188B                                                                                                                                                             0.0s
+ => => transferring dockerfile: 268B                                                                                                                                                             0.0s
  => [internal] load .dockerignore                                                                                                                                                                0.0s
  => => transferring context: 2B                                                                                                                                                                  0.0s
- => [internal] load metadata for docker.io/library/openjdk:8                                                                                                                                     0.6s
- => [internal] load build context                                                                                                                                                                1.1s
- => => transferring context: 27.34MB                                                                                                                                                             1.1s
- => CACHED [1/2] FROM docker.io/library/openjdk:8@sha256:86e863cc57215cfb181bd319736d0baf625fe8f150577f9eb58bd937f5452cb8                                                                        0.0s
- => [2/2] ADD target/ springboot-streams.jar                                                                                                                                                     0.1s
+ => [internal] load metadata for docker.io/library/openjdk:8-jdk-alpine                                                                                                                          0.4s
+ => [internal] load build context                                                                                                                                                                0.2s
+ => => transferring context: 27.32MB                                                                                                                                                             0.2s
+ => CACHED [1/2] FROM docker.io/library/openjdk:8-jdk-alpine@sha256:94792824df2df33402f201713f932b58cb9de94a0cd524164a0f2283343547b3                                                             0.0s
+ => [2/2] COPY target/rabbitmq-consumer.jar springboot-streams-consumer.jar                                                                                                                      0.1s
  => exporting to image                                                                                                                                                                           0.1s
  => => exporting layers                                                                                                                                                                          0.1s
- => => writing image sha256:aa744120997064054b6b0ee8a3132fe1422a15e6b4dcfa1db1c0d1d7f3a7aafd                                                                                                     0.0s
+ => => writing image sha256:72180d03d4f264b7b6b665e1135005ecfbe99e7567ef46982e1f4b44e7fc8e14                                                                                                     0.0s
  => => naming to docker.io/adarshkumarsingh83/rabbitmq-consumer   
 ```
 ### To run docker
@@ -73,3 +73,6 @@ b626401ef603: Mounted from adarshkumarsingh83/kafka-consumer
 9c742cd6c7a5: Mounted from adarshkumarsingh83/kafka-consumer 
 latest: digest: sha256:48394efe790b15f52b6356b491037425df54d2209a31a36dcea0134359842be5 size: 2007
 ```
+
+## To remove image
+* $ docker rmi $(docker images | grep 'adarshkumarsingh83/rabbit-consumer')

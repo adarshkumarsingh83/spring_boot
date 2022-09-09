@@ -36,17 +36,16 @@ services:
       - 9090:9090
     links:
       - kafka
-      - espark-mysql
+      - zookeeper
     depends_on:
       - kafka
+      - zookeeper
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - DATABASE_HOST=espark-mysql
-      - DATABASE_PORT=3306
-      - DATABASE_NAME=espark
-      - DATABASE_USER=espark-root
-      - DATABASE_PASSWORD=espark-root
-      - KAFKA-URL=kafka:9092
+      - SPRING_PROFILES_ACTIVE=kafka-container
+      - KAFKA_DESTINATION=espark-topic
+      - KAFKA_GROUP=espark-group
+      - KAFKA_BORKER=kafka:9092
+      - ZOOKEEPER_NODE=zookeeper:2181
     networks:
       - spring-ms
 

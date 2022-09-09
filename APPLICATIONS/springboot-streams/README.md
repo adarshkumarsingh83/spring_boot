@@ -48,3 +48,15 @@ bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic espark-topic
 ## RABBIT MQ PRODUCER AND CONSUME 
 * [RABBIT-PRODUCER](./springboot-kafka-rabbitmq-producer/RABBIT-README.md)
 * [RABBIT-CONSUMNER](./springboot-kafka-rabbitmq-consumer/RABBIT-README.md)
+
+
+
+### To Exeucte kafka docker compose
+* docker compose -f docker-compose-kafka.yml up
+* docker compose -f docker-compose-kafka.yml down
+
+
+
+### To Exeucte rabbit docker compose
+* docker compose -f docker-compose-rabbit.yml up 
+* docker compose -f docker-compose-rabbit.yml down 

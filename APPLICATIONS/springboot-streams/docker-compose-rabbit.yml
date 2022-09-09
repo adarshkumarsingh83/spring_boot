@@ -21,13 +21,13 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      - SPRING_PROFILES_ACTIVE=rabbit-container
+      - SPRING_PROFILES_ACTIVE="rabbit-container"
       - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
       - RABBITMQ_GROUP=espark-group
       - RABBITMQ_DESTINATION=espark
       - RABBITMQ_USER=guest
       - RABBITMQ_PASSWORD=guest
-      - RABBITMQ_PORT=5672
     networks:
       - spring-ms
 
@@ -43,13 +43,13 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      - SPRING_PROFILES_ACTIVE=rabbit-container
+      - SPRING_PROFILES_ACTIVE="rabbit-container"
       - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
       - RABBITMQ_GROUP=espark-group
       - RABBITMQ_DESTINATION=espark
       - RABBITMQ_USER=guest
       - RABBITMQ_PASSWORD=guest
-      - RABBITMQ_PORT=5672
     networks:
       - spring-ms
 

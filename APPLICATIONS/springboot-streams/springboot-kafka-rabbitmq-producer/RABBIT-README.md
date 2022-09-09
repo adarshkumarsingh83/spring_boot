@@ -3,11 +3,11 @@
 ---
 
 ### To build for Rabbitmq
-* $ mvn clean package  -P rabbit
-* $ mvn clean package -DskipTests -P rabbit
+* $ mvn clean package  -P rabbit-local
+* $ mvn clean package -DskipTests -P rabbit-local
 
 ### To run the Rabbit producer on local 
-* mvn spring-boot:run -P rabbit
+* mvn spring-boot:run -P rabbit-local
 
 ---
 
@@ -22,23 +22,23 @@
 ### To build for Rabbitmq
 * $ mvn clean package -DskipTests -P rabbit-container
 ### To build docker image for rabbit
-* docker build --build-arg JAR_FILE_NAME=rabbitmq-producer.jar  -t adarshkumarsingh83/rabbitmq-producer .
+* docker build -t adarshkumarsingh83/rabbitmq-producer --build-arg JAR_FILE_NAME=target/rabbitmq-producer.jar .
 ```  
-[+] Building 2.0s (8/8) FINISHED                                                                                                                                                                                             
- => [internal] load build definition from Dockerfile                                                                                                                                                                    0.0s
- => => transferring dockerfile: 188B                                                                                                                                                                                    0.0s
- => [internal] load .dockerignore                                                                                                                                                                                       0.0s
- => => transferring context: 2B                                                                                                                                                                                         0.0s
- => [internal] load metadata for docker.io/library/openjdk:8                                                                                                                                                            1.4s
- => [auth] library/openjdk:pull token for registry-1.docker.io                                                                                                                                                          0.0s
- => [internal] load build context                                                                                                                                                                                       0.3s
- => => transferring context: 27.38MB                                                                                                                                                                                    0.3s
- => CACHED [1/2] FROM docker.io/library/openjdk:8@sha256:86e863cc57215cfb181bd319736d0baf625fe8f150577f9eb58bd937f5452cb8                                                                                               0.0s
- => [2/2] ADD target/ springboot-streams.jar                                                                                                                                                                            0.1s
- => exporting to image                                                                                                                                                                                                  0.1s
- => => exporting layers                                                                                                                                                                                                 0.1s
- => => writing image sha256:db1df7195a722104de7cbddfb68168ec10e09cf630153d41484b466cb5cb1845                                                                                                                            0.0s
- => => naming to docker.io/adarshkumarsingh83/rabbitmq-producer       
+[+] Building 1.5s (8/8) FINISHED                                                                                                                                                                          
+ => [internal] load build definition from Dockerfile                                                                                                                                                 0.0s
+ => => transferring dockerfile: 267B                                                                                                                                                                 0.0s
+ => [internal] load .dockerignore                                                                                                                                                                    0.0s
+ => => transferring context: 2B                                                                                                                                                                      0.0s
+ => [internal] load metadata for docker.io/library/openjdk:8-jdk-alpine                                                                                                                              0.9s
+ => [auth] library/openjdk:pull token for registry-1.docker.io                                                                                                                                       0.0s
+ => [internal] load build context                                                                                                                                                                    0.3s
+ => => transferring context: 27.32MB                                                                                                                                                                 0.3s
+ => CACHED [1/2] FROM docker.io/library/openjdk:8-jdk-alpine@sha256:94792824df2df33402f201713f932b58cb9de94a0cd524164a0f2283343547b3                                                                 0.0s
+ => [2/2] COPY target/rabbitmq-producer.jar springboot-streams-producer.jar                                                                                                                          0.1s
+ => exporting to image                                                                                                                                                                               0.1s
+ => => exporting layers                                                                                                                                                                              0.1s
+ => => writing image sha256:c95761626105f66b026496ecf7f6e4288436d316c99038627f3a416a503435af                                                                                                         0.0s
+ => => naming to docker.io/adarshkumarsingh83/rabbitmq-producer        
 ```
 ### To run docker
 * docker run -p 8080:8080 \
@@ -75,3 +75,7 @@ latest: digest: sha256:ead30c596b6085ec1c436b73ffca470f98ed62545208a2daf772ec891
 * $ curl --location --request POST 'http://localhost:8080/api/message' \
 --header 'Content-Type: application/json' \
 --data-raw '{"id":2,"name":"radha singh","message":"love u adi"} '
+
+
+## To remove image
+* $ docker rmi $(docker images | grep 'adarshkumarsingh83/rabbit-producer')

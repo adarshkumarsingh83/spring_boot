@@ -12,7 +12,10 @@ server:
 spring:
   application:
     name: @spring.application.name@
-  profiles: rabbit
+  config:
+    activate:
+      on-profile:
+        - rabbit-local
   cloud:
     stream:
       bindings:
@@ -40,7 +43,10 @@ spring:
 spring:
   application:
     name: @spring.application.name@
-  profiles: rabbit-container
+  config:
+    activate:
+      on-profile:
+        - rabbit-container
   cloud:
     stream:
       bindings:
@@ -54,7 +60,7 @@ spring:
             durableSubscription: true
             concurrency: 20
       binder:
-        rabbit:
+        docker-rabbit:
           type: rabbit
           environment:
             spring:
@@ -68,7 +74,10 @@ spring:
 spring:
   application:
     name: @spring.application.name@
-  profiles: kafka
+  config:
+    activate:
+      on-profile:
+        - kafka-local
   cloud:
     stream:
       kafka:
@@ -100,7 +109,10 @@ spring:
 spring:
   application:
     name: @spring.application.name@
-  profiles: kafka-container
+  config:
+    activate:
+      on-profile:
+        - kafka-container
   cloud:
     stream:
       kafka:

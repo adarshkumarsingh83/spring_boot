@@ -70,7 +70,7 @@
             <id>kafka</id>
             <properties>
                 <spring.application.name>kafka-producer</spring.application.name>
-                <spring.profile.active>kafka</spring.profile.active>
+                <spring.profile.active>kafka-local</spring.profile.active>
             </properties>
             <dependencies>
                 <dependency>
@@ -174,7 +174,7 @@
             <id>rabbit</id>
             <properties>
                 <spring.application.name>rabbitmq-producer</spring.application.name>
-                <spring.profile.active>rabbit</spring.profile.active>
+                <spring.profile.active>rabbit-local</spring.profile.active>
             </properties>
             <dependencies>
                 <dependency>

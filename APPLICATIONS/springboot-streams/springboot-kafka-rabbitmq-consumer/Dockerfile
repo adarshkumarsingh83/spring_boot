@@ -1,4 +1,6 @@
-FROM openjdk:8
-ADD target/${JAR_FILE_NAME} springboot-streams.jar
+FROM openjdk:8-jdk-alpine
+ARG JAR_FILE_NAME=target/*.jar
+COPY ${JAR_FILE_NAME} springboot-streams-consumer.jar
 EXPOSE 9090
-ENTRYPOINT ["java","${JAVA_OPTS}","-jar","springboot-streams.jar"]
+ENTRYPOINT ["echo", "${JAR_FILE_NAME}"]
+ENTRYPOINT ["java","-jar","springboot-streams-consumer.jar"]
