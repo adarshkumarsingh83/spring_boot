@@ -1,0 +1,57 @@
+version: "3.1"
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.5.3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - spring-ms
+
+  rabbitmq-producer:
+    image: adarshkumarsingh83/rabbitmq-producer
+    restart: on-failure:5
+    volumes:
+      - /data/rabbitmq-producer
+    ports:
+      - 8080:8080
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=rabbit-container
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_GROUP=espark-group
+      - RABBITMQ_DESTINATION=espark
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_PORT=5672
+    networks:
+      - spring-ms
+
+  rabbitmq-consumer:
+    image: adarshkumarsingh83/rabbitmq-consumer
+    restart: on-failure:5
+    volumes:
+      - /data/rabbitmq-consumer
+    ports:
+      - 9090:9090
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=rabbit-container
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_GROUP=espark-group
+      - RABBITMQ_DESTINATION=espark
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_PORT=5672
+    networks:
+      - spring-ms
+
+networks:
+  spring-ms:
