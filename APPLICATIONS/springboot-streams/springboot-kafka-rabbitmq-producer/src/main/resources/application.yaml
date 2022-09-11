@@ -61,15 +61,18 @@ spring:
             concurrency: 20
             autoStartup: true
       binder:
-        rabbit:
-          type: rabbit
-          environment:
-            spring:
-              rabbitmq:
-                host: ${RABBITMQ_HOST}
-                port: ${RABBITMQ_PORT}
-                username: ${RABBITMQ_USER}
-                password: ${RABBITMQ_PASSWORD}
+        rabbitmq:
+          host: ${RABBITMQ_HOST}
+          port: ${RABBITMQ_PORT}
+          username: ${RABBITMQ_USER}
+          password: ${RABBITMQ_PASSWORD}
+
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
 ---
 
 spring:
