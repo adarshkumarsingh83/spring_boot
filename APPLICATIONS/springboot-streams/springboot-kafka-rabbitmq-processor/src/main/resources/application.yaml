@@ -5,7 +5,7 @@ spring:
     active: @spring.profile.active@
 
 server:
-  port: 8080
+  port: 8899
 ---
 
 spring:
@@ -29,7 +29,7 @@ spring:
           group: espark-group
         output:
           contentType: application/json
-          destination: espark-topic
+          destination: espark-topic-process
           group: espark-group
 ---
 
@@ -82,8 +82,8 @@ spring:
           group: espark-group
         output:
           contentType: application/json
-          destination: espark-topic
-          group: espark-process-group
+          destination: espark-topic-process
+          group: espark-group
 
 ---
 

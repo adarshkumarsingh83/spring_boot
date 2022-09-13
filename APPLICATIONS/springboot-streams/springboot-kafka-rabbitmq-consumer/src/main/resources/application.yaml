@@ -26,7 +26,7 @@ spring:
       bindings:
         message-in:
           contentType: application/json
-          destination: espark-topic
+          destination: espark-topic-process
           group: espark-group
           consumer:
             configuration:
@@ -80,7 +80,7 @@ spring:
       bindings:
         message-in:
           contentType: application/json
-          destination: espark-topic
+          destination: espark-topic-process
           group: espark-group
           consumer:
             maxAttempts: 5
