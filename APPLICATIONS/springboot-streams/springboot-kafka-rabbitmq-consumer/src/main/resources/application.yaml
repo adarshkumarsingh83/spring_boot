@@ -16,6 +16,11 @@ spring:
     activate:
       on-profile:
         - rabbit-local
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     stream:
       bindings:
@@ -28,17 +33,6 @@ spring:
               useNativeEncoding: true
             durableSubscription: true
             concurrency: 20
-      binder:
-        rabbit:
-          type: rabbit
-          environment:
-            spring:
-              espark-rabbitmq:
-                host: localhost
-                port: 5672
-                username: guest
-                password: guest
-
 ---
 spring:
   application:
@@ -47,6 +41,11 @@ spring:
     activate:
       on-profile:
         - rabbit-container
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
   cloud:
     stream:
       bindings:
@@ -59,16 +58,6 @@ spring:
               useNativeEncoding: true
             durableSubscription: true
             concurrency: 20
-      binder:
-        rabbit:
-          type: rabbit
-          environment:
-            spring:
-              rabbitmq:
-                host: ${RABBITMQ_HOST}
-                port: ${RABBITMQ_PORT}
-                username: ${RABBITMQ_USER}
-                password: ${RABBITMQ_PASSWORD}
 ---
 
 spring:

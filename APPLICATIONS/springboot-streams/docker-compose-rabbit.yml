@@ -1,7 +1,7 @@
 version: "3.1"
 services:
   rabbitmq:
-    container_name: rabbitmq
+    container_name: rabbitmq_management
     image: rabbitmq:3.5.3-management
     ports:
       - 5672:5672
@@ -21,8 +21,8 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      - SPRING_PROFILES_ACTIVE="rabbit-container"
-      - RABBITMQ_HOST=rabbitmq
+      - SPRING_PROFILES_ACTIVE=rabbit-container
+      - RABBITMQ_HOST=rabbitmq_management
       - RABBITMQ_PORT=5672
       - RABBITMQ_GROUP=espark-group
       - RABBITMQ_DESTINATION=espark
@@ -43,8 +43,8 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      - SPRING_PROFILES_ACTIVE="rabbit-container"
-      - RABBITMQ_HOST=rabbitmq
+      - SPRING_PROFILES_ACTIVE=rabbit-container
+      - RABBITMQ_HOST=rabbitmq_management
       - RABBITMQ_PORT=5672
       - RABBITMQ_GROUP=espark-group
       - RABBITMQ_DESTINATION=espark
