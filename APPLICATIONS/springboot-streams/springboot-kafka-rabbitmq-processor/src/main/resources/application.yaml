@@ -50,7 +50,7 @@ spring:
       bindings:
         input:
           contentType: application/json
-          destination: ${RABBITMQ_DESTINATION}
+          destination: ${RABBITMQ_SOURCE}
           group: ${RABBITMQ_GROUP}
         output:
           contentType: application/json
@@ -107,7 +107,7 @@ spring:
       bindings:
         input:
           contentType: application/json
-          destination: ${KAFKA_DESTINATION}
+          destination: ${KAFKA_SOURCE}
           group: ${KAFKA_GROUP}
         output:
           contentType: application/json

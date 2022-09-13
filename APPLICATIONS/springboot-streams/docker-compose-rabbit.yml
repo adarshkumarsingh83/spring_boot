@@ -31,6 +31,29 @@ services:
     networks:
       - spring-ms
 
+  rabbitmq-processor:
+    image: adarshkumarsingh83/rabbitmq-processor
+    restart: on-failure:5
+    volumes:
+      - /data/rabbitmq-processor
+    ports:
+      - 8899:8899
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=rabbit-container
+      - RABBITMQ_HOST=rabbitmq_management
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_GROUP=espark-group
+      - RABBITMQ_SOURCE=espark
+      - RABBITMQ_DESTINATION=espark-processed
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+    networks:
+      - spring-ms
+
   rabbitmq-consumer:
     image: adarshkumarsingh83/rabbitmq-consumer
     restart: on-failure:5
@@ -47,7 +70,7 @@ services:
       - RABBITMQ_HOST=rabbitmq_management
       - RABBITMQ_PORT=5672
       - RABBITMQ_GROUP=espark-group
-      - RABBITMQ_DESTINATION=espark
+      - RABBITMQ_DESTINATION=espark-processed
       - RABBITMQ_USER=guest
       - RABBITMQ_PASSWORD=guest
     networks:

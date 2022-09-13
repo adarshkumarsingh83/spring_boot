@@ -27,28 +27,6 @@ services:
     depends_on:
       - zookeeper
 
-  kafka-consumer:
-    image: adarshkumarsingh83/kafka-consumer
-    restart: on-failure:5
-    volumes:
-      - /data/kafka-consumer
-    ports:
-      - 9090:9090
-    links:
-      - kafka
-      - zookeeper
-    depends_on:
-      - kafka
-      - zookeeper
-    environment:
-      - SPRING_PROFILES_ACTIVE=kafka-container
-      - KAFKA_DESTINATION=espark-topic
-      - KAFKA_GROUP=espark-group
-      - KAFKA_BORKER=kafka:9092
-      - ZOOKEEPER_NODE=zookeeper:2181
-    networks:
-      - spring-ms
-
   kafka-producer:
     image: adarshkumarsingh83/kafka-producer
     restart: on-failure:5
@@ -65,6 +43,51 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=kafka-container
       - KAFKA_DESTINATION=espark-topic
+      - KAFKA_GROUP=espark-group
+      - KAFKA_BORKER=kafka:9092
+      - ZOOKEEPER_NODE=zookeeper:2181
+    networks:
+      - spring-ms
+
+  kafka-processor:
+    image: adarshkumarsingh83/kafka-processor
+    restart: on-failure:5
+    volumes:
+      - /data/kafka-processor
+    ports:
+      - 8899:8899
+    links:
+      - kafka
+      - zookeeper
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      - SPRING_PROFILES_ACTIVE=kafka-container
+      - KAFKA_SOURCE=espark-topic
+      - KAFKA_DESTINATION=espark-topic-processed
+      - KAFKA_GROUP=espark-group
+      - KAFKA_BORKER=kafka:9092
+      - ZOOKEEPER_NODE=zookeeper:2181
+    networks:
+      - spring-ms
+
+  kafka-consumer:
+    image: adarshkumarsingh83/kafka-consumer
+    restart: on-failure:5
+    volumes:
+      - /data/kafka-consumer
+    ports:
+      - 9090:9090
+    links:
+      - kafka
+      - zookeeper
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      - SPRING_PROFILES_ACTIVE=kafka-container
+      - KAFKA_DESTINATION=espark-topic-processed
       - KAFKA_GROUP=espark-group
       - KAFKA_BORKER=kafka:9092
       - ZOOKEEPER_NODE=zookeeper:2181
