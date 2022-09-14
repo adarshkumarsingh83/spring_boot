@@ -1,4 +1,4 @@
-# SPRING BOOT STREAM PRODUCERS FOR RABBIT
+# SPRING BOOT STREAM PROCESSOR FOR RABBIT
 
 ---
 
@@ -34,18 +34,19 @@
  => [internal] load build context                                                                                                                                                                    0.3s
  => => transferring context: 27.32MB                                                                                                                                                                 0.3s
  => CACHED [1/2] FROM docker.io/library/openjdk:8-jdk-alpine@sha256:94792824df2df33402f201713f932b58cb9de94a0cd524164a0f2283343547b3                                                                 0.0s
- => [2/2] COPY target/rabbitmq-producer.jar springboot-streams-producer.jar                                                                                                                          0.1s
+ => [2/2] COPY target/rabbitmq-processor.jar springboot-streams-processor.jar                                                                                                                          0.1s
  => exporting to image                                                                                                                                                                               0.1s
  => => exporting layers                                                                                                                                                                              0.1s
  => => writing image sha256:c95761626105f66b026496ecf7f6e4288436d316c99038627f3a416a503435af                                                                                                         0.0s
- => => naming to docker.io/adarshkumarsingh83/rabbitmq-producer        
+ => => naming to docker.io/adarshkumarsingh83/rabbitmq-processor        
 ```
 ### To run docker
 * docker run -p 8080:8080 \
   --name=kafka-processor  \
   --net espark-net  \
   -e SPRING_PROFILES_ACTIVE=rabbit-container \
-  -e RABBITMQ_DESTINATION=espark_topic \
+  -e RABBITMQ_DESTINATION=espark_topic_processed \
+  -e RABBITMQ_SOURCE=espark_topic \
   -e RABBITMQ_GROUP=espark_group   \
   -e RABBITMQ_HOST=localhost \
   -e RABBITMQ_PORT=5672  \
@@ -58,24 +59,15 @@
 ```
 Using default tag: latest
 f212a22ea371: Pushed 
-6b5aaff44254: Mounted from adarshkumarsingh83/springboot-kubernetes-elk 
-53a0b163e995: Mounted from adarshkumarsingh83/springboot-kubernetes-elk 
-b626401ef603: Mounted from adarshkumarsingh83/springboot-kubernetes-elk 
-9b55156abf26: Mounted from adarshkumarsingh83/springboot-kubernetes-elk 
-293d5db30c9f: Mounted from adarshkumarsingh83/springboot-kubernetes-elk 
-03127cdb479b: Mounted from adarshkumarsingh83/springboot-kubernetes-elk 
-9c742cd6c7a5: Mounted from adarshkumarsingh83/springboot-kubernetes-elk 
+6b5aaff44254: Mounted from adarshkumarsingh83/processor
+53a0b163e995: Mounted from adarshkumarsingh83/processor
+b626401ef603: Mounted from adarshkumarsingh83/processor 
+9b55156abf26: Mounted from adarshkumarsingh83/processor
+293d5db30c9f: Mounted from adarshkumarsingh83/processor
+03127cdb479b: Mounted from adarshkumarsingh83/processor
+9c742cd6c7a5: Mounted from adarshkumarsingh83/processor
 latest: digest: sha256:ead30c596b6085ec1c436b73ffca470f98ed62545208a2daf772ec891262e4ac size: 2007   
 ```
-### To post data to the api 
-* $ curl --location --request POST 'http://localhost:8080/api/message' \
---header 'Content-Type: application/json' \
---data-raw '{"id":1,"name":"adarsh kumar","message":"love u radha"}'
-
-* $ curl --location --request POST 'http://localhost:8080/api/message' \
---header 'Content-Type: application/json' \
---data-raw '{"id":2,"name":"radha singh","message":"love u adi"} '
-
 
 ## To remove image
 * $ docker rmi $(docker images | grep 'adarshkumarsingh83/rabbit-processor')

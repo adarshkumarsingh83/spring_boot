@@ -1,4 +1,4 @@
-# SPRING BOOT STREAM PRODUCERS FOR KAFKA
+# SPRING BOOT STREAM PROCESSOR FOR KAFKA
 
 ----
 
@@ -35,11 +35,11 @@
  => [internal] load build context                                                                                                                                                                    0.7s
  => => transferring context: 78.04MB                                                                                                                                                                 0.7s
  => CACHED [1/2] FROM docker.io/library/openjdk:8@sha256:86e863cc57215cfb181bd319736d0baf625fe8f150577f9eb58bd937f5452cb8                                                                            0.0s
- => [2/2] ADD  springboot-streams-producer.jar                                                                                                                                                       0.2s
+ => [2/2] ADD  springboot-streams-processor.jar                                                                                                                                                       0.2s
  => exporting to image                                                                                                                                                                               0.3s
  => => exporting layers                                                                                                                                                                              0.3s
  => => writing image sha256:f6833f2882057f42c1d9b64f77d7415cc801a0dcfafc8c4b4d441909b32baf37                                                                                                         0.0s
- => => naming to docker.io/adarshkumarsingh83/kafka-producer    
+ => => naming to docker.io/adarshkumarsingh83/kafka-processor    
 ```
 ### To run docker
 * docker run -p 8080:8080 \
@@ -47,17 +47,18 @@
  --net espark-net  \
  -e SPRING_PROFILES_ACTIVE=kafka-container \
  -e JAVA_OPTS=-Dserver.port=8080 \
- -e KAFKA_DESTINATION=espark-topic\
+ -e KAFKA_DESTINATION=espark-topic-processed\
+ -E KAFKA_SOURCE=espark-topic \
  -e KAFKA_GROUP=espark-group    \
  -e KAFKA_BORKER=localhost:9092   \
  -e ZOOKEEPER_NODE=localhost:2181   \
- adarshkumarsingh83/kafka-producer 
+ adarshkumarsingh83/kafka-processor 
 
 ### To push docker image
 * docker push adarshkumarsingh83/kafka-processor
 ```
 [+] Building 2.0s (7/7) FINISHED                                                                                                                                                                          
- => [internal] load build definition from Dockerfile                                                                                                                                                 0.0s
+ => [internal] load build definition from Dockerfile                                                   0.0s
  => => transferring dockerfile: 37B                                                                                                                                                                  0.0s
  => [internal] load .dockerignore                                                                                                                                                                    0.0s
  => => transferring context: 2B                                                                                                                                                                      0.0s
@@ -65,20 +66,13 @@
  => [internal] load build context                                                                                                                                                                    0.6s
  => => transferring context: 78.00MB                                                                                                                                                                 0.6s
  => CACHED [1/2] FROM docker.io/library/openjdk:8-jdk-alpine@sha256:94792824df2df33402f201713f932b58cb9de94a0cd524164a0f2283343547b3                                                                 0.0s
- => [2/2] COPY target/kafka-producer.jar springboot-streams-producer.jar                                                                                                                             0.2s
+ => [2/2] COPY target/kafka-processor.jar springboot-streams-processor.jar                                                                                                                             0.2s
  => exporting to image                                                                                                                                                                               0.3s
  => => exporting layers                                                                                                                                                                              0.3s
  => => writing image sha256:ce980b8e79aac27b1e7c2a663cd54d3bbff7f962ff5441783889545e5a6fd50d                                                                                                         0.0s
- => => naming to docker.io/adarshkumarsingh83/kafka-producer 
+ => => naming to docker.io/adarshkumarsingh83/kafka-processor 
 ```
-### To post daa to the api 
-* $ curl --location --request POST 'http://localhost:8080/api/message' \
---header 'Content-Type: application/json' \
---data-raw '{"id":1,"name":"adarsh kumar","message":"love u radha"}'
 
-* $ curl --location --request POST 'http://localhost:8080/api/message' \
---header 'Content-Type: application/json' \
---data-raw '{"id":2,"name":"radha singh","message":"love u adi"} '
 
 ## To remove 
 * $ docker rmi $(docker images | grep 'adarshkumarsingh83/kafka-processor')

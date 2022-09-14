@@ -31,8 +31,9 @@ Deleting topic
 bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic espark-topic
 ```
 
-
+## KAFKA PRODUCER PROCESSOR AND CONSUMER 
 * [KAFKA-PRODUCER](./springboot-kafka-rabbitmq-producer/KAFKA-README.md)
+* [KAFKA-PROCESSOR](./springboot-kafka-rabbitmq-processor/KAFKA-README.md)
 * [KAFKA-CONSUMNER](./springboot-kafka-rabbitmq-consumer/KAFKA-README.md)
 
 
@@ -45,8 +46,9 @@ bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic espark-topic
 
 
 
-## RABBIT MQ PRODUCER AND CONSUME 
+## RABBIT MQ PRODUCER PROCESSOR AND CONSUMER 
 * [RABBIT-PRODUCER](./springboot-kafka-rabbitmq-producer/RABBIT-README.md)
+* [RABBIT-PROCESSOR](./springboot-kafka-rabbitmq-processor/RABBIT-README.md)
 * [RABBIT-CONSUMNER](./springboot-kafka-rabbitmq-consumer/RABBIT-README.md)
 
 
