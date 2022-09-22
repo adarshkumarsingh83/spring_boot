@@ -1,0 +1,32 @@
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    com.espark.adarsh: INFO
+    org.hibernate: INFO
+
+#spring.datasource.url=jdbc:h2:file:/data/demo
+server:
+  port: 8080
+
+spring:
+  application:
+    name: springbboot-openapi-security
+  config:
+    activate:
+      on-profile:
+        - default
+        - docker
+        - kubernates
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+
