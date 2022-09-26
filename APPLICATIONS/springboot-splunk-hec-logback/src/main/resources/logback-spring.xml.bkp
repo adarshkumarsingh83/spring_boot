@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <springProperty scope="context" name="SPLUNK_HOST" source="spring.splunk.host"/>
+    <springProperty scope="context" name="SPLUNK_URL" source="spring.splunk.url"/>
+    <springProperty scope="context" name="SPLUNK_TOKEN" source="spring.splunk.token"/>
+    <springProperty scope="context" name="SPLUNK_INDEX" source="spring.splunk.index"/>
+    <springProperty scope="context" name="SPLUNK_SOURCE" source="spring.splunk.source"/>
+
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p})
+            %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!-- Appender to log to console -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- Minimum logging level to be presented in the console logs-->
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="mySplunk" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
+        <url>http://localhost:8088</url>
+        <index>spirng_index</index>
+        <token>616a4a62-fc42-4083-b737-330d0106a957</token>
+        <source>logback</source>
+        <sourcetype>logback</sourcetype>
+        <host>localhost:8088</host>
+       <!-- <batch_size_count>1</batch_size_count>-->
+        <messageFormat>json</messageFormat>
+        <disableCertificateValidation>true</disableCertificateValidation>
+       <!-- <send_mode>parallel</send_mode>
+        <batch_size_bytes>102400</batch_size_bytes>
+        <batch_size_count>10</batch_size_count>
+        <batch_interval>60000</batch_interval>
+        <middleware>HttpEventCollectorUnitTestMiddleware</middleware>-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%msg</pattern>
+        </layout>
+
+    </appender>
+
+    <root level="trace">
+        <appender-ref ref="console"/>
+        <appender-ref ref="mySplunk"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

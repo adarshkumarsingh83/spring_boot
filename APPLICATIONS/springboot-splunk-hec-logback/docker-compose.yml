@@ -1,0 +1,47 @@
+version: '3'
+services:
+  splunk:
+    image: splunk/splunk
+    hostname: splunk
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_USER=root
+      - SPLUNK_PASSWORD=Tiger@007
+      - SPLUNK_ENABLE_LISTEN=9997
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'https://localhost:8000']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  splunkforwarder:
+    image: splunk/universalforwarder:6.5.3-monitor
+    hostname: splunkforwarder
+    environment:
+      - SPLUNK_START_ARGS=--accept-license --answer-yes
+      - SPLUNK_FORWARD_SERVER=splunk:9997
+      - SPLUNK_USER=root
+      - SPLUNK_PASSWORD=Tiger@007
+      - SPLUNK_ADD=monitor /logs
+    restart: always
+    depends_on:
+      - splunk
+    volumes:
+      - log_volume:/logs
+
+  springboot-splunk:
+    image: adarshkumarsingh83/springboot-splunk
+    hostname: springboot-splunk
+    environment:
+      - LOG_FILE=/logs/demo-application.log
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - splunk
+    volumes:
+      - log_volume:/logs
+volumes:
+  log_volume:
