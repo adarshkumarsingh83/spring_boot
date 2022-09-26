@@ -1,0 +1,18 @@
+logging:
+  level:
+    root: INFO
+
+spring:
+  application:
+    name: spring-streams-producer-kafka
+  cloud:
+    stream:
+      function:
+        definition: producer
+      bindings:
+        producer-out-0:
+          destination: dataChannelTopic
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true

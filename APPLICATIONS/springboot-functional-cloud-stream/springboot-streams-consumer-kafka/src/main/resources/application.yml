@@ -1,0 +1,17 @@
+logging:
+  level:
+    root: INFO
+
+spring:
+  application:
+    name: spring-streams-consumer-kafka
+  cloud:
+    stream:
+      function:
+        definition: consumer
+      bindings:
+        consumer-in-0:
+          destination: dataChannelTopicProcessor
+      kafka:
+        binder:
+          brokers: localhost:9092
