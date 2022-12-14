@@ -1,0 +1,12 @@
+
+server:
+  port: 9090
+
+spring:
+  application:
+    name: springboot-load-shedding
+  request:
+    limit: 3
+    message: "Server Unavailable. Please retry after sometime.."
+
+
