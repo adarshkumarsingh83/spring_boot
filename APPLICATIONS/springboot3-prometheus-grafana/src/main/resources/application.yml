@@ -9,12 +9,17 @@ spring:
   h2:
     console:
       enabled: true
+  mvc:
+    problem-details:
+      enabled: true
 
 management:
   endpoint:
     prometheus:
       enabled: true
   endpoints:
+    health:
+      show-details: always
     web:
       exposure:
         include: '*'

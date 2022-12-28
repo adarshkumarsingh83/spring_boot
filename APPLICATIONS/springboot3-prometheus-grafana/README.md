@@ -1,6 +1,10 @@
 # SPRING BOOT3 PROMETHEUS
 
 ---
+* ProblemDetails for exception handling example
+* Observation for custom matrix example
+* prometheus and grafana with docker compose example 
+
 
 ### to build the application
 * $ mvn clean package
@@ -193,6 +197,96 @@ username, pwd , dburl and db driver class is mentioned in application.properties
   }
 }
 ```
+
+
+### custom metrics of the application apis 
+* hit the apis multiple times to get the custom matrix data then hit the metrics api   
+* http://localhost:8080/actuator/metrics
+* http://localhost:8080/actuator/metrics/get-employee-by-id
+* http://localhost:8080/actuator/metrics/get-all-employee
+* http://localhost:8080/actuator/metrics/save-employee
+* http://localhost:8080/actuator/metrics/update-employee
+* http://localhost:8080/actuator/metrics/update-partial-employee
+```
+{
+  "names": [
+    "application.ready.time",
+    "application.started.time",
+    "disk.free",
+    "disk.total",
+    "executor.active",
+    "executor.completed",
+    "executor.pool.core",
+    "executor.pool.max",
+    "executor.pool.size",
+    "executor.queue.remaining",
+    "executor.queued",
+    "get-all-employee",
+    "get-all-employee.active",
+    "get-employee-by-id",
+    "get-employee-by-id.active",
+    "hikaricp.connections",
+    "hikaricp.connections.acquire",
+    "hikaricp.connections.active",
+    "hikaricp.connections.creation",
+    "hikaricp.connections.idle",
+    "hikaricp.connections.max",
+    "hikaricp.connections.min",
+    "hikaricp.connections.pending",
+    "hikaricp.connections.timeout",
+    "hikaricp.connections.usage",
+    "http.server.requests",
+    "http.server.requests.active",
+    "jdbc.connections.active",
+    "jdbc.connections.idle",
+    "jdbc.connections.max",
+    "jdbc.connections.min",
+    "jvm.buffer.count",
+    "jvm.buffer.memory.used",
+    "jvm.buffer.total.capacity",
+    "jvm.classes.loaded",
+    "jvm.classes.unloaded",
+    "jvm.compilation.time",
+    "jvm.gc.live.data.size",
+    "jvm.gc.max.data.size",
+    "jvm.gc.memory.allocated",
+    "jvm.gc.memory.promoted",
+    "jvm.gc.overhead",
+    "jvm.gc.pause",
+    "jvm.info",
+    "jvm.memory.committed",
+    "jvm.memory.max",
+    "jvm.memory.usage.after.gc",
+    "jvm.memory.used",
+    "jvm.threads.daemon",
+    "jvm.threads.live",
+    "jvm.threads.peak",
+    "jvm.threads.states",
+    "logback.events",
+    "process.cpu.usage",
+    "process.files.max",
+    "process.files.open",
+    "process.start.time",
+    "process.uptime",
+    "save-employee",
+    "save-employee.active",
+    "spring.data.repository.invocations",
+    "system.cpu.count",
+    "system.cpu.usage",
+    "system.load.average.1m",
+    "tomcat.sessions.active.current",
+    "tomcat.sessions.active.max",
+    "tomcat.sessions.alive.max",
+    "tomcat.sessions.created",
+    "tomcat.sessions.expired",
+    "tomcat.sessions.rejected",
+    "update-employee",
+    "update-employee.active",
+    "update-partial-employee",
+    "update-partial-employee.active"
+  ]
+```
+
 
 ## Prometheus Actuator Endpoint
 * http://localhost:8080/actuator/prometheus
