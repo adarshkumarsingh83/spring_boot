@@ -63,6 +63,17 @@ username, pwd , dburl and db driver class is mentioned in application.properties
 }
 ```
 
+* curl --location --request GET 'http://localhost:8080/api/employee/5'
+```  
+{
+   "type":"about:blank",
+   "title":"employee not found",
+   "status":404,
+   "detail":"employee not found",
+   "instance":"/api/employee/5"
+}
+```
+
 ### Post Request
 * http://localhost:8080/api/employee
 * curl --location --request POST 'http://localhost:8080/api/employee' \
