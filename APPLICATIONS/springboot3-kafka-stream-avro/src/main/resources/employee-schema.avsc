@@ -1,0 +1,18 @@
+{
+  "type": "record",
+  "name": "Employee",
+  "namespace": "com.espark.adarsh.entities",
+  "fields": [
+    {
+      "name": "id",
+      "type": "int"
+    },
+    {
+      "name": "firstName",
+      "type": "string"
+    },
+    {
+      "name": "lastName",
+      "type": "string"
+    }]
+}
