@@ -10,3 +10,4 @@
 ## Api endpoint 
 * curl http://localhost:8080/wish/DELAY/adarsh 
 * curl http://localhost:8080/wish/NODELAY/adarsh 
+* curl http://localhost:8080/wish/ERROR/adarsh 
