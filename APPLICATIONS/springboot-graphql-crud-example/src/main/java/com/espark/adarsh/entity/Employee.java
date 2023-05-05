@@ -12,20 +12,24 @@ public class Employee {
      private String lastName;
      private String career;
 
+    private Long salary;
+
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String career) {
+    public Employee(String firstName, String lastName, String career, Long salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.career = career;
+        this.salary = salary;
     }
 
-    public Employee(Long id, String firstName, String lastName, String career) {
+    public Employee(Long id, String firstName, String lastName, String career, Long salary) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.career = career;
+        this.salary = salary;
     }
 
     public Long getId() {
@@ -58,6 +62,14 @@ public class Employee {
 
     public void setCareer(String career) {
         this.career = career;
+    }
+
+    public Long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
     }
 }
 

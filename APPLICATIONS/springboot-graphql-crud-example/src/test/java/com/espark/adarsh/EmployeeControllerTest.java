@@ -29,12 +29,13 @@ public class EmployeeControllerTest {
     void testGetEmployeeById() {
         String document = """
                      query{
-                          getEmployee(id:1){
-                              id
-                              firstName
-                              lastName
-                          }
-                      }
+                       getEmployee(id:1){
+                         id
+                         firstName
+                         lastName
+                         salary
+                       }
+                     }
                 """;
         Employee employee = graphQlTester.document(document)
                 .execute()
@@ -49,11 +50,11 @@ public class EmployeeControllerTest {
     @Test
     void testSavingEmployee() {
         String document = """                       
-                       mutation{
-                         saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it"}) {
-                           id firstName lastName career
-                         }
-                       }
+                    mutation{
+                      saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it", salary: 3}) {
+                        id firstName lastName career salary
+                      }
+                    }
                 """;
         Employee employee = graphQlTester.document(document)
                 .execute()
@@ -65,14 +66,32 @@ public class EmployeeControllerTest {
         Assertions.assertNotNull(employee.getLastName() != null);
     }
 
+
+    @Test
+    void testFilterEmployee() {
+        String document = """                       
+                    query {
+                       employeesFilter(filter: { salary: { operator: "gt" value: "5" } }) { id firstName lastName salary }\s
+                     }
+                """;
+        List<Employee> employees = graphQlTester.document(document)
+                .execute()
+                .path("data.employeesFilter[*]")
+                .entityList(Employee.class)
+                .get();
+        Assertions.assertTrue(employees.size() > 0);
+        Assertions.assertNotNull(employees.get(0).getId());
+        Assertions.assertNotNull(employees.get(0).getFirstName());
+    }
+
     @Test
     void testUpdatingEmployee() {
         String document = """
-                     mutation{
-                           updateEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"kumar singh",career:"it"}) {
-                             id firstName lastName career
-                           }
-                         }
+                mutation{
+                  updateEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"kumar singh",career:"it", salary: 3}) {
+                    id firstName lastName career salary
+                  }
+                }
                 """;
         Employee employee = graphQlTester.document(document)
                 .execute()
@@ -89,13 +108,14 @@ public class EmployeeControllerTest {
     @Test
     void testGetAllEmployee() {
         String document = """
-                 query{
-                   getAllEmployee{
-                     id
-                     firstName
-                     lastName
-                   }
-                 }
+                query{
+                  getAllEmployee{
+                    id
+                    firstName
+                    lastName
+                    salary
+                  }
+                }
                 """;
         List<Employee> employees = graphQlTester.document(document)
                 .execute()

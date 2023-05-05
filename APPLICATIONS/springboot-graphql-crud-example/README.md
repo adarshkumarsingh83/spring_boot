@@ -24,6 +24,7 @@ query{
     id
     firstName
     lastName
+    salary
   }
 }
 ````
@@ -35,6 +36,7 @@ query{
     id
     firstName
     lastName
+    salary
   }
 }
 ```
@@ -42,8 +44,8 @@ query{
 ### saving data 
 ```
 mutation{
-  saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it"}) {
-    id firstName lastName career
+  saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it", salary: 3}) {
+    id firstName lastName career salary
   }
 }
 ```
@@ -52,9 +54,16 @@ mutation{
 ### updating data 
 ```
 mutation{
-  updateEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"kumar singh",career:"it"}) {
-    id firstName lastName career
+  updateEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"kumar singh",career:"it", salary: 3}) {
+    id firstName lastName career salary
   }
+}
+```
+
+### Filter Query 
+```
+query {
+  employeesFilter(filter: { salary: { operator: "gt" value: "5" } }) { id firstName lastName salary } 
 }
 ```
 
@@ -81,14 +90,18 @@ mutation{
 ```
 curl --location 'http://localhost:8080/graphql' \
 --header 'Content-Type: application/json' \
---data '{"query":"{getAllEmployee{id firstName lastName}}"}'
+--header 'Cookie: cookieName=' \
+--data '{"query":"query{getAllEmployee{  id  firstName  lastName  salary}\n}"}'
 ```
 
 ### Get Employee By Id
 ```
 curl --location 'http://localhost:8080/graphql' \
 --header 'Content-Type: application/json' \
---data '{"query":"{getEmployee(id:1){id firstName lastName}}"}'
+--header 'Cookie: cookieName=' \
+--data '{
+  "query": "query{getEmployee(id:1){  id  firstName  lastName  salary}\n}"
+}'
 ```
 
 ### Saving Employee 
@@ -96,9 +109,7 @@ curl --location 'http://localhost:8080/graphql' \
 curl --location 'http://localhost:8080/graphql' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: cookieName=' \
---data '{
-	"query": "mutation{\n  saveEmployee(employeeBean:{ id:10,firstName:\"sonu\",lastName:\"singh\",career:\"it\"}) {\n    id firstName lastName career\n  }\n}"
-}'
+--data '{"query":"mutation{saveEmployee(employeeBean:{ id:10,firstName:\"sonu\",lastName:\"singh\",career:\"it\", salary: 3}) {  id firstName lastName career salary}\n}"}'
 ```
 
 
@@ -107,7 +118,17 @@ curl --location 'http://localhost:8080/graphql' \
 curl --location 'http://localhost:8080/graphql' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: cookieName=' \
---data '{"query":"mutation{\n  updateEmployee(employeeBean:{ id:10,firstName:\"sonu\",lastName:\"kumar singh\",career:\"it\"}) {\n    id firstName lastName career\n  }\n}"}'
+--data '{"query":"mutation{updateEmployee(employeeBean:{ id:10,firstName:\"sonu\",lastName:\"kumar singh\",career:\"it\", salary: 3}) {  id firstName lastName career salary}\n}"}'
+
+```
+
+
+### Filter Query 
+```   
+curl --location 'http://localhost:8080/graphql' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: cookieName=' \
+--data '{"query":"query {\n  employeesFilter(filter: { salary: { operator: \"gt\" value: \"5\" } }) { id firstName lastName salary } \n}"}'
 ```
 
 ### Deleting Employee
@@ -115,6 +136,6 @@ curl --location 'http://localhost:8080/graphql' \
 curl --location 'http://localhost:8080/graphql' \
 --header 'Content-Type: application/json' \
 --data '{
-	"query": "mutation{\n  removeEmployee(id: 10){\n    id\n    firstName\n    lastName\n    career\n  }\n}"
+	"query": "mutation{removeEmployee(id: 10){  id  firstName  lastName  career}\n}"
 }'
 ```

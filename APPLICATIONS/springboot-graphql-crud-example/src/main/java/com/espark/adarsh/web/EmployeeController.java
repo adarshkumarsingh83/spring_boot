@@ -2,6 +2,7 @@ package com.espark.adarsh.web;
 
 import com.espark.adarsh.bean.EmployeeBean;
 import com.espark.adarsh.entity.Employee;
+import com.espark.adarsh.filter.EmployeeFilter;
 import com.espark.adarsh.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -44,7 +45,12 @@ public class EmployeeController {
         return this.employeeService.updateEmployee(employeeBean.getId(), employeeBean.getEmployee());
     }
 
-    public void setEmployeeService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+
+    @QueryMapping
+    public Iterable<Employee> employeesFilter(@Argument EmployeeFilter filter) {
+       return this.employeeService.employeesFilter(filter);
     }
+
+
+
 }

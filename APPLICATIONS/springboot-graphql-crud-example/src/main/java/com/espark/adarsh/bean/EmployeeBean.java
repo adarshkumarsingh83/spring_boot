@@ -1,6 +1,7 @@
 package com.espark.adarsh.bean;
 
 import com.espark.adarsh.entity.Employee;
+
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
@@ -14,20 +15,24 @@ public class EmployeeBean {
     private String lastName;
     private String career;
 
+    private Long salary;
+
     public EmployeeBean() {
     }
 
-    public EmployeeBean(String firstName, String lastName, String career) {
+    public EmployeeBean(String firstName, String lastName, String career, Long salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.career = career;
+        this.salary = salary;
     }
 
-    public EmployeeBean(Long id, String firstName, String lastName, String career) {
+    public EmployeeBean(Long id, String firstName, String lastName, String career,Long salary) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.career = career;
+        this.salary = salary;
     }
 
     public Long getId() {
@@ -62,7 +67,15 @@ public class EmployeeBean {
         this.career = career;
     }
 
+    public Long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
+    }
+
     public Employee getEmployee() {
-        return new Employee(this.id, this.firstName, this.lastName, this.career);
+        return new Employee(this.id, this.firstName, this.lastName, this.career,this.salary);
     }
 }

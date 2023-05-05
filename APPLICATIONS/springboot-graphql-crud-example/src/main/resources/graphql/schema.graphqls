@@ -3,11 +3,7 @@ type Employee {
     firstName: String
     lastName: String
     career: String
-}
-
-type Query {
-    getAllEmployee: [Employee]!
-    getEmployee(id: ID): Employee
+    salary: Int
 }
 
 input EmployeeBean {
@@ -15,6 +11,24 @@ input EmployeeBean {
     firstName: String!
     lastName: String!
     career: String
+    salary: Int
+}
+
+input FilterField {
+    operator: String!
+    value: String!
+}
+
+input EmployeeFilter {
+    salary: FilterField
+    id: FilterField
+    career: FilterField
+}
+
+type Query {
+    getAllEmployee: [Employee]!
+    getEmployee(id: ID): Employee
+    employeesFilter(filter: EmployeeFilter): [Employee]
 }
 
 type Mutation {
