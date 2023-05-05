@@ -10,8 +10,15 @@ type Query {
     getEmployee(id: ID): Employee
 }
 
+input EmployeeBean {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    career: String
+}
+
 type Mutation {
-    saveEmployee(id: ID, firstName: String,lastName: String, career: String): Employee
-    updateEmployee(id: ID,firstName: String,lastName: String, career: String): Employee
+    saveEmployee(employeeBean:EmployeeBean!): Employee
+    updateEmployee(employeeBean:EmployeeBean!): Employee
     removeEmployee(id: ID): Employee
 }

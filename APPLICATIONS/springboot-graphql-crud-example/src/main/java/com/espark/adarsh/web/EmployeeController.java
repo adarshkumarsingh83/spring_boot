@@ -1,5 +1,6 @@
 package com.espark.adarsh.web;
 
+import com.espark.adarsh.bean.EmployeeBean;
 import com.espark.adarsh.entity.Employee;
 import com.espark.adarsh.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -33,13 +35,13 @@ public class EmployeeController {
     }
 
     @MutationMapping
-    public Employee saveEmployee(@Argument Long id, @Argument String firstName, @Argument String lastName, @Argument String career) {
-        return this.employeeService.saveEmployee(new Employee(id, firstName, lastName, career));
+    public Employee saveEmployee(@Argument @Valid EmployeeBean employeeBean) {
+        return this.employeeService.saveEmployee(employeeBean.getEmployee());
     }
 
     @MutationMapping
-    public Employee updateEmployee(@Argument Long id, @Argument String firstName, @Argument String lastName, @Argument String career) {
-        return this.employeeService.updateEmployee(id, new Employee(id, firstName, lastName, career));
+    public Employee updateEmployee(@Argument @Valid EmployeeBean employeeBean) {
+        return this.employeeService.updateEmployee(employeeBean.getId(), employeeBean.getEmployee());
     }
 
     public void setEmployeeService(EmployeeService employeeService) {

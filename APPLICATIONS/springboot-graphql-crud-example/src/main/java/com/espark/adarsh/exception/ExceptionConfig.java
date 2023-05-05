@@ -6,12 +6,14 @@ import graphql.servlet.GraphQLErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Configuration
 public class ExceptionConfig {
+
 
     @Bean
     public GraphQLErrorHandler errorHandler() {
