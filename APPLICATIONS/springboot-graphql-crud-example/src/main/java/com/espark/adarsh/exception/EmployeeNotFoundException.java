@@ -2,31 +2,23 @@ package com.espark.adarsh.exception;
 
 
 import graphql.ErrorClassification;
+import graphql.ErrorType;
 import graphql.GraphQLError;
 import graphql.language.SourceLocation;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeeNotFoundException extends RuntimeException implements GraphQLError {
 
-    public EmployeeNotFoundException() {
-    }
+    private Map<String, Object> extensions = new HashMap<>();
 
-    public EmployeeNotFoundException(String message) {
+    public EmployeeNotFoundException(String message, Long id) {
         super(message);
+        extensions.put("EmployeeNotFoundException ", id);
     }
 
-    public EmployeeNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public EmployeeNotFoundException(Throwable cause) {
-        super(cause);
-    }
-
-    public EmployeeNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
 
     @Override
     public List<SourceLocation> getLocations() {
@@ -34,8 +26,13 @@ public class EmployeeNotFoundException extends RuntimeException implements Graph
     }
 
     @Override
-    public ErrorClassification getErrorType() {
-        return null;
+    public Map<String, Object> getExtensions() {
+        return extensions;
+    }
+
+    @Override
+    public ErrorType getErrorType() {
+        return ErrorType.DataFetchingException;
     }
 
     @Override

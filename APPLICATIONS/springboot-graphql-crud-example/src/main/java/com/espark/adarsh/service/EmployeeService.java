@@ -28,12 +28,12 @@ public class EmployeeService {
 
     public Employee getEmployee(Long id) {
         return this.employeeRepository.findById(id)
-                .orElseThrow(() -> new EmployeeNotFoundException("employee not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("employee not found", id));
     }
 
     public Employee removeEmployee(Long id) {
         Employee employee = this.employeeRepository.findById(id)
-                .orElseThrow(() -> new EmployeeNotFoundException("employee not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("employee not found", id));
         this.employeeRepository.deleteById(id);
         return employee;
     }
@@ -56,7 +56,7 @@ public class EmployeeService {
             });
             return this.employeeRepository.save(employeeOptional.get());
         }
-        return employeeOptional.orElseThrow(() -> new EmployeeNotFoundException("employee not found"));
+        return employeeOptional.orElseThrow(() -> new EmployeeNotFoundException("employee not found", id));
     }
 
     public void setEmployeeRepository(EmployeeRepository employeeRepository) {

@@ -76,3 +76,17 @@ mutation{
 }
 
 ```
+
+### AllEmployee
+```
+curl --location 'http://localhost:8080/graphql' \
+--header 'Content-Type: application/json' \
+--data '{"query":"{getAllEmployee{id firstName lastName}}"}'
+```
+
+### GetEmployeebyid
+```
+curl --location 'http://localhost:8080/graphql' \
+--header 'Content-Type: application/json' \
+--data '{"query":"{getEmployee(id:1){id firstName lastName}}"}'
+```
