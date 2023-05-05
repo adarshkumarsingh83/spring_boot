@@ -42,4 +42,7 @@ public class EmployeeController {
         return this.employeeService.updateEmployee(id, new Employee(id, firstName, lastName, career));
     }
 
+    public void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 }

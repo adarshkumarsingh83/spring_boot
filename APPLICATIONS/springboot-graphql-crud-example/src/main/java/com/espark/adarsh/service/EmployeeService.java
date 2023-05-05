@@ -59,4 +59,7 @@ public class EmployeeService {
         return employeeOptional.orElseThrow(() -> new EmployeeNotFoundException("employee not found"));
     }
 
+    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 }
