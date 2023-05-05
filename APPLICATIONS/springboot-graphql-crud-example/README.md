@@ -77,6 +77,12 @@ mutation{
 
 ```
 
+
+---
+# Curl Cmd Operation 
+
+---
+
 ### AllEmployee
 ```
 curl --location 'http://localhost:8080/graphql' \
@@ -84,9 +90,37 @@ curl --location 'http://localhost:8080/graphql' \
 --data '{"query":"{getAllEmployee{id firstName lastName}}"}'
 ```
 
-### GetEmployeebyid
+### Get Employee By Id
 ```
 curl --location 'http://localhost:8080/graphql' \
 --header 'Content-Type: application/json' \
 --data '{"query":"{getEmployee(id:1){id firstName lastName}}"}'
+```
+
+### Saving Employee 
+```
+curl --location 'http://localhost:8080/graphql' \
+--header 'Content-Type: application/json' \
+--data '{
+	"query": "mutation{\n  saveEmployee(id: 10,firstName: \"sonu\",lastName:\"singh\",career: \"it\"){\n    id\n    firstName\n    lastName\n    career\n  }\n}"
+}'
+```
+
+
+### Updating Employee 
+```
+curl --location 'http://localhost:8080/graphql' \
+--header 'Content-Type: application/json' \
+--data '{
+	"query": "mutation{\n  updateEmployee(id: 10,firstName: \"sonu\",lastName:\"singh thakur\",career: \"it\"){\n    id\n    firstName\n    lastName\n    career\n  }\n}"
+}'
+```
+
+### Deleting Employee
+```
+curl --location 'http://localhost:8080/graphql' \
+--header 'Content-Type: application/json' \
+--data '{
+	"query": "mutation{\n  removeEmployee(id: 10){\n    id\n    firstName\n    lastName\n    career\n  }\n}"
+}'
 ```
