@@ -48,13 +48,10 @@ public class EmployeeControllerTest {
 
     @Test
     void testSavingEmployee() {
-        String document = """
-                     mutation{
-                         saveEmployee(id: 10,firstName: "sonu",lastName:"singh",career: "it"){
-                           id
-                           firstName
-                           lastName
-                           career
+        String document = """                       
+                       mutation{
+                         saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it"}) {
+                           id firstName lastName career
                          }
                        }
                 """;
@@ -72,13 +69,10 @@ public class EmployeeControllerTest {
     void testUpdatingEmployee() {
         String document = """
                      mutation{
-                          updateEmployee(id: 10,firstName: "sonu",lastName:"singh thakur",career: "it"){
-                            id
-                            firstName
-                            lastName
-                            career
-                          }
-                        }
+                           updateEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"kumar singh",career:"it"}) {
+                             id firstName lastName career
+                           }
+                         }
                 """;
         Employee employee = graphQlTester.document(document)
                 .execute()
