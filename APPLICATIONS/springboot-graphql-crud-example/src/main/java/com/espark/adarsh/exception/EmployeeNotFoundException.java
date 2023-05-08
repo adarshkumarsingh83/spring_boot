@@ -1,7 +1,6 @@
 package com.espark.adarsh.exception;
 
 
-import graphql.ErrorClassification;
 import graphql.ErrorType;
 import graphql.GraphQLError;
 import graphql.language.SourceLocation;
@@ -18,7 +17,6 @@ public class EmployeeNotFoundException extends RuntimeException implements Graph
         super(message);
         extensions.put("EmployeeNotFoundException ", id);
     }
-
 
     @Override
     public List<SourceLocation> getLocations() {

@@ -1,15 +1,18 @@
 package com.espark.adarsh;
 
 import com.espark.adarsh.entity.Employee;
+import com.espark.adarsh.exception.EmployeeNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureGraphQlTester;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.graphql.test.tester.GraphQlTester;
 
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.List;
 
 @AutoConfigureGraphQlTester
@@ -104,7 +107,6 @@ public class EmployeeControllerTest {
     }
 
 
-
     @Test
     void testGetAllEmployee() {
         String document = """
@@ -148,5 +150,30 @@ public class EmployeeControllerTest {
         Assertions.assertNotNull(employee.getFirstName() != null);
         Assertions.assertNotNull(employee.getLastName() != null);
     }
+
+
+    @Test()
+    void testGetEmployeeNotFoundException() {
+        String document = """
+                    query{
+                      getEmployee(id:10){
+                        id
+                        firstName
+                        lastName
+                        salary
+                      }
+                    }
+                """;
+
+        java.lang.AssertionError exception = Assertions.assertThrows(java.lang.AssertionError.class, () -> {
+            graphQlTester.document(document)
+                    .execute()
+                    .path("data.getEmployee")
+                    .entity(Employee.class)
+                    .get();
+        });
+        Assertions.assertTrue(exception.getMessage().toString().contains("employee not found"));
+    }
+
 
 }
