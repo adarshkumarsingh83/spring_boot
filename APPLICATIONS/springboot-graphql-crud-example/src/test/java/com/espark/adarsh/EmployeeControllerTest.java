@@ -1,18 +1,15 @@
 package com.espark.adarsh;
 
 import com.espark.adarsh.entity.Employee;
-import com.espark.adarsh.exception.EmployeeNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureGraphQlTester;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.graphql.test.tester.GraphQlTester;
 
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
 import java.util.List;
 
 @AutoConfigureGraphQlTester

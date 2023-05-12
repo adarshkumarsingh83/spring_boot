@@ -4,13 +4,18 @@ import com.espark.adarsh.bean.EmployeeBean;
 import com.espark.adarsh.entity.Employee;
 import com.espark.adarsh.filter.EmployeeFilter;
 import com.espark.adarsh.service.EmployeeService;
+import graphql.GraphQLContext;
+import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -26,7 +31,10 @@ public class EmployeeController {
     }
 
     @QueryMapping
-    public Employee getEmployee(@Argument Long id) {
+    public Employee getEmployee(@Argument Long id, DataFetchingEnvironment env) {
+        ServletRequestAttributes attributes =
+                (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        String val = attributes.getRequest().getHeader("name");
         return this.employeeService.getEmployee(id);
     }
 
