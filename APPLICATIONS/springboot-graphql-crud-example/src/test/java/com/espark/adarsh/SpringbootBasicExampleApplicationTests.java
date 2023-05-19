@@ -77,4 +77,77 @@ class SpringbootBasicExampleApplicationTests {
 		log.info(mvcResult.getResponse().getContentAsString());
 	}
 
+	@Test
+	void testGraphQLSavingEmployee() throws Exception {
+		String document = """
+				{"query":"mutation{saveEmployee(employeeBean:{ id:10,firstName:\\"sonu\\",lastName:\\"singh\\",career:\\"it\\", salary: 3}) {  id firstName lastName career salary}}"}
+				            """;
+		MvcResult mvcResult = mockMvc.perform(post("/graphql")
+						.content(document)
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(request().asyncStarted())
+				.andExpect(request().asyncResult(notNullValue()))
+				.andReturn();
+		mockMvc.perform(asyncDispatch(mvcResult))
+				.andDo(print())
+				.andExpect(status().isOk());
+		log.info(mvcResult.getResponse().getContentAsString());
+	}
+
+
+	@Test
+	void testGraphQLUpdatingEmployee() throws Exception {
+		String document = """
+				{"query":"mutation{updateEmployee(employeeBean:{ id:1,firstName:\\"adarsh\\",lastName:\\"kumar singh\\",career:\\"it\\", salary: 3}) {  id firstName lastName career salary}\\n}"}
+				            """;
+		MvcResult mvcResult = mockMvc.perform(post("/graphql")
+						.content(document)
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(request().asyncStarted())
+				.andExpect(request().asyncResult(notNullValue()))
+				.andReturn();
+		mockMvc.perform(asyncDispatch(mvcResult))
+				.andDo(print())
+				.andExpect(status().isOk());
+		log.info(mvcResult.getResponse().getContentAsString());
+	}
+
+
+	@Test
+	void testGraphQLDeleteEmployee() throws Exception {
+		String document = """
+				{
+					"query": "mutation{removeEmployee(id: 1){  id  firstName  lastName  career}\\n}"
+				}
+				            """;
+		MvcResult mvcResult = mockMvc.perform(post("/graphql")
+						.content(document)
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(request().asyncStarted())
+				.andExpect(request().asyncResult(notNullValue()))
+				.andReturn();
+		mockMvc.perform(asyncDispatch(mvcResult))
+				.andDo(print())
+				.andExpect(status().isOk());
+		log.info(mvcResult.getResponse().getContentAsString());
+	}
+
+
+	@Test
+	void testGraphQLFilterEmployee() throws Exception {
+		String document = """
+				{"query":"query {  employeesFilter(filter: { salary: { operator: \\"gt\\" value: \\"5\\" } }) { id firstName lastName salary } }"}
+				            """;
+		MvcResult mvcResult = mockMvc.perform(post("/graphql")
+						.content(document)
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(request().asyncStarted())
+				.andExpect(request().asyncResult(notNullValue()))
+				.andReturn();
+		mockMvc.perform(asyncDispatch(mvcResult))
+				.andDo(print())
+				.andExpect(status().isOk());
+		log.info(mvcResult.getResponse().getContentAsString());
+	}
+
 }
