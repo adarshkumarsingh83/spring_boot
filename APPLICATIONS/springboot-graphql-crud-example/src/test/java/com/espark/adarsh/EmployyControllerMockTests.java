@@ -41,7 +41,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @Sql({"/data.sql"})
 @Slf4j
-//@WebMvcTest(EmployeeController.class)
 class EmployyControllerMockTests {
 
 
@@ -66,7 +65,8 @@ class EmployyControllerMockTests {
 				            """;
 		MvcResult mvcResult = mockMvc.perform(post("/graphql")
 						.content(document)
-						.contentType(MediaType.APPLICATION_JSON))
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
 				.andExpect(request().asyncResult(notNullValue()))
 				.andReturn();
@@ -88,7 +88,8 @@ class EmployyControllerMockTests {
 				            """;
 		MvcResult mvcResult = mockMvc.perform(post("/graphql")
 						.content(document)
-						.contentType(MediaType.APPLICATION_JSON))
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
 				.andExpect(request().asyncResult(notNullValue()))
 				.andReturn();
@@ -107,7 +108,8 @@ class EmployyControllerMockTests {
 				            """;
 		MvcResult mvcResult = mockMvc.perform(post("/graphql")
 						.content(document)
-						.contentType(MediaType.APPLICATION_JSON))
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
 				.andExpect(request().asyncResult(notNullValue()))
 				.andReturn();
@@ -127,7 +129,8 @@ class EmployyControllerMockTests {
 				            """;
 		MvcResult mvcResult = mockMvc.perform(post("/graphql")
 						.content(document)
-						.contentType(MediaType.APPLICATION_JSON))
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
 				.andExpect(request().asyncResult(notNullValue()))
 				.andReturn();
@@ -149,7 +152,8 @@ class EmployyControllerMockTests {
 				            """;
 		MvcResult mvcResult = mockMvc.perform(post("/graphql")
 						.content(document)
-						.contentType(MediaType.APPLICATION_JSON))
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
 				.andExpect(request().asyncResult(notNullValue()))
 				.andReturn();
@@ -173,7 +177,8 @@ class EmployyControllerMockTests {
 				            """;
 		MvcResult mvcResult = mockMvc.perform(post("/graphql")
 						.content(document)
-						.contentType(MediaType.APPLICATION_JSON))
+						.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
 				.andExpect(request().asyncResult(notNullValue()))
 				.andReturn();
