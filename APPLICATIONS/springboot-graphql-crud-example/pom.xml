@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.espark.adarsh</groupId>
-	<artifactId>sspringboot-graphql-crud-example</artifactId>
+	<artifactId>springboot-graphql-crud-example</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot-graphql-crud-example</name>
 	<description>Demo project for Spring Boot</description>
