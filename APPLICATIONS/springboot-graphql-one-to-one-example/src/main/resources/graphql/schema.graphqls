@@ -1,0 +1,56 @@
+type Employee {
+    id: ID!
+    firstName: String
+    lastName: String
+    career: String
+    salary: Int
+    address: Address
+}
+
+
+type Address {
+    id: ID!
+    street: String
+    state: String
+    country: String
+}
+
+input AddressBean {
+    id: ID!
+    street: String
+    state: String
+    country: String
+}
+
+input EmployeeBean {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    career: String
+    salary: Int
+    addressBean: AddressBean
+}
+
+input FilterField {
+    operator: String!
+    value: String!
+}
+
+input EmployeeFilter {
+    salary: FilterField
+    id: FilterField
+    career: FilterField
+    addressBean: FilterField
+}
+
+type Query {
+    getAllEmployee: [Employee]!
+    getEmployee(id: ID): Employee
+    employeesFilter(filter: EmployeeFilter): [Employee]
+}
+
+type Mutation {
+    saveEmployee(employeeBean:EmployeeBean!): Employee
+    updateEmployee(employeeBean:EmployeeBean!): Employee
+    removeEmployee(id: ID): Employee
+}
