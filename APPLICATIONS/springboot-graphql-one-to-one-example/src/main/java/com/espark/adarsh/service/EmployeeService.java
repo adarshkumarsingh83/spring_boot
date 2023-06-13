@@ -9,11 +9,12 @@ import com.espark.adarsh.respository.AddressRepository;
 import com.espark.adarsh.respository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.ListJoin;
+import javax.persistence.criteria.Predicate;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
@@ -82,10 +83,11 @@ public class EmployeeService {
         if (filter.getSalary() != null)
             spec = bySalary(filter.getSalary());
         if (filter.getId() != null)
-            spec = (spec == null ? byId(filter.getId()) : spec.and(byId(filter.getId())));
+            spec = (spec == null ? byEmployeeId(filter.getId()) : spec.and(byEmployeeId(filter.getId())));
         if (filter.getCarrier() != null)
             spec = (spec == null ? byCarrier(filter.getCarrier()) :
                     spec.and(byCarrier(filter.getCarrier())));
+
         if (spec != null)
             return employeeRepository.findAll(spec);
         else
@@ -96,7 +98,7 @@ public class EmployeeService {
         return (root, query, builder) -> filterField.generateCriteria(builder, root.get("salary"));
     }
 
-    private Specification<Employee> byId(FilterField filterField) {
+    private Specification<Employee> byEmployeeId(FilterField filterField) {
         return (root, query, builder) -> filterField.generateCriteria(builder, root.get("id"));
     }
 
@@ -104,4 +106,25 @@ public class EmployeeService {
         return (root, query, builder) -> filterField.generateCriteria(builder, root.get("carrier"));
     }
 
+
+    private Specification<Employee> byAddressId(FilterField filterField) {
+        return (root, query, criteriaBuilder) -> {
+            ListJoin<Employee, Address> employeeAddressListJoin = root.join(Employee_.address);
+            Predicate equalPredicate = criteriaBuilder.equal(employeeAddressListJoin.get(Address.id),  root.get("id"));
+            query.distinct(true);
+            return equalPredicate;
+        };
+    }
+
+    private Specification<Employee> byStreet(FilterField filterField) {
+        return (root, query, builder) -> filterField.generateCriteria(builder, root.get("street"));
+    }
+
+    private Specification<Employee> byState(FilterField filterField) {
+        return (root, query, builder) -> filterField.generateCriteria(builder, root.get("state"));
+    }
+
+    private Specification<Employee> byCountry(FilterField filterField) {
+        return (root, query, builder) -> filterField.generateCriteria(builder, root.get("country"));
+    }
 }

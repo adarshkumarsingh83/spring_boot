@@ -36,11 +36,18 @@ input FilterField {
     value: String!
 }
 
+input AddressBeanFilter {
+    id: FilterField
+    street: FilterField
+    state: FilterField
+    country: FilterField
+}
+
 input EmployeeFilter {
     salary: FilterField
     id: FilterField
     career: FilterField
-    addressBean: FilterField
+    addressBean: AddressBeanFilter
 }
 
 type Query {

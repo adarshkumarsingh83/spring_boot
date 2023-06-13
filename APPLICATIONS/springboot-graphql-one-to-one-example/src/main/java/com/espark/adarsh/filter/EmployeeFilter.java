@@ -8,4 +8,7 @@ public class EmployeeFilter {
     private FilterField id;
     private FilterField salary;
     private FilterField carrier;
+
+    private AddressFilter addressFilter;
+
 }
