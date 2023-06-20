@@ -14,6 +14,16 @@
 username, pwd , dburl and db driver class is mentioned in application.properties file
 ```
 
+## graphql scale lib 
+```
+	<!--https://github.com/graphql-java/graphql-java-extended-scalars-->
+		<dependency>
+			<groupId>com.graphql-java</groupId>
+			<artifactId>graphql-java-extended-scalars</artifactId>
+			<version>20.2</version>
+		</dependency>
+```
+
 ## Graphql console 
 * http://localhost:8080/graphiql?path=/graphql
 

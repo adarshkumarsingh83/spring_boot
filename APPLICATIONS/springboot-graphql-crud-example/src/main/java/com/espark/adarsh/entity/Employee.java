@@ -1,6 +1,8 @@
 package com.espark.adarsh.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "employee")
@@ -13,6 +15,13 @@ public class Employee {
      private String career;
 
     private Long salary;
+
+    @Column(name = "doj", columnDefinition = "DATE")
+    private LocalDate doj;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
 
     public Employee() {
     }
@@ -30,6 +39,17 @@ public class Employee {
         this.lastName = lastName;
         this.career = career;
         this.salary = salary;
+    }
+
+
+    public Employee(Long id, String firstName, String lastName, String career, Long salary, LocalDate doj, Gender gender) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.career = career;
+        this.salary = salary;
+        this.doj = doj;
+        this.gender = gender;
     }
 
     public Long getId() {
@@ -70,6 +90,22 @@ public class Employee {
 
     public void setSalary(Long salary) {
         this.salary = salary;
+    }
+
+    public LocalDate getDoj() {
+        return doj;
+    }
+
+    public void setDoj(LocalDate doj) {
+        this.doj = doj;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }
 

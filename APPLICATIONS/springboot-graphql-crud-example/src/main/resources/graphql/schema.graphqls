@@ -1,9 +1,12 @@
+scalar Date
+
 type Employee {
     id: ID!
     firstName: String
     lastName: String
     career: String
     salary: Int
+    doj: Date
 }
 
 input EmployeeBean {

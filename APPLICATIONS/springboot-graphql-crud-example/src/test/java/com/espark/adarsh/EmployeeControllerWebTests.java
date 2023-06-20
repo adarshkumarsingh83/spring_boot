@@ -1,26 +1,26 @@
 package com.espark.adarsh;
 
+import com.espark.adarsh.config.GraphqlScalarConfiguration;
 import com.espark.adarsh.entity.Employee;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureGraphQlTester;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Import;
 import org.springframework.graphql.test.tester.HttpGraphQlTester;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.client.MockMvcWebTestClient;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.annotation.PostConstruct;
-
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @AutoConfigureGraphQlTester
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@Import({GraphqlScalarConfiguration.class})
 class EmployeeControllerWebTests {
 
     HttpGraphQlTester tester;

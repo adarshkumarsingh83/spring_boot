@@ -1,9 +1,12 @@
 package com.espark.adarsh.bean;
 
 import com.espark.adarsh.entity.Employee;
+import com.espark.adarsh.entity.Gender;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class EmployeeBean {
 
@@ -16,6 +19,10 @@ public class EmployeeBean {
     private String career;
 
     private Long salary;
+
+    private LocalDate doj;
+
+    private Gender gender;
 
     public EmployeeBean() {
     }
@@ -33,6 +40,16 @@ public class EmployeeBean {
         this.lastName = lastName;
         this.career = career;
         this.salary = salary;
+    }
+
+    public EmployeeBean(Long id, String firstName, String lastName, String career, Long salary, LocalDate doj, Gender gender) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.career = career;
+        this.salary = salary;
+        this.doj = doj;
+        this.gender = gender;
     }
 
     public Long getId() {
@@ -75,7 +92,24 @@ public class EmployeeBean {
         this.salary = salary;
     }
 
+
+    public LocalDate getDoj() {
+        return doj;
+    }
+
+    public void setDoj(LocalDate doj) {
+        this.doj = doj;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     public Employee getEmployee() {
-        return new Employee(this.id, this.firstName, this.lastName, this.career,this.salary);
+        return new Employee(this.id, this.firstName, this.lastName, this.career,this.salary,this.doj,this.gender);
     }
 }
