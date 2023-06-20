@@ -1,5 +1,9 @@
 scalar Date
 
+enum Gender{
+    MALE,
+    FEMALE
+}
 type Employee {
     id: ID!
     firstName: String
@@ -7,6 +11,7 @@ type Employee {
     career: String
     salary: Int
     doj: Date
+    gender: Gender
 }
 
 input EmployeeBean {
@@ -15,6 +20,8 @@ input EmployeeBean {
     lastName: String!
     career: String
     salary: Int
+    doj: Date
+    gender: Gender
 }
 
 input FilterField {
