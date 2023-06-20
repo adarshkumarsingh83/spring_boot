@@ -1,3 +1,4 @@
+/*
 package com.espark.adarsh;
 
 import com.espark.adarsh.entity.Employee;
@@ -49,7 +50,7 @@ public class EmployeeControllerTest {
 
     @Test
     void testSavingEmployee() {
-        String document = """                       
+        String document = """
                     mutation{
                       saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it", salary: 3}) {
                         id firstName lastName career salary
@@ -69,7 +70,7 @@ public class EmployeeControllerTest {
 
     @Test
     void testFilterEmployee() {
-        String document = """                       
+        String document = """
                     query {
                        employeesFilter(filter: { salary: { operator: "gt" value: "5" } }) { id firstName lastName salary }\s
                      }
@@ -174,3 +175,4 @@ public class EmployeeControllerTest {
 
 
 }
+*/

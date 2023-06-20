@@ -105,26 +105,4 @@ public class EmployeeService {
     private Specification<Employee> byCarrier(FilterField filterField) {
         return (root, query, builder) -> filterField.generateCriteria(builder, root.get("carrier"));
     }
-
-
-    private Specification<Employee> byAddressId(FilterField filterField) {
-        return (root, query, criteriaBuilder) -> {
-            ListJoin<Employee, Address> employeeAddressListJoin = root.join(Employee_.address);
-            Predicate equalPredicate = criteriaBuilder.equal(employeeAddressListJoin.get(Address.id),  root.get("id"));
-            query.distinct(true);
-            return equalPredicate;
-        };
-    }
-
-    private Specification<Employee> byStreet(FilterField filterField) {
-        return (root, query, builder) -> filterField.generateCriteria(builder, root.get("street"));
-    }
-
-    private Specification<Employee> byState(FilterField filterField) {
-        return (root, query, builder) -> filterField.generateCriteria(builder, root.get("state"));
-    }
-
-    private Specification<Employee> byCountry(FilterField filterField) {
-        return (root, query, builder) -> filterField.generateCriteria(builder, root.get("country"));
-    }
 }
