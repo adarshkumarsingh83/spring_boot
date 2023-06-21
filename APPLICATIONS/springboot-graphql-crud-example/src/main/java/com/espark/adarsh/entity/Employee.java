@@ -1,5 +1,7 @@
 package com.espark.adarsh.entity;
 
+import com.espark.adarsh.entity.convertors.MapConverter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Map;

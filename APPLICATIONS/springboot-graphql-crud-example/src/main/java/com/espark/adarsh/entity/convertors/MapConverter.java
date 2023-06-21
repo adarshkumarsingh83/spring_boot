@@ -1,4 +1,4 @@
-package com.espark.adarsh.entity;
+package com.espark.adarsh.entity.convertors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

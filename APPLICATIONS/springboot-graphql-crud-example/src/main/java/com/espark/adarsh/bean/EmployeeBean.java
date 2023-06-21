@@ -2,17 +2,13 @@ package com.espark.adarsh.bean;
 
 import com.espark.adarsh.entity.Employee;
 import com.espark.adarsh.entity.Gender;
-import com.espark.adarsh.entity.MapConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Map;
 
 @Slf4j
