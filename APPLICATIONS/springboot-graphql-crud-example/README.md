@@ -35,6 +35,9 @@ query{
     firstName
     lastName
     salary
+     doj
+    gender
+    attributes
   }
 }
 ````
@@ -47,6 +50,9 @@ query{
     firstName
     lastName
     salary
+     doj
+    gender
+    attributes
   }
 }
 ```
@@ -54,8 +60,8 @@ query{
 ### saving data 
 ```
 mutation{
-  saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it", salary: 3}) {
-    id firstName lastName career salary
+  saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it", salary: 3, doj:"1010-01-01", gender:MALE, attributes:"{\"key1\":\"value\"}" }) {
+    id firstName lastName career salary doj gender attributes
   }
 }
 ```

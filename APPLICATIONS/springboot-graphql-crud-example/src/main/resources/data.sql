@@ -7,11 +7,12 @@ CREATE TABLE employee (
   career VARCHAR(250) DEFAULT NULL,
   gender VARCHAR(8),
   salary INT NOT NULL,
-  doj DATE
+  doj DATE,
+  attributes VARCHAR(250) DEFAULT NULL
 );
 
-INSERT INTO employee (first_name, last_name, career, salary, gender, doj) VALUES
-  ('adarsh', 'kumar', 'It', 10, 'MALE', '2020-01-1'),
-  ('radha', 'singh', 'IT', 10, 'FEMALE', '2020-01-1'),
-  ('sonu', 'singh', 'IT', 5, 'MALE', '2020-01-1'),
-  ('amit', 'kumar', 'Finance',8, 'MALE', '2020-01-1');
+INSERT INTO employee (first_name, last_name, career, salary, gender, doj, attributes) VALUES
+  ('adarsh', 'kumar', 'It', 10, 'MALE', '2020-01-1', '{"key1":"value"}'),
+  ('radha', 'singh', 'IT', 10, 'FEMALE', '2020-01-1', '{"key2":"value"}'),
+  ('sonu', 'singh', 'IT', 5, 'MALE', '2020-01-1', '{"key3":"value"}'),
+  ('amit', 'kumar', 'Finance',8, 'MALE', '2020-01-1', '{"key4":"value"}');

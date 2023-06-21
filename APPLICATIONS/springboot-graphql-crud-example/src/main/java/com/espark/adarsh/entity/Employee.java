@@ -2,7 +2,7 @@ package com.espark.adarsh.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.Map;
 
 @Entity
 @Table(name = "employee")
@@ -21,6 +21,9 @@ public class Employee {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @Convert(converter = MapConverter.class)
+    private Map<String,String> attributes;
 
 
     public Employee() {
@@ -41,7 +44,6 @@ public class Employee {
         this.salary = salary;
     }
 
-
     public Employee(Long id, String firstName, String lastName, String career, Long salary, LocalDate doj, Gender gender) {
         this.id = id;
         this.firstName = firstName;
@@ -50,6 +52,17 @@ public class Employee {
         this.salary = salary;
         this.doj = doj;
         this.gender = gender;
+    }
+
+    public Employee(Long id, String firstName, String lastName, String career, Long salary, LocalDate doj, Gender gender, Map<String, String> attributes) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.career = career;
+        this.salary = salary;
+        this.doj = doj;
+        this.gender = gender;
+        this.attributes = attributes;
     }
 
     public Long getId() {
@@ -106,6 +119,14 @@ public class Employee {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, String> attributes) {
+        this.attributes = attributes;
     }
 }
 

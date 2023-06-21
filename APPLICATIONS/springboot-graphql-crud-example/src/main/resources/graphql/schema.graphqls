@@ -1,4 +1,7 @@
 scalar Date
+scalar JSON
+
+
 
 enum Gender{
     MALE,
@@ -12,6 +15,7 @@ type Employee {
     salary: Int
     doj: Date
     gender: Gender
+    attributes: JSON
 }
 
 input EmployeeBean {
@@ -22,6 +26,7 @@ input EmployeeBean {
     salary: Int
     doj: Date
     gender: Gender
+    attributes: JSON
 }
 
 input FilterField {

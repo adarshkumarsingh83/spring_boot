@@ -58,8 +58,8 @@
 			<version>4.7.0</version>
 		</dependency>
 
-	<!--	&lt;!&ndash;https://github.com/graphql-java/graphql-java-extended-scalars&ndash;&gt;
-		<dependency>
+		<!--https://github.com/graphql-java/graphql-java-extended-scalars-->
+	<!--	<dependency>
 			<groupId>com.graphql-java</groupId>
 			<artifactId>graphql-java-extended-scalars</artifactId>
 			<version>20.2</version>
@@ -70,7 +70,6 @@
 			<artifactId>spring-webflux</artifactId>
 			<version>5.3.23</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>javax.validation</groupId>

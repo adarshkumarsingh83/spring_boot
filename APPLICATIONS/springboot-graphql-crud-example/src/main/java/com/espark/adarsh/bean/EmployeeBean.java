@@ -2,13 +2,24 @@ package com.espark.adarsh.bean;
 
 import com.espark.adarsh.entity.Employee;
 import com.espark.adarsh.entity.Gender;
+import com.espark.adarsh.entity.MapConverter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Map;
 
+@Slf4j
 public class EmployeeBean {
+
+    @JsonIgnore
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @Digits(fraction = 0, integer = 100, message = "id for employee")
     private Long id;
@@ -24,25 +35,13 @@ public class EmployeeBean {
 
     private Gender gender;
 
+
+    private Map<String,String> attributes;
+
     public EmployeeBean() {
     }
 
-    public EmployeeBean(String firstName, String lastName, String career, Long salary) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.career = career;
-        this.salary = salary;
-    }
-
-    public EmployeeBean(Long id, String firstName, String lastName, String career,Long salary) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.career = career;
-        this.salary = salary;
-    }
-
-    public EmployeeBean(Long id, String firstName, String lastName, String career, Long salary, LocalDate doj, Gender gender) {
+    public EmployeeBean(Long id, String firstName, String lastName, String career, Long salary, LocalDate doj, Gender gender,   Map<String,String> attributes) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +49,8 @@ public class EmployeeBean {
         this.salary = salary;
         this.doj = doj;
         this.gender = gender;
+        this.attributes = attributes;
+
     }
 
     public Long getId() {
@@ -109,7 +110,17 @@ public class EmployeeBean {
         this.gender = gender;
     }
 
+
+    public  Map<String,String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes( Map<String,String> attributes) {
+        this.attributes = attributes;
+    }
+
+
     public Employee getEmployee() {
-        return new Employee(this.id, this.firstName, this.lastName, this.career,this.salary,this.doj,this.gender);
+        return new Employee(this.id, this.firstName, this.lastName, this.career,this.salary,this.doj,this.gender,this.attributes);
     }
 }
