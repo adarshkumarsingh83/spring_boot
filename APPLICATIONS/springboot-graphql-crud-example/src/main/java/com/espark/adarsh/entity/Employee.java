@@ -1,9 +1,11 @@
 package com.espark.adarsh.entity;
 
-import com.espark.adarsh.entity.convertors.MapConverter;
+import com.espark.adarsh.entity.convertors.AttributeMapConverter;
+import com.espark.adarsh.entity.convertors.PhoneListConverter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -11,10 +13,10 @@ import java.util.Map;
 public class Employee {
 
     @Id
-     private Long id;
-     private String firstName;
-     private String lastName;
-     private String career;
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String career;
 
     private Long salary;
 
@@ -24,9 +26,12 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Convert(converter = MapConverter.class)
-    private Map<String,String> attributes;
+    @Convert(converter = AttributeMapConverter.class)
+    private Map<String, String> attributes;
 
+
+    @Convert(converter = PhoneListConverter.class)
+    private List<String> phone;
 
     public Employee() {
     }
@@ -56,7 +61,7 @@ public class Employee {
         this.gender = gender;
     }
 
-    public Employee(Long id, String firstName, String lastName, String career, Long salary, LocalDate doj, Gender gender, Map<String, String> attributes) {
+    public Employee(Long id, String firstName, String lastName, String career, Long salary, LocalDate doj, Gender gender, Map<String, String> attributes, List<String> phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -65,6 +70,7 @@ public class Employee {
         this.doj = doj;
         this.gender = gender;
         this.attributes = attributes;
+        this.phone = phone;
     }
 
     public Long getId() {

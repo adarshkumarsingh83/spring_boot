@@ -16,6 +16,7 @@ type Employee {
     doj: Date
     gender: Gender
     attributes: JSON
+    phone: [String]
 }
 
 input EmployeeBean {
@@ -27,6 +28,7 @@ input EmployeeBean {
     doj: Date
     gender: Gender
     attributes: JSON
+    phone: [String]
 }
 
 input FilterField {

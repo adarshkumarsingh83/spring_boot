@@ -38,6 +38,7 @@ query{
      doj
     gender
     attributes
+    phone
   }
 }
 ````
@@ -53,6 +54,7 @@ query{
      doj
     gender
     attributes
+    phone
   }
 }
 ```
@@ -60,8 +62,8 @@ query{
 ### saving data 
 ```
 mutation{
-  saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it", salary: 3, doj:"1010-01-01", gender:MALE, attributes:"{\"key\":\"value\"}" }) {
-    id firstName lastName career salary doj gender attributes
+  saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it", salary: 3, doj:"1010-01-01", gender:MALE, attributes:"{\"key\":\"value\"}", phone:["1234567890","12345678999"]}) {
+    id firstName lastName career salary doj gender phone
   }
 }
 ```

@@ -5,31 +5,33 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.Map;
+
 
 @Slf4j
 @Converter
-public class MapConverter implements AttributeConverter<Map, String> {
-
+public class PhoneListConverter implements AttributeConverter<List<String>, String> {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public String convertToDatabaseColumn(Map attribute) {
+    public String convertToDatabaseColumn(List phone) {
         try {
-            return objectMapper.writeValueAsString(attribute);
+            return objectMapper.writeValueAsString(phone
+            );
         } catch (JsonProcessingException e) {
-           log.error(e.getMessage());
+            log.error(e.getMessage());
         }
         return null;
     }
 
     @Override
-    public Map convertToEntityAttribute(String dbData) {
+    public List convertToEntityAttribute(String dbData) {
         try {
             return objectMapper.readValue(dbData.toString()
-                    , new TypeReference<Map<String, String>>() {
+                    , new TypeReference<List<String>>() {
                     });
 
         } catch (JsonProcessingException e) {
@@ -38,5 +40,3 @@ public class MapConverter implements AttributeConverter<Map, String> {
         return null;
     }
 }
-
-

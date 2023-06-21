@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.language.StringValue;
+import graphql.scalars.ExtendedScalars;
 import graphql.schema.Coercing;
 import graphql.schema.CoercingParseLiteralException;
 import graphql.schema.CoercingParseValueException;
@@ -23,8 +24,11 @@ public class GraphqlScalarConfiguration {
 
     @Bean
     public RuntimeWiringConfigurer runtimeWiringConfigurer() {
-        return wiringBuilder -> wiringBuilder.scalar(dateScalar())
-                .scalar(jsonScalar());
+        return wiringBuilder -> wiringBuilder
+                //.scalar(dateScalar());
+                //.scalar(jsonScalar());
+                .scalar(ExtendedScalars.Json)
+                .scalar(ExtendedScalars.Date);
     }
 
 

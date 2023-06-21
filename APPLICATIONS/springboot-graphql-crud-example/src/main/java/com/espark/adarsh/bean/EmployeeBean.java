@@ -9,13 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
 public class EmployeeBean {
-
-    @JsonIgnore
-    ObjectMapper objectMapper = new ObjectMapper();
 
     @Digits(fraction = 0, integer = 100, message = "id for employee")
     private Long id;
@@ -31,13 +29,14 @@ public class EmployeeBean {
 
     private Gender gender;
 
+    private List<String> phone;
 
     private Map<String,String> attributes;
 
     public EmployeeBean() {
     }
 
-    public EmployeeBean(Long id, String firstName, String lastName, String career, Long salary, LocalDate doj, Gender gender,   Map<String,String> attributes) {
+    public EmployeeBean(Long id, String firstName, String lastName, String career, Long salary, LocalDate doj, Gender gender, Map<String,String> attributes) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,7 +45,6 @@ public class EmployeeBean {
         this.doj = doj;
         this.gender = gender;
         this.attributes = attributes;
-
     }
 
     public Long getId() {
@@ -115,8 +113,15 @@ public class EmployeeBean {
         this.attributes = attributes;
     }
 
+    public List<String> getPhone() {
+        return phone;
+    }
+
+    public void setPhone(List<String> phone) {
+        this.phone = phone;
+    }
 
     public Employee getEmployee() {
-        return new Employee(this.id, this.firstName, this.lastName, this.career,this.salary,this.doj,this.gender,this.attributes);
+        return new Employee(this.id, this.firstName, this.lastName, this.career,this.salary,this.doj,this.gender,this.attributes,this.phone);
     }
 }

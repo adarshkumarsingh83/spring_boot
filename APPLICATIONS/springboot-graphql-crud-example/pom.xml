@@ -59,11 +59,11 @@
 		</dependency>
 
 		<!--https://github.com/graphql-java/graphql-java-extended-scalars-->
-	<!--	<dependency>
+		<dependency>
 			<groupId>com.graphql-java</groupId>
 			<artifactId>graphql-java-extended-scalars</artifactId>
 			<version>20.2</version>
-		</dependency>-->
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
