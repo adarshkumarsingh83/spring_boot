@@ -60,7 +60,7 @@ query{
 ### saving data 
 ```
 mutation{
-  saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it", salary: 3, doj:"1010-01-01", gender:MALE, attributes:"{\"key1\":\"value\"}" }) {
+  saveEmployee(employeeBean:{ id:10,firstName:"sonu",lastName:"singh",career:"it", salary: 3, doj:"1010-01-01", gender:MALE, attributes:"{\"key\":\"value\"}" }) {
     id firstName lastName career salary doj gender attributes
   }
 }
