@@ -25,7 +25,7 @@ username, pwd , dburl and db driver class is mentioned in application.properties
 ```
 
 ## Graphql console 
-* http://localhost:8080/espark/graphiql?path=/graphql
+* http://localhost:8080/espark/graphiql?path=/api/espark/graphql
 
 ### single selection query 
 ````
