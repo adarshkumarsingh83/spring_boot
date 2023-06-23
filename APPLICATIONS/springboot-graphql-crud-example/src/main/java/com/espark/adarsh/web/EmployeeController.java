@@ -25,6 +25,7 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+
     @QueryMapping
     public List<Employee> getAllEmployee() {
         return this.employeeService.getAllEmployee();

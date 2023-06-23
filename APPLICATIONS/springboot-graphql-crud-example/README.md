@@ -25,7 +25,7 @@ username, pwd , dburl and db driver class is mentioned in application.properties
 ```
 
 ## Graphql console 
-* http://localhost:8080/graphiql?path=/graphql
+* http://localhost:8080/espark/graphiql?path=/graphql
 
 ### single selection query 
 ````
@@ -106,7 +106,7 @@ mutation{
 
 ### AllEmployee
 ```
-curl --location 'http://localhost:8080/graphql' \
+curl --location 'http://localhost:8080/api/espark/graphql' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: cookieName=' \
 --data '{"query":"query{getAllEmployee{  id  firstName  lastName  salary}\n}"}'
@@ -114,7 +114,7 @@ curl --location 'http://localhost:8080/graphql' \
 
 ### Get Employee By Id
 ```
-curl --location 'http://localhost:8080/graphql' \
+curl --location 'http://localhost:8080/api/espark/graphql' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: cookieName=' \
 --data '{
@@ -124,7 +124,7 @@ curl --location 'http://localhost:8080/graphql' \
 
 ### Saving Employee 
 ```
-curl --location 'http://localhost:8080/graphql' \
+curl --location 'http://localhost:8080/api/espark/graphql' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: cookieName=' \
 --data '{"query":"mutation{saveEmployee(employeeBean:{ id:10,firstName:\"sonu\",lastName:\"singh\",career:\"it\", salary: 3}) {  id firstName lastName career salary}\n}"}'
@@ -133,7 +133,7 @@ curl --location 'http://localhost:8080/graphql' \
 
 ### Updating Employee 
 ```
-curl --location 'http://localhost:8080/graphql' \
+curl --location 'http://localhost:8080/api/espark/graphql' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: cookieName=' \
 --data '{"query":"mutation{updateEmployee(employeeBean:{ id:10,firstName:\"sonu\",lastName:\"kumar singh\",career:\"it\", salary: 3}) {  id firstName lastName career salary}\n}"}'
@@ -143,7 +143,7 @@ curl --location 'http://localhost:8080/graphql' \
 
 ### Filter Query 
 ```   
-curl --location 'http://localhost:8080/graphql' \
+curl --location 'http://localhost:8080/api/espark/graphql' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: cookieName=' \
 --data '{"query":"query {\n  employeesFilter(filter: { salary: { operator: \"gt\" value: \"5\" } }) { id firstName lastName salary } \n}"}'
@@ -151,7 +151,7 @@ curl --location 'http://localhost:8080/graphql' \
 
 ### Deleting Employee
 ```
-curl --location 'http://localhost:8080/graphql' \
+curl --location 'http://localhost:8080/api/espark/graphql' \
 --header 'Content-Type: application/json' \
 --data '{
 	"query": "mutation{removeEmployee(id: 10){  id  firstName  lastName  career}\n}"

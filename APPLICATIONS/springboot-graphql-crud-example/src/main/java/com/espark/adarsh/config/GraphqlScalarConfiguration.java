@@ -114,6 +114,7 @@ public class GraphqlScalarConfiguration {
                         }
                     }
 
+
                     @Override
                     public Map<String, String> parseLiteral(final Object input) {
                         if (input instanceof StringValue) {
