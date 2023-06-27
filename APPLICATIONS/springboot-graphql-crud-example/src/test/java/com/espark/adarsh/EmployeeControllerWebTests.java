@@ -23,13 +23,15 @@ import org.springframework.web.context.WebApplicationContext;
 @Import({GraphqlScalarConfiguration.class})
 class EmployeeControllerWebTests {
 
+    private final static String url ="/api/espark/graphql";
+
     HttpGraphQlTester tester;
 
      public EmployeeControllerWebTests(WebApplicationContext context) {
                  WebTestClient client =
                  MockMvcWebTestClient.bindToApplicationContext(context)
                          .configureClient()
-                         .baseUrl("/graphql")
+                         .baseUrl(url)
                          .defaultHeader("name","my-header")
                          .build();
           tester = HttpGraphQlTester.create(client);

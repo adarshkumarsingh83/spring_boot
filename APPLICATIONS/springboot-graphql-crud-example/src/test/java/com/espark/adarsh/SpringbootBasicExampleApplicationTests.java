@@ -34,6 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class SpringbootBasicExampleApplicationTests {
 
 
+	private final static String url ="/api/espark/graphql";
+
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -51,7 +53,7 @@ class SpringbootBasicExampleApplicationTests {
 				  "query": "query{getEmployee(id:1){  id  firstName  lastName  salary}}"
 				}
 				            """;
-		MvcResult mvcResult = mockMvc.perform(post("/graphql")
+		MvcResult mvcResult = mockMvc.perform(post(url)
 						.content(document)
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
@@ -68,7 +70,7 @@ class SpringbootBasicExampleApplicationTests {
 		String document = """
 				{"query":"query{getAllEmployee{  id  firstName  lastName  salary}}"}
 				            """;
-		MvcResult mvcResult = mockMvc.perform(post("/graphql")
+		MvcResult mvcResult = mockMvc.perform(post(url)
 						.content(document)
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
@@ -85,7 +87,7 @@ class SpringbootBasicExampleApplicationTests {
 		String document = """
 				{"query":"mutation{saveEmployee(employeeBean:{ id:10,firstName:\\"sonu\\",lastName:\\"singh\\",career:\\"it\\", salary: 3}) {  id firstName lastName career salary}}"}
 				            """;
-		MvcResult mvcResult = mockMvc.perform(post("/graphql")
+		MvcResult mvcResult = mockMvc.perform(post(url)
 						.content(document)
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
@@ -103,7 +105,7 @@ class SpringbootBasicExampleApplicationTests {
 		String document = """
 				{"query":"mutation{updateEmployee(employeeBean:{ id:1,firstName:\\"adarsh\\",lastName:\\"kumar singh\\",career:\\"it\\", salary: 3}) {  id firstName lastName career salary}\\n}"}
 				            """;
-		MvcResult mvcResult = mockMvc.perform(post("/graphql")
+		MvcResult mvcResult = mockMvc.perform(post(url)
 						.content(document)
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
@@ -123,7 +125,7 @@ class SpringbootBasicExampleApplicationTests {
 					"query": "mutation{removeEmployee(id: 1){  id  firstName  lastName  career}\\n}"
 				}
 				            """;
-		MvcResult mvcResult = mockMvc.perform(post("/graphql")
+		MvcResult mvcResult = mockMvc.perform(post(url)
 						.content(document)
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
@@ -141,7 +143,7 @@ class SpringbootBasicExampleApplicationTests {
 		String document = """
 				{"query":"query {  employeesFilter(filter: { salary: { operator: \\"gt\\" value: \\"5\\" } }) { id firstName lastName salary } }"}
 				            """;
-		MvcResult mvcResult = mockMvc.perform(post("/graphql")
+		MvcResult mvcResult = mockMvc.perform(post(url)
 						.content(document)
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(request().asyncStarted())
