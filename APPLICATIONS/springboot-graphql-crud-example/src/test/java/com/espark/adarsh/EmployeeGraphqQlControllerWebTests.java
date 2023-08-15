@@ -21,13 +21,13 @@ import org.springframework.web.context.WebApplicationContext;
 @AutoConfigureGraphQlTester
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @Import({GraphqlScalarConfiguration.class})
-class EmployeeControllerWebTests {
+class EmployeeGraphqQlControllerWebTests {
 
     private final static String url ="/api/espark/graphql";
 
     HttpGraphQlTester tester;
 
-     public EmployeeControllerWebTests(WebApplicationContext context) {
+     public EmployeeGraphqQlControllerWebTests(WebApplicationContext context) {
                  WebTestClient client =
                  MockMvcWebTestClient.bindToApplicationContext(context)
                          .configureClient()

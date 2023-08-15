@@ -4,59 +4,57 @@ import com.espark.adarsh.bean.EmployeeBean;
 import com.espark.adarsh.entity.Employee;
 import com.espark.adarsh.filter.EmployeeFilter;
 import com.espark.adarsh.service.EmployeeService;
-import graphql.GraphQLContext;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
-public class EmployeeController {
+@RestController
+public class EmployeeRestController {
 
     @Autowired
     EmployeeService employeeService;
 
 
-    @QueryMapping
+    @GetMapping("/employees")
     public List<Employee> getAllEmployee() {
         return this.employeeService.getAllEmployee();
     }
 
-    @QueryMapping
-    public Employee getEmployee(@Argument Long id, DataFetchingEnvironment env) {
+    @GetMapping("/employee/{id}")
+    public Employee getEmployee(@PathVariable("id") Long id, DataFetchingEnvironment env) {
         ServletRequestAttributes attributes =
                 (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         String val = attributes.getRequest().getHeader("name");
         return this.employeeService.getEmployee(id);
     }
 
-    @MutationMapping
-    public Employee removeEmployee(@Argument("id") Long id) {
+    @DeleteMapping("/employee/{id")
+    public Employee removeEmployee(@PathVariable("id") Long id) {
         return this.employeeService.removeEmployee(id);
     }
 
-    @MutationMapping
-    public Employee saveEmployee(@Argument @Valid EmployeeBean employeeBean) {
+    @PostMapping("/employee")
+    public Employee saveEmployee(@RequestBody @Valid EmployeeBean employeeBean) {
         return this.employeeService.saveEmployee(employeeBean.getEmployee());
     }
 
-    @MutationMapping
-    public Employee updateEmployee(@Argument @Valid EmployeeBean employeeBean) {
+    @PutMapping("/employee")
+    public Employee updateEmployee(@RequestBody @Valid EmployeeBean employeeBean) {
         return this.employeeService.updateEmployee(employeeBean.getId(), employeeBean.getEmployee());
     }
 
 
-    @QueryMapping
-    public Iterable<Employee> employeesFilter(@Argument EmployeeFilter filter) {
+    @PostMapping
+    public Iterable<Employee> employeesFilter(@RequestBody EmployeeFilter filter) {
        return this.employeeService.employeesFilter(filter);
     }
 

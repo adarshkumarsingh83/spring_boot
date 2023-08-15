@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureG
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.graphql.test.tester.GraphQlTester;
+import org.springframework.test.context.TestPropertySource;
 
 
 import javax.annotation.PostConstruct;
@@ -17,7 +18,7 @@ import java.util.List;
 @AutoConfigureGraphQlTester
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @Import({GraphqlScalarConfiguration.class})
-public class EmployeeControllerTest {
+public class EmployeeGraphqQlControllerTest {
 
 
     @Autowired
