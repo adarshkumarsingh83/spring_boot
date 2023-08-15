@@ -2,8 +2,6 @@ package com.espark.adarsh.bean;
 
 import com.espark.adarsh.entity.Employee;
 import com.espark.adarsh.entity.Gender;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.Digits;

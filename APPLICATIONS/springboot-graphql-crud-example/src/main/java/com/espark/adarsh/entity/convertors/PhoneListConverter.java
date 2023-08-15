@@ -30,7 +30,7 @@ public class PhoneListConverter implements AttributeConverter<List<String>, Stri
     @Override
     public List convertToEntityAttribute(String dbData) {
         try {
-            return objectMapper.readValue(dbData.toString()
+            return objectMapper.readValue(dbData
                     , new TypeReference<List<String>>() {
                     });
 

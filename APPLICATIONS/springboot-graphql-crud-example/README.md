@@ -157,3 +157,39 @@ curl --location 'http://localhost:8080/api/espark/graphql' \
 	"query": "mutation{removeEmployee(id: 10){  id  firstName  lastName  career}\n}"
 }'
 ```
+
+
+## SONAR 
+$ Downloads/sonarqube-10.1.0.73491 2/bin/macosx-universal-64
+
+$ sh sonar.sh start
+```
+$  sh sonar.sh start 
+/usr/bin/java
+Starting SonarQube...
+Started SonarQube.
+```
+```
+$ sh sonar.sh stop 
+/usr/bin/javamvn c
+Gracefully stopping SonarQube...
+Stopped SonarQube.
+
+```
+url
+http://localhost:9000/
+admin/admin
+
+create project manually
+analyze your project locally -> provide a token -> generate
+it will generate a token
+run your project from maven -> it will provide a maven cmd like below to run
+and build a code for sonar analysis 
+
+$ mvn clean verify sonar:sonar \
+-Dsonar.projectKey=graphql \
+-Dsonar.projectName='graphql' \
+-Dsonar.host.url=http://localhost:9000 \
+-Dsonar.token=sqp_d2802588ba05e9255839f21e5ce9bf8d5c84dc8f
+
+

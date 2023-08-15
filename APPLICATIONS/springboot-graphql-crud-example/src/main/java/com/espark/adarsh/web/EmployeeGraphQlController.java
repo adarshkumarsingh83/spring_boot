@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class EmployeeGraphqQlController {
+public class EmployeeGraphQlController {
 
     @Autowired
     EmployeeService employeeService;
