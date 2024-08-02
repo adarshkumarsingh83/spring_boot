@@ -1,0 +1,146 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Swagger Employee
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8080/
+paths:
+  /employees:
+    get:
+      summary: List all Employees
+      operationId: listEmployees
+      tags:
+        - employee
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Employee"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /employee:
+    post:
+      summary: Create a pet
+      operationId: createEmployee
+      tags:
+        - employee
+      responses:
+        '201':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /employee/{employeeId}:
+    get:
+      summary: Info for a specific pet
+      operationId: getEmployeeById
+      tags:
+        - employee
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          description: The id of the employee to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Employee"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Employee:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string
+    Sample:
+      type: object
+      properties:
+        employee:
+          description: General Employee
+          $ref: '#/components/schemas/Employee'
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/Employee'
+        mapOfEmployee:
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Employee'
+        listOfMapOfEmployee:
+          type: array
+          items:
+            additionalProperties:
+              type: array
+              items:
+                $ref: '#/components/schemas/Employee'
+
+    EmployeeEntity:
+      type: object
+      x-java-jpa-entity: true
+      x-class-extra-annotation: "@lombok.Data @jakarta.persistence.Entity @jakarta.persistence.Table(name=\"employee\")"
+      properties:
+        id:
+          x-field-extra-annotation: "@jakarta.persistence.Id @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.AUTO) @jakarta.persistence.Column(name=\"id\")"
+          type: long
+        name:
+          x-field-extra-annotation: "@jakarta.persistence.Column(name=\"name\")"
+          type: string
+        dob:
+          x-field-extra-annotation: "@jakarta.persistence.Column(name=\"dob\")"
+          type: string
+          format: data-time
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
