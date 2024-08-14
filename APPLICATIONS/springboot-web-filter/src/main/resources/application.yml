@@ -1,0 +1,14 @@
+
+
+espark:
+  messages:
+    threshold: Threshold limit exceeded
+  job:
+    cron: "0 * * * * *"
+  api:
+    enable: true
+    apiConfig:
+      - url: "/employee/*"
+        httpMethod: GET
+        enable: true
+        threshold: 10
