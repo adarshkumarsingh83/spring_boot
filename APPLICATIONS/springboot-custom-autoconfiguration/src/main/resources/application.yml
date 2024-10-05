@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: springboot-custom-autoconfiguration
+
+
+application:
+  espark:
+    process:
+      config:
+        enable: true
+        service:
+          message: "application service is active "

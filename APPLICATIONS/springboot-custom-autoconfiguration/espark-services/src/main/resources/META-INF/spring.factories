@@ -1,4 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-
-########## To Enable Espark Custom Annotation Configuration ##########
-com.espark.adarsh.service.config.EsparkServiceAutoConfiguration
