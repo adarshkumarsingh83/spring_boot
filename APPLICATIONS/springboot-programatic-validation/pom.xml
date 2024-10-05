@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.espark.adarsh</groupId>
-	<artifactId>springboot-validation-basic</artifactId>
+	<artifactId>springboot-programatic-validation</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-validation-basic</name>
+	<name>springboot-programatic-validation</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

@@ -17,3 +17,21 @@ Here are some additional annotations we can find in the JSR:
 @Past and @PastOrPresent validate that a date value is in the past, or the past including the present. We can apply it to date types, including those added in Java 8.
 @Future and @FutureOrPresent validate that a date value is in the future, or in the future including the present.
 ```
+
+```
+curl --location 'http://localhost:8080/user' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "adarsh",
+  "email": "adarsh@kumar",
+  "mobile": "+18877665544",
+  "age": 50,
+  "working": true,
+  "aboutMe": "intelligent",
+  "dateOfBirth": 13091983,
+  "preference": [
+    "java",
+    "iot"
+  ]
+}'
+```
