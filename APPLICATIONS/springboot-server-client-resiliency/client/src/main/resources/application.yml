@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: client
+
+
+server:
+  port: 8080
+
+
+app:
+  server:
+    url: http://localhost:9090
+    api: /server-request/
