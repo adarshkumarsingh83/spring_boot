@@ -22,6 +22,6 @@ public class ApplicationController {
     @GetMapping("/client-request/{option}")
     public ResponseEntity<String> processRequest(@PathVariable String option){
         log.info("ApplicationController :: processRequest {}",option);
-        return this.applicationService.processRequest.apply(option);
+        return this.applicationService.processRequest(option);
     }
 }
