@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: spring-client
+
+resilience4j:
+  retry:
+    configs:
+      default:
+        max-attempts: 5
+        wait-duration: 10s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        exponential-max-wait-duration: 90s
+        retryExceptions:
+          - org.springframework.web.client.HttpClientErrorException
+          - org.springframework.web.client.HttpServerErrorException
+    instances:
+      postApiRetry:
+        baseConfig: default
+
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 10
+        minimum-number-of-call: 3
+        slow-call-duration-threshold: 15s
+        slow-call-rate-threshold: 50
+        wait-duration-in-open-state: 20s
+        automatic-transition-from-open-to-half-open-enable: true
+        permitted-number-of-calls-in-half-open-state: 5
+        ignore-exceptions:
+          - org.springframework.web.client.HttpClientErrorException
+          - org.springframework.web.client.HttpServerErrorException
+    instances:
+      postApiCircuitBreaker:
+        baseConfig: default
+
+  ratelimiter:
+    configs:
+      default:
+        limit-for-period: 10
+        limit-refresh-period: 1s
+        timeout-duration: 1s
+    instances:
+      postApiRateLimiter:
+        baseConfig: default
+
+
