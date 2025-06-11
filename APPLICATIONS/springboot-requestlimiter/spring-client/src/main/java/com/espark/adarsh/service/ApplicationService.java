@@ -4,6 +4,7 @@ import com.espark.adarsh.bean.MyEntry;
 import com.espark.adarsh.bean.RequestBean;
 import com.espark.adarsh.bean.ResponseBean;
 import com.espark.adarsh.consumer.TriConsumer;
+import com.espark.adarsh.exception.JobException;
 import com.espark.adarsh.record.Employee;
 import com.espark.adarsh.util.DataGenerator;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplicationService {
@@ -105,7 +107,7 @@ public class ApplicationService {
         final Map<String, LocalDateTime> employeePostCache = new HashMap<>();
         log.info("ApplicationService::postEmployees batchId {} ", batchId);
         final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(maxSize);
-        List<Employee> employeeList = dataGenerator.generateEmployeeData.apply(batchId,100);
+        List<Employee> employeeList = dataGenerator.generateEmployeeData.apply(batchId, 100);
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             if (!employeeList.isEmpty()) {
                 List<Employee> deficietList = fetchDataChuck.apply(employeeCache, employeeList);
@@ -140,56 +142,56 @@ public class ApplicationService {
     }
 
     @Async
-    public void postEmployeeWithCounter(){
+    public void postEmployeeWithCounter() {
         final AtomicInteger counter = new AtomicInteger(0);
         final String batchId = generateBatchId.get();
         log.info("ApplicationService::postEmployeeWithCounter batchId {} ", batchId);
         final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(maxSize);
-        List<Employee> employeeList = dataGenerator.generateEmployeeData.apply(batchId,100);
+        List<Employee> employeeList = dataGenerator.generateEmployeeData.apply(batchId, 100);
         ConcurrentLinkedQueue<Employee> concurrentLinkedQueue = new ConcurrentLinkedQueue<>(employeeList);
-        scheduledExecutorService.scheduleAtFixedRate(()->{
-            CompletableFuture.runAsync(()->{
-                if(!concurrentLinkedQueue.isEmpty()){
-                    if(counter.intValue()<=2){
-                        counter.set(counter.intValue()+1);
-                        log.info("ApplicationService::postEmployeeWithCounter counter++ {}",counter.get());
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            CompletableFuture.runAsync(() -> {
+                if (!concurrentLinkedQueue.isEmpty()) {
+                    if (counter.intValue() <= 2) {
+                        counter.set(counter.intValue() + 1);
+                        log.info("ApplicationService::postEmployeeWithCounter counter++ {}", counter.get());
                         Employee employee = concurrentLinkedQueue.poll();
-                        ResponseBean<Employee> employeeResponseBean  = makeRequest.apply(batchId,employee);
-                        if(employeeResponseBean!=null && employeeResponseBean.getDate() != null){
+                        ResponseBean<Employee> employeeResponseBean = makeRequest.apply(batchId, employee);
+                        if (employeeResponseBean != null && employeeResponseBean.getDate() != null) {
                             log.info("ApplicationService::postEmployeeWithCounter employee request {} response {}",
-                                    employee.id(),employeeResponseBean.getDate().id());
-                            counter.set(counter.intValue()-1);
-                            log.info("ApplicationService::postEmployeeWithCounter counter-- {}",counter.get());
+                                    employee.id(), employeeResponseBean.getDate().id());
+                            counter.set(counter.intValue() - 1);
+                            log.info("ApplicationService::postEmployeeWithCounter counter-- {}", counter.get());
                         }
 
                     }
                 }
             });
-            if(concurrentLinkedQueue.isEmpty()){
+            if (concurrentLinkedQueue.isEmpty()) {
                 log.info("ApplicationService::postEmployeeWithCounter concurrentLinkedQueue is empty ");
                 scheduledExecutorService.shutdownNow();
                 log.info("ApplicationService::postEmployeeWithCounter scheduler is shutting down and batch {} is completed threadName {}",
-                        batchId,Thread.currentThread().getName());
+                        batchId, Thread.currentThread().getName());
             }
 
-        },0,1,TimeUnit.NANOSECONDS);
+        }, 0, 1, TimeUnit.NANOSECONDS);
     }
 
-    public Function<String,Map<String,List<Employee>>> getDataForPost = (batchId) ->{
-        Map<String,List<Employee>> store = new HashMap<>();
-        for(int i=0;i<10;i++){
+    public Function<String, Map<String, List<Employee>>> getDataForPost = (batchId) -> {
+        Map<String, List<Employee>> store = new HashMap<>();
+        for (int i = 0; i < 10; i++) {
             try {
                 Thread.currentThread().sleep(1000);
             } catch (InterruptedException e) {
                 log.error(e.getLocalizedMessage());
             }
-            store.put(batchId,dataGenerator.generateEmployeeData.apply(batchId,10));
+            store.put(batchId, dataGenerator.generateEmployeeData.apply(batchId, 10));
         }
 
-        store.entrySet().stream().forEach(entry-> {
-            log.info("Entry Details key{} threadName {}",entry.getKey(),Thread.currentThread().getName());
+        store.entrySet().stream().forEach(entry -> {
+            log.info("Entry Details key{} threadName {}", entry.getKey(), Thread.currentThread().getName());
             entry.getValue().stream().forEach(value -> {
-                log.info("value {}",value);
+                log.info("value {}", value);
             });
         });
 
@@ -197,34 +199,36 @@ public class ApplicationService {
     };
 
     private Predicate<AtomicInteger> checkCounter = (counter) -> {
-      synchronized (counter){
-          return counter.intValue()  < maxSize ;
-      }
+        synchronized (counter) {
+            return counter.intValue() < maxSize;
+        }
     };
 
     private Consumer<AtomicInteger> incrementCounter = (counter) -> {
-        synchronized (counter){
-             counter.set(counter.intValue()  +1 ); ;
+        synchronized (counter) {
+            counter.set(counter.intValue() + 1);
+            ;
         }
     };
 
     private Consumer<AtomicInteger> decrementCounter = (counter) -> {
-        synchronized (counter){
-            counter.set(counter.intValue()  - 1 ); ;
+        synchronized (counter) {
+            counter.set(counter.intValue() - 1);
+            ;
         }
     };
 
     @Async
-    public void postEmployeeData(){
+    public void postEmployeeData() {
         final AtomicInteger counter = new AtomicInteger(0);
         final String batchId = generateBatchId.get();
-        Map<String,List<Employee>> data = getDataForPost.apply(batchId);
-        List<MyEntry<String,Employee>> dataToProcess = data.entrySet()
+        Map<String, List<Employee>> data = getDataForPost.apply(batchId);
+        List<MyEntry<String, Employee>> dataToProcess = data.entrySet()
                 .stream()
-                .flatMap(entry ->{
-           return entry.getValue().stream().map(value -> new MyEntry<String,Employee>(entry.getKey(),value)).toList().stream();
-        }).toList();
-        ConcurrentLinkedQueue<MyEntry<String,Employee>> concurrentLinkedQueue = new ConcurrentLinkedQueue<>(dataToProcess);
+                .flatMap(entry -> {
+                    return entry.getValue().stream().map(value -> new MyEntry<String, Employee>(entry.getKey(), value)).toList().stream();
+                }).toList();
+        ConcurrentLinkedQueue<MyEntry<String, Employee>> concurrentLinkedQueue = new ConcurrentLinkedQueue<>(dataToProcess);
         final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(maxSize);
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             CompletableFuture.runAsync(() -> {
@@ -244,15 +248,89 @@ public class ApplicationService {
                     }
                 }
             });
-            if(concurrentLinkedQueue.isEmpty() && counter.intValue() == 0 ){
+            if (concurrentLinkedQueue.isEmpty() && counter.intValue() == 0) {
                 log.info("ApplicationService::postEmployeeData concurrentLinkedQueue is empty ");
                 scheduledExecutorService.shutdownNow();
                 log.info("ApplicationService::postEmployeeData scheduler is shutting down and batch {} is completed threadName {}",
-                        batchId,Thread.currentThread().getName());
+                        batchId, Thread.currentThread().getName());
             }
 
-        },0,1,TimeUnit.NANOSECONDS);
+        }, 0, 1, TimeUnit.NANOSECONDS);
 
+    }
+
+    public void postEmployeeBatch() {
+
+        final AtomicInteger counter = new AtomicInteger(0);
+        final String batchId = generateBatchId.get();
+        final Map<String, List<Employee>> data = getDataForPost.apply(batchId);
+        final List<MyEntry<String, Employee>> dataToProcess = data.entrySet()
+                .stream()
+                .flatMap(entry -> {
+                    return entry.getValue().stream().map(value -> new MyEntry<String, Employee>(entry.getKey(), value)).toList().stream();
+                }).toList();
+        final ConcurrentLinkedQueue<MyEntry<String, Employee>> concurrentLinkedQueue = new ConcurrentLinkedQueue<>(dataToProcess);
+        final ExecutorService executorService = Executors.newFixedThreadPool(maxSize);
+        final CompletionService<List<Exception>> completionService = new ExecutorCompletionService<>(executorService);
+        final List<Exception> exceptionList = new ArrayList<>();
+        final List<Future<List<Exception>>> futureList = new ArrayList<>();
+        for (int i = 0; i < maxSize; i++) {
+            futureList.add(
+                    completionService.submit(() -> {
+                        List<Exception> exceptions = new ArrayList<>();
+                        while (!concurrentLinkedQueue.isEmpty()) {
+                            if (checkCounter.test(counter)) {
+                                incrementCounter.accept(counter);
+                                log.info("ApplicationService::postEmployeeData counter++ {}", counter.get());
+                                MyEntry<String, Employee> employeeEntry = concurrentLinkedQueue.poll();
+
+                                try {
+
+                                    if (employeeEntry != null) {
+                                        ResponseBean<Employee> employeeResponseBean = makeRequest.apply(employeeEntry.getKey(), employeeEntry.getValue());
+                                        if (employeeResponseBean != null && employeeResponseBean.getDate() != null) {
+                                            log.info("ApplicationService::postEmployeeData employee request {} response {}",
+                                                    employeeEntry.getValue().id(), employeeResponseBean.getDate().id());
+                                            decrementCounter.accept(counter);
+                                            log.info("ApplicationService::postEmployeeData counter-- {}", counter.get());
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    log.error("Exception Generated {}", e.getMessage());
+                                    exceptions.add(e);
+                                }
+                            }
+                        }
+                        return exceptions;
+                    }));
+        }
+
+        for (Future<List<Exception>> future : futureList) {
+            try {
+                List<Exception> exceptions = future.get(180, TimeUnit.SECONDS);
+                if (exceptions != null && !exceptions.isEmpty()) {
+                    exceptionList.addAll(exceptions);
+                }
+            } catch (TimeoutException e) {
+                log.error("Exception TimeoutException {}", e);
+                future.cancel(true);
+            } catch (InterruptedException | ExecutionException e) {
+                log.error("Exception InterruptedException | ExecutionException {}", e);
+            }
+        }
+
+        try {
+            if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+        }
+
+        if (!exceptionList.isEmpty()) {
+            throw new JobException(exceptionList.stream().map(exception -> exception.getMessage()).collect(Collectors.joining(", ")));
+        }
+        log.info("execution completed ");
     }
 
 }

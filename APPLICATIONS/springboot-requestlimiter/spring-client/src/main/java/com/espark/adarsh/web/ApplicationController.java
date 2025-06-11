@@ -25,6 +25,7 @@ public class ApplicationController {
             case 1 -> this.applicationService.postEmployees();
             case 2 -> this.applicationService.postEmployeeWithCounter();
             case 3 -> this.applicationService.postEmployeeData();
+            case 4 -> this.applicationService.postEmployeeBatch();
             default -> log.info("Invalid Option ");
         }
         return "Data Submitted for Processing";
