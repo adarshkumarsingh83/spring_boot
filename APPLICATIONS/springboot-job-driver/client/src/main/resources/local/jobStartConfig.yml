@@ -1,0 +1,88 @@
+
+espark:
+  job:
+    scheduler:
+      enable-interceptor: true
+      monitor:
+        wait-time: 30000
+      api-configs:
+        data-load:
+          server-url: http://localhost:8080
+          api-url: /job/start
+          http-method: POST
+          request-body: "{\"jobName\":\"data-load\"}"
+          headers:
+            "content-type": "application/json"
+          request-transformer: "espark-job-request-transformer"
+          response-transformer: "espark-job-response-transformer"
+          monitor-job-execution:
+            enable: true
+            server-url: http://localhost:8080
+            api-url: /job/status/{job-id}
+            http-method: GET
+            request-transformer: "espark-job-monitoring-request-transformer"
+            response-transformer: "espark-job-monitoring-response-transformer"
+            resolver: monitoring
+            monitor-wait-time: 30000
+            headers:
+              "accept": "application/json"
+        data-cleanup:
+          server-url: http://localhost:8080
+          api-url: /job/start
+          http-method: POST
+          request-body: "{\"jobName\":\"data-cleanup\"}"
+          headers:
+            "content-type": "application/json"
+          request-transformer: "espark-job-request-transformer"
+          response-transformer: "espark-job-response-transformer"
+          monitor-job-execution:
+            enable: true
+            server-url: http://localhost:8080
+            api-url: /job/status/{job-id}
+            http-method: GET
+            request-transformer: "espark-job-monitoring-request-transformer"
+            response-transformer: "espark-job-monitoring-response-transformer"
+            resolver: monitoring
+            monitor-wait-time: 30000
+            headers:
+              "accept": "application/json"
+        submit-data:
+          server-url: http://localhost:8080
+          api-url: /job/start
+          http-method: POST
+          request-body: "{\"jobName\":\"submit-data\"}"
+          headers:
+            "content-type": "application/json"
+          request-transformer: "espark-job-request-transformer"
+          response-transformer: "espark-job-response-transformer"
+          monitor-job-execution:
+            enable: true
+            server-url: http://localhost:8080
+            api-url: /job/status/{job-id}
+            http-method: GET
+            request-transformer: "espark-job-monitoring-request-transformer"
+            response-transformer: "espark-job-monitoring-response-transformer"
+            resolver: monitoring
+            monitor-wait-time: 30000
+            headers:
+              "accept": "application/json"
+        resubmit-data:
+          server-url: http://localhost:8080
+          api-url: /job/start
+          http-method: POST
+          request-body: "{\"jobName\":\"resubmit-data\"}"
+          headers:
+            "content-type": "application/json"
+          request-transformer: "espark-job-request-transformer"
+          response-transformer: "espark-job-response-transformer"
+          monitor-job-execution:
+            enable: true
+            server-url: http://localhost:8080
+            api-url: /job/status/{job-id}
+            http-method: GET
+            request-transformer: "espark-job-monitoring-request-transformer"
+            response-transformer: "espark-job-monitoring-response-transformer"
+            resolver: monitoring
+            monitor-wait-time: 30000
+            headers:
+              "accept": "application/json"

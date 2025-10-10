@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "8aaad856-6a8a-49ad-abd7-b0a2be19ce3d",
+		"name": "job-server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "start-job",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n      \"jobName\":\"data-load\"\n     },\n     \"message\" : \"request\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/job/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"job",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "job-status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/job/status/8d5d450a-70b3-4a90-94d2-e989275e6cba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"job",
+						"status",
+						"8d5d450a-70b3-4a90-94d2-e989275e6cba"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

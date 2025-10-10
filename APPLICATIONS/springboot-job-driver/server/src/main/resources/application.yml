@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: server
+
+job:
+  config:
+    job-max-thread: 10
+    job-types:
+      data-load:
+        max-run-time: 5
+        exceptions: true
+      data-cleanup:
+        max-run-time: 3
+        exceptions: true
+      submit-data:
+        max-run-time: 8
+        exception: true
+      resubmit-data:
+        max-run-time: 5
+        exception: true
+
+

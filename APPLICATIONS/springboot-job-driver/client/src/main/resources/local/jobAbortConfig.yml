@@ -1,0 +1,29 @@
+espark:
+  job:
+    abort:
+      api-configs:
+        espark-job:
+          job-types:
+            - data-load:
+            - data-cleanup:
+            - submit-data:
+            - resubmit-data:
+          server-url: http://localhost:8080
+          api-url: /job/abort
+          http-method: PUT
+          request-body: "{\"jobName\":\"xxx\"}"
+          headers:
+            "content-type": "application/json"
+          request-transformer: "espark-job-abort-request-transformer"
+          response-transformer: "espark-job-abort-response-transformer"
+          monitor-job-execution:
+            enable: true
+            server-url: http://localhost:8080
+            api-url: /job/status/{job-id}
+            http-method: GET
+            request-transformer: "espark-job-monitoring-request-transformer"
+            response-transformer: "espark-job-monitoring-response-transformer"
+            resolver: monitoring
+            monitor-wait-time: 30000
+            headers:
+              "accept": "application/json"

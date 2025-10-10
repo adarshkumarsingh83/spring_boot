@@ -1,0 +1,67 @@
+spring:
+  application:
+    name: client
+  config:
+    import:
+      - classpath:local/jobStartConfig.yml
+      - classpath:local/jobAbortConfig.yml
+      - classpath:local/jobStatusConfig.yml
+
+resiliency4j:
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 10s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        exponential-max-wait-duration: 90s
+        retryExceptions:
+          - org.springframework.web.client.HttpClientErrorException
+          - org.springframework.web.client.HttpServerErrorException
+    instances:
+      postApiRetry:
+        baseConfig: default
+      getApiRetry:
+        baseConfig: default
+      putApiRetry:
+        baseConfig: default
+
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 10
+        minimum-number-of-calls: 3
+        slow-call-rate-threshold: 50
+        wait-duration-in-open-state: 20s
+        automatic-translation-from-open-to-half-open-enable: true
+        permitted-number-of-calls-in-half-open-state: 5
+        ignore-exceptions:
+          - org.springframework.web.client.HttpClientErrorException
+          - org.springframework.web.client.HttpServerErrorException
+    instances:
+      postApiCircuitBreaker:
+        baseConfig: default
+      getApiCircuitBreaker:
+        baseConfig: default
+      putApiCircuitBreaker:
+        baseConfig: default
+
+  ratelimiter:
+    configs:
+      default:
+        limit-for-period: 240
+        limit-refresh:-period: 60s
+        timeout-duration: 10s
+    instances:
+      postApiRateLimiter:
+        baseConfig: default
+      getApiRateLimiter:
+        baseConfig: default
+      putApiRateLimiter:
+        baseConfig: default
+
+espark:
+  message:
+    store:
+      nullApiConfig: "Api Configuration is null for "

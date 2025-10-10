@@ -1,0 +1,11 @@
+espark:
+  job:
+    status:
+      api-configs:
+        data-load:
+          server-url: http://localhost:8080
+          api-url: /job/status
+          http-method: GET
+          request-body: "{\"status\":[\"STARTED\",\"EXECUTING\"]}"
+          headers:
+            "content-type": "application/json"
