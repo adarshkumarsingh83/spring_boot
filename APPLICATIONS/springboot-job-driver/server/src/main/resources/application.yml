@@ -9,14 +9,33 @@ job:
       data-load:
         max-run-time: 5
         exceptions: true
+        abort: false
+        conflict: submit-data,resubmit-data,fetch-status
+        action: ABORT
       data-cleanup:
         max-run-time: 3
         exceptions: true
+        abort: false
+        conflict: submit-data,resubmit-data,fetch-status
+        action: WAITING
+        wait-time: 10
       submit-data:
         max-run-time: 8
         exception: true
+        abort : true
+        conflict: data-load, data-cleanup
+        action: ABORT
       resubmit-data:
         max-run-time: 5
         exception: true
+        abort: true
+        conflict: data-load, data-cleanup
+        action: ABORT
+      fetch-status:
+        max-run-time: 7
+        exception: true
+        abort: true
+        conflict: data-load, data-cleanup
+        action: ABORT
 
 

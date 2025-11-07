@@ -4,7 +4,10 @@ import com.espark.adarsh.bean.JobConfig;
 import com.espark.adarsh.config.JobConfigDetails;
 import com.espark.adarsh.config.JobDetails;
 import com.espark.adarsh.exception.InvalidJobRequestException;
+import com.espark.adarsh.exception.JobExistException;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +18,8 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
+@Getter
+@Slf4j
 @Component
 public class JobRepository {
 
@@ -73,7 +78,7 @@ public class JobRepository {
         }
     };
 
-    public final Function<String, List<JobConfig>> jobAbort = (jobName) -> {
+    public final BiFunction<String,JobDetails, List<JobConfig>> jobAbort = (jobName,jobDetails) -> {
         List<String> jobIdList = store.entrySet()
                 .stream()
                 .filter(jobEntry -> jobEntry.getValue().getJobName().equals(jobName))
@@ -152,7 +157,18 @@ public class JobRepository {
     };
 
 
+    public final Predicate<JobConfig> checkJobExistInStore = (jobConfig -> {
+        return store.containsKey(jobConfig.getJobName()) ;
+    });
+
+   public final Predicate<JobConfig> checkJobExistInQueue =(jobConfig) -> {
+      return concurrentLinkedQueue.stream().filter(e-> e.getJobName().equals(jobConfig.getJobName())).findFirst().isPresent();
+    } ;
+
     public final BiFunction<JobConfig, JobDetails, JobConfig> startJob = (jobConfig, jobDetails) -> {
+        if(checkJobExistInQueue.test(jobConfig) || checkJobExistInStore.test(jobConfig)){
+            throw new JobExistException("Job Already Exist "+jobConfig.getJobName());
+        }
         jobConfig.setJobId(generateJobId.get());
         jobConfig.setStartedOn(LocalDateTime.now().toString());
         jobConfig.setExpectedCompletion(getJobExitTime.apply(jobDetails.getMaxRunTime()));
@@ -164,5 +180,8 @@ public class JobRepository {
         concurrentLinkedQueue.add(jobConfig);
         return jobConfig;
     };
+
+
+
 
 }

@@ -5,42 +5,46 @@ import com.espark.adarsh.config.JobConfigDetails;
 import com.espark.adarsh.config.JobDetails;
 import com.espark.adarsh.exception.InvalidJobRequestException;
 import com.espark.adarsh.repository.JobRepository;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
+@Slf4j
+@Getter
 @Service
 public class JobService {
 
     private JobRepository jobRepository;
 
-    private JobConfigDetails jobConfigDetails;
+    private final JobConfigDetails jobConfigDetails;
 
     public JobService(JobRepository jobRepository,JobConfigDetails jobConfigDetails) {
         this.jobRepository = jobRepository;
         this.jobConfigDetails= jobConfigDetails;
     }
 
-    public Function<JobConfig, JobConfig> jobStart = (jobConfig) -> {
-        JobDetails jobDetails = jobConfigDetails.getJobTypes().containsKey(jobConfig.getJobName()) ?
-                jobConfigDetails.getJobTypes().get(jobConfig.getJobName()) : null;
-        if (jobDetails != null) {
-            return this.jobRepository.startJob.apply(jobConfig, jobDetails);
-        }
-        throw new InvalidJobRequestException("Invalid Requested Job " + jobConfig.getJobName() + " ");
+    public BiFunction<JobDetails,JobConfig, JobConfig> jobStart = (jobDetails,jobConfig) -> {
+        log.info("start job config {} jobDetails {} ",jobConfig, jobDetails);
+            return this.jobRepository.getStartJob().apply(jobConfig, jobDetails);
     };
 
     public Function<String,JobConfig> jobStatusById = (jobId) ->{
-        return this.jobRepository.jobStatusById.apply(jobId);
+        log.info(" job status jobId {} ",jobId);
+        return this.jobRepository.getJobStatusById().apply(jobId);
     };
 
     public Function<String, List<JobConfig>>  jobStatusByName = (jobName) ->{
-        return this.jobRepository.jobStatusByName.apply(jobName);
+        log.info(" job status jobName {} ",jobName);
+        return this.jobRepository.getJobStatusByName().apply(jobName);
     };
 
-    public Function<String, List<JobConfig>> jobAbort = (jobName) ->{
-        return this.jobRepository.jobAbort.apply(jobName);
+    public BiFunction<JobDetails, String, List<JobConfig>> jobAbort = (jobDetails,jobName) ->{
+        log.info("Abort job name {} jobDetails {} ",jobName, jobDetails);
+        return this.jobRepository.getJobAbort().apply(jobName,jobDetails);
     };
 
 }

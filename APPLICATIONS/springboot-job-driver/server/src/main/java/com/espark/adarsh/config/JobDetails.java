@@ -1,26 +1,22 @@
 package com.espark.adarsh.config;
 
-public class JobDetails {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class JobDetails implements Serializable {
 
     String maxRunTime;
     Boolean exceptions;
+    Boolean abort;
+    List<String> conflict;
+    String action;
+    Integer waitTime;
 
-    public JobDetails() {
-    }
-
-    public String getMaxRunTime() {
-        return maxRunTime;
-    }
-
-    public void setMaxRunTime(String maxRunTime) {
-        this.maxRunTime = maxRunTime;
-    }
-
-    public Boolean getExceptions() {
-        return exceptions;
-    }
-
-    public void setExceptions(Boolean exceptions) {
-        this.exceptions = exceptions;
-    }
 }

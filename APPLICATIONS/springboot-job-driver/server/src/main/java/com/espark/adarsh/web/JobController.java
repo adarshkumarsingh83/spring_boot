@@ -3,6 +3,9 @@ package com.espark.adarsh.web;
 import com.espark.adarsh.bean.JobConfig;
 import com.espark.adarsh.bean.RequestBean;
 import com.espark.adarsh.bean.ResponseBean;
+import com.espark.adarsh.config.JobConfigDetails;
+import com.espark.adarsh.config.JobDetails;
+import com.espark.adarsh.exception.JobConfigurationNotFound;
 import com.espark.adarsh.service.JobService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +18,22 @@ public class JobController {
 
     private JobService jobService;
 
-    public JobController(JobService jobService) {
+    private JobConfigDetails jobConfigDetails;
+
+    public JobController(JobService jobService,
+                         JobConfigDetails jobConfigDetails) {
         this.jobService = jobService;
+        this.jobConfigDetails = jobConfigDetails;
     }
 
     @PostMapping("/job/start")
     public ResponseBean<JobConfig> jobStart(@RequestBody RequestBean<JobConfig> requestBean){
-        JobConfig jobConfig =  this.jobService.jobStart.apply(requestBean.getData());
-        return new ResponseBean<JobConfig>().buildData(jobConfig).buildMessage(jobConfig.getMessage());
+        if(jobConfigDetails.getJobTypes().containsKey(requestBean.getData().getJobName())){
+              JobDetails jobDetails = jobConfigDetails.getJobTypes().get(requestBean.getData().getJobName());
+            JobConfig jobConfig = this.jobService.getJobStart().apply(jobDetails,requestBean.getData());
+            return new ResponseBean<JobConfig>().buildData(jobConfig).buildMessage(jobConfig.getMessage());
+        }
+        throw new JobConfigurationNotFound("Request Job configuration is not Found | Invalid job requested ");
     }
 
     @GetMapping("/job/status/{jobId}")
@@ -40,7 +51,11 @@ public class JobController {
 
     @PutMapping("/job/abort")
     public ResponseBean< List<JobConfig>> jobAbort(@RequestBody RequestBean<JobConfig> requestBean){
-        List<JobConfig> jobConfig =  this.jobService.jobAbort.apply(requestBean.getData().getJobName());
-        return new ResponseBean< List<JobConfig>>().buildData(jobConfig).buildMessage(jobConfig.isEmpty() ? "No Job Found" : "Job Aborted Request Successfully");
+        if(jobConfigDetails.getJobTypes().containsKey(requestBean.getData().getJobName())) {
+            JobDetails jobDetails = jobConfigDetails.getJobTypes().get(requestBean.getData().getJobName());
+            List<JobConfig> jobConfig = this.jobService.getJobAbort().apply(jobDetails,requestBean.getData().getJobName());
+            return new ResponseBean<List<JobConfig>>().buildData(jobConfig).buildMessage(jobConfig.isEmpty() ? "No Job Found" : "Job Aborted Request Successfully");
+        }
+        throw new JobConfigurationNotFound("Request Job configuration is not Found | Invalid job requested ");
     }
 }
