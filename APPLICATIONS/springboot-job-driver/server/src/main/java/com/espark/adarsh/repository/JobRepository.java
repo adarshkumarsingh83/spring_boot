@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
@@ -109,39 +106,49 @@ public class JobRepository {
 
     final Consumer<ConcurrentLinkedQueue<JobConfig>> jobsExecutors = (concurrentLinkedQueue) -> {
         scheduledExecutorService.scheduleAtFixedRate(() -> {
-            CompletableFuture.runAsync(() -> {
+             CompletableFuture.runAsync(() -> {
                 if (!isEmpty.test(concurrentLinkedQueue)) {
                     JobConfig jobConfig = concurrentLinkedQueue.poll();
                     log.info("Job Details Before Starting {}", jobConfig);
-                    while (LocalDateTime.now().isBefore(jobConfig.getExpectedCompletion())) {
-                        try {
-                            if (store.get(jobConfig.getJobId()).getAbortRequest()) {
-                                log.info("Abort Request for job jobId {} jobName {} threadName {}", jobConfig.getJobId(), jobConfig.getJobName(), Thread.currentThread().getName());
-                                break;
-                            }
-                            jobConfig.setStatus("EXECUTING");
-                            jobConfig.setMessage("job is executing ");
-                            store.put(jobConfig.getJobId(), jobConfig);
-                            Thread.currentThread().sleep(1000);
-                            log.info("Executing job jobId {} jobName {} threadName {}", jobConfig.getJobId(), jobConfig.getJobName(), Thread.currentThread().getName());
-                        } catch (InterruptedException e) {
-                            log.error("Exception Generated {}", e.getMessage());
-                        }
-                    }
-                    if (store.get(jobConfig.getJobId()).getAbortRequest()) {
-                        jobConfig.setStatus("ABORTED");
-                        jobConfig.setMessage("job is aborted ");
-                        store.put(jobConfig.getJobId(), jobConfig);
-                        log.info("Job Details After Aborted {}", jobConfig);
-                    } else {
-                        jobConfig.setStatus("COMPLETED");
-                        jobConfig.setMessage("job is completed ");
-                        store.put(jobConfig.getJobId(), jobConfig);
-                        log.info("Job Details After Completion {}", jobConfig);
-                    }
+                    jobConfig.setStatus("STARTING");
+                    jobConfig.setMessage("job is executing ");
+                    store.put(jobConfig.getJobId(), jobConfig);
+                }else if(!store.isEmpty()){
+                    log.info("executing jobs in job pools");
+                    final Set<String> keySet = store.keySet();
+                     keySet.stream()
+                            .forEach(e ->{
+                                JobConfig jobConfig = store.get(e);
+                                log.info("Job Details while Executing {}", jobConfig);
+                                final String status =  jobConfig.getStatus();
+                                switch (status){
+                                    case "EXECUTING" -> {
+                                        if(LocalDateTime.now().isAfter(jobConfig.getExpectedCompletion())){
+                                            jobConfig.setStatus("COMPLETED");
+                                            jobConfig.setMessage("job is completed ");
+                                            store.put(jobConfig.getJobId(), jobConfig);
+                                            log.info("Job Details After Completion {}", jobConfig);
+                                        }
+                                    }
+                                    case "ABORTED" -> {
+                                        jobConfig.setStatus("ABORTED");
+                                        jobConfig.setMessage("job is aborted ");
+                                        store.put(jobConfig.getJobId(), jobConfig);
+                                        log.info("Job Details After Aborted {}", jobConfig);
+                                    }
+                                    case "STARTING" -> {
+                                        jobConfig.setStatus("EXECUTING");
+                                        jobConfig.setMessage("job is executing ");
+                                        store.put(jobConfig.getJobId(), jobConfig);
+                                        log.info("Job Details before Executing job {} threadName {}",
+                                                jobConfig, Thread.currentThread().getName());
+                                    }
+                                }
+                            });
                 }
+
             });
-        }, 0, 1, TimeUnit.NANOSECONDS);
+        }, 0, 30, TimeUnit.SECONDS);
     };
 
 
@@ -150,7 +157,10 @@ public class JobRepository {
         jobConfig.setStartedOn(LocalDateTime.now().toString());
         jobConfig.setExpectedCompletion(getJobExitTime.apply(jobDetails.getMaxRunTime()));
         jobConfig.setMessage("job is starting ");
-        store.put(jobConfig.getJobId(), jobConfig);
+        jobConfig.setStatus("IN-QUEUE");
+        jobConfig.setAbortRequest(false);
+        jobConfig.setStartedBy(System.getProperty("user.name"));
+        store.put(jobConfig.getJobId(),jobConfig);
         concurrentLinkedQueue.add(jobConfig);
         return jobConfig;
     };
