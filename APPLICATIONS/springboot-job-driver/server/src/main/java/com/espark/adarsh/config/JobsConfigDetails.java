@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Component
 @ConfigurationProperties("job.config")
-public class JobConfigDetails {
+public class JobsConfigDetails {
 
    private  Map<String,JobDetails> jobTypes= new HashMap<>();
 

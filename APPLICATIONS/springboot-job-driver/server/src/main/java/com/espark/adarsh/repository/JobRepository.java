@@ -1,15 +1,14 @@
 package com.espark.adarsh.repository;
 
 import com.espark.adarsh.bean.JobConfig;
-import com.espark.adarsh.config.JobConfigDetails;
+import com.espark.adarsh.config.JobsConfigDetails;
 import com.espark.adarsh.config.JobDetails;
+import com.espark.adarsh.exception.InvalidJobAbortRequest;
 import com.espark.adarsh.exception.InvalidJobRequestException;
 import com.espark.adarsh.exception.JobExistException;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +22,6 @@ import java.util.function.*;
 @Component
 public class JobRepository {
 
-    static final Logger log = LoggerFactory.getLogger(JobRepository.class);
-
     @Value("${job.config.job-max-thread}")
     final Integer maxSize = 5;
 
@@ -34,10 +31,10 @@ public class JobRepository {
 
     static final ConcurrentLinkedQueue<JobConfig> concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
 
-    private JobConfigDetails jobConfigDetails;
+    private JobsConfigDetails jobsConfigDetails;
 
-    public JobRepository(JobConfigDetails jobConfigDetails) {
-        this.jobConfigDetails = jobConfigDetails;
+    public JobRepository(JobsConfigDetails jobsConfigDetails) {
+        this.jobsConfigDetails = jobsConfigDetails;
     }
 
     @PostConstruct
@@ -66,11 +63,7 @@ public class JobRepository {
     };
 
     public final Function<String, List<JobConfig>> jobStatusByName = (jobName) -> {
-        List<JobConfig> jobConfigs = store.entrySet()
-                .stream()
-                .filter(jobEntry -> jobEntry.getValue().getJobName().equals(jobName))
-                .map(e -> e.getValue())
-                .toList();
+        List<JobConfig> jobConfigs = store.entrySet().stream().filter(jobEntry -> jobEntry.getValue().getJobName().equals(jobName)).map(e -> e.getValue()).toList();
         if (jobConfigs != null && !jobConfigs.isEmpty()) {
             return jobConfigs;
         } else {
@@ -78,28 +71,27 @@ public class JobRepository {
         }
     };
 
-    public final BiFunction<String,JobDetails, List<JobConfig>> jobAbort = (jobName,jobDetails) -> {
-        List<String> jobIdList = store.entrySet()
-                .stream()
-                .filter(jobEntry -> jobEntry.getValue().getJobName().equals(jobName))
-                .map(e -> e.getValue().getJobId())
-                .toList();
-        if (jobIdList != null && !jobIdList.isEmpty()) {
-
-            return jobIdList.stream()
-                    .map(id -> {
-                        if (store.containsKey(id)) {
-                            JobConfig jobConfig = store.get(id);
-                            jobConfig.setAbortRequest(true);
-                            jobConfig.setStatus("REQUEST_FOR_ABORT");
-                            jobConfig.setMessage("job is requested for abort ");
-                            store.put(id, jobConfig);
-                        }
-                        return store.get(id);
-                    }).toList();
-        } else {
-            throw new InvalidJobRequestException("Invalid Job type for Abort Request " + jobName);
+    public final BiFunction<String, JobDetails, JobConfig> jobAbort = (jobName, jobDetails) -> {
+        if (jobDetails.getAbort()) {
+            throw new InvalidJobAbortRequest("Requested Job can't be configured for abort operation ");
         }
+        Optional<JobConfig> jobOptional = store.entrySet().stream()
+                .filter(jobEntry -> jobEntry.getValue().getJobName().equals(jobName))
+                .map(entry -> entry.getValue())
+                .findFirst();
+
+        if (jobOptional.isPresent()) {
+            String jobId = jobOptional.get().getJobId();
+            if (store.containsKey(jobId)) {
+                JobConfig jobConfig = store.get(jobId);
+                jobConfig.setAbortRequest(true);
+                jobConfig.setStatus("REQUEST_FOR_ABORT");
+                jobConfig.setMessage("job is requested for abort ");
+                store.put(jobId, jobConfig);
+                return jobConfig;
+            }
+        }
+        throw new InvalidJobAbortRequest("Invalid Job type for Abort Request " + jobName);
     };
 
     final Predicate<ConcurrentLinkedQueue<JobConfig>> isEmpty = (concurrentLinkedQueue) -> {
@@ -108,48 +100,45 @@ public class JobRepository {
         }
     };
 
-
     final Consumer<ConcurrentLinkedQueue<JobConfig>> jobsExecutors = (concurrentLinkedQueue) -> {
         scheduledExecutorService.scheduleAtFixedRate(() -> {
-             CompletableFuture.runAsync(() -> {
+            CompletableFuture.runAsync(() -> {
                 if (!isEmpty.test(concurrentLinkedQueue)) {
                     JobConfig jobConfig = concurrentLinkedQueue.poll();
                     log.info("Job Details Before Starting {}", jobConfig);
                     jobConfig.setStatus("STARTING");
                     jobConfig.setMessage("job is executing ");
                     store.put(jobConfig.getJobId(), jobConfig);
-                }else if(!store.isEmpty()){
+                } else if (!store.isEmpty()) {
                     log.info("executing jobs in job pools");
                     final Set<String> keySet = store.keySet();
-                     keySet.stream()
-                            .forEach(e ->{
-                                JobConfig jobConfig = store.get(e);
-                                log.info("Job Details while Executing {}", jobConfig);
-                                final String status =  jobConfig.getStatus();
-                                switch (status){
-                                    case "EXECUTING" -> {
-                                        if(LocalDateTime.now().isAfter(jobConfig.getExpectedCompletion())){
-                                            jobConfig.setStatus("COMPLETED");
-                                            jobConfig.setMessage("job is completed ");
-                                            store.put(jobConfig.getJobId(), jobConfig);
-                                            log.info("Job Details After Completion {}", jobConfig);
-                                        }
-                                    }
-                                    case "ABORTED" -> {
-                                        jobConfig.setStatus("ABORTED");
-                                        jobConfig.setMessage("job is aborted ");
-                                        store.put(jobConfig.getJobId(), jobConfig);
-                                        log.info("Job Details After Aborted {}", jobConfig);
-                                    }
-                                    case "STARTING" -> {
-                                        jobConfig.setStatus("EXECUTING");
-                                        jobConfig.setMessage("job is executing ");
-                                        store.put(jobConfig.getJobId(), jobConfig);
-                                        log.info("Job Details before Executing job {} threadName {}",
-                                                jobConfig, Thread.currentThread().getName());
-                                    }
+                    keySet.stream().forEach(e -> {
+                        JobConfig jobConfig = store.get(e);
+                        log.info("Job Details while Executing {}", jobConfig);
+                        final String status = jobConfig.getStatus();
+                        switch (status) {
+                            case "EXECUTING" -> {
+                                if (LocalDateTime.now().isAfter(jobConfig.getExpectedCompletion())) {
+                                    jobConfig.setStatus("COMPLETED");
+                                    jobConfig.setMessage("job is completed ");
+                                    store.put(jobConfig.getJobId(), jobConfig);
+                                    log.info("Job Details After Completion {}", jobConfig);
                                 }
-                            });
+                            }
+                            case "ABORTED" -> {
+                                jobConfig.setStatus("ABORTED");
+                                jobConfig.setMessage("job is aborted ");
+                                store.put(jobConfig.getJobId(), jobConfig);
+                                log.info("Job Details After Aborted {}", jobConfig);
+                            }
+                            case "STARTING" -> {
+                                jobConfig.setStatus("EXECUTING");
+                                jobConfig.setMessage("job is executing ");
+                                store.put(jobConfig.getJobId(), jobConfig);
+                                log.info("Job Details before Executing job {} threadName {}", jobConfig, Thread.currentThread().getName());
+                            }
+                        }
+                    });
                 }
 
             });
@@ -158,16 +147,16 @@ public class JobRepository {
 
 
     public final Predicate<JobConfig> checkJobExistInStore = (jobConfig -> {
-        return store.containsKey(jobConfig.getJobName()) ;
+        return store.containsKey(jobConfig.getJobName());
     });
 
-   public final Predicate<JobConfig> checkJobExistInQueue =(jobConfig) -> {
-      return concurrentLinkedQueue.stream().filter(e-> e.getJobName().equals(jobConfig.getJobName())).findFirst().isPresent();
-    } ;
+    public final Predicate<JobConfig> checkJobExistInQueue = (jobConfig) -> {
+        return concurrentLinkedQueue.stream().filter(e -> e.getJobName().equals(jobConfig.getJobName())).findFirst().isPresent();
+    };
 
     public final BiFunction<JobConfig, JobDetails, JobConfig> startJob = (jobConfig, jobDetails) -> {
-        if(checkJobExistInQueue.test(jobConfig) || checkJobExistInStore.test(jobConfig)){
-            throw new JobExistException("Job Already Exist "+jobConfig.getJobName());
+        if (checkJobExistInQueue.test(jobConfig) || checkJobExistInStore.test(jobConfig)) {
+            throw new JobExistException("Job Already Exist " + jobConfig.getJobName());
         }
         jobConfig.setJobId(generateJobId.get());
         jobConfig.setStartedOn(LocalDateTime.now().toString());
@@ -176,12 +165,10 @@ public class JobRepository {
         jobConfig.setStatus("IN-QUEUE");
         jobConfig.setAbortRequest(false);
         jobConfig.setStartedBy(System.getProperty("user.name"));
-        store.put(jobConfig.getJobId(),jobConfig);
+        store.put(jobConfig.getJobId(), jobConfig);
         concurrentLinkedQueue.add(jobConfig);
         return jobConfig;
     };
-
-
 
 
 }

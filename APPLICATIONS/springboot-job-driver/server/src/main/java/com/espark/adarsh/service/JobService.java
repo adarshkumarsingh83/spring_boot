@@ -1,9 +1,8 @@
 package com.espark.adarsh.service;
 
 import com.espark.adarsh.bean.JobConfig;
-import com.espark.adarsh.config.JobConfigDetails;
+import com.espark.adarsh.config.JobsConfigDetails;
 import com.espark.adarsh.config.JobDetails;
-import com.espark.adarsh.exception.InvalidJobRequestException;
 import com.espark.adarsh.repository.JobRepository;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +19,11 @@ public class JobService {
 
     private JobRepository jobRepository;
 
-    private final JobConfigDetails jobConfigDetails;
+    private final JobsConfigDetails jobsConfigDetails;
 
-    public JobService(JobRepository jobRepository,JobConfigDetails jobConfigDetails) {
+    public JobService(JobRepository jobRepository, JobsConfigDetails jobsConfigDetails) {
         this.jobRepository = jobRepository;
-        this.jobConfigDetails= jobConfigDetails;
+        this.jobsConfigDetails = jobsConfigDetails;
     }
 
     public BiFunction<JobDetails,JobConfig, JobConfig> jobStart = (jobDetails,jobConfig) -> {
