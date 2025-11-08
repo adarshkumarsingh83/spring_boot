@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 @Component
 public class OrphanJobTerminator {
 
-    private JobsConfigDetails jobsConfigDetails;
-    private ScheduleJobConfig scheduleJobConfig;
+    private final JobsConfigDetails jobsConfigDetails;
+    private final ScheduleJobConfig scheduleJobConfig;
     private Map<String, OnRequestJobConfig.OrphanJobConfig> orphanJobConfigMap = new HashMap<>();
 
     public OrphanJobTerminator(JobsConfigDetails jobsConfigDetails,
@@ -37,7 +37,6 @@ public class OrphanJobTerminator {
                 .entrySet()
                 .stream()
                 .filter(e -> scheduleJob.getJobTypes().contains(e.getKey()))
-                .map(entry -> entry)
                 .collect(Collectors.toMap(Map.Entry::getKey,
                         entry -> entry.getValue().getOrphan()));
     }

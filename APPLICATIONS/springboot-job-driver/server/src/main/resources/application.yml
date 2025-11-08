@@ -10,8 +10,8 @@ job:
         corn: "0 * * * * *"
         job-types:
           - data-load
-          - data-clean
-          - submit-daa
+          - data-cleanup
+          - submit-data
           - resubmit-data
           - fetch-details
 
