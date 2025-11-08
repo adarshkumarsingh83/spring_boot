@@ -2,7 +2,7 @@ package com.espark.adarsh.service;
 
 import com.espark.adarsh.bean.JobDetail;
 import com.espark.adarsh.config.JobsConfigDetails;
-import com.espark.adarsh.config.JobConfig;
+import com.espark.adarsh.config.OnRequestJobConfig;
 import com.espark.adarsh.repository.JobRepository;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +25,9 @@ public class JobService {
         this.jobsConfigDetails = jobsConfigDetails;
     }
 
-    public BiFunction<JobConfig, JobDetail, JobDetail> jobStart = (jobConfig, jobDetail) -> {
-        log.info("start job config {} jobDetails {} ", jobDetail, jobConfig);
-            return this.jobRepository.getStartJob().apply(jobDetail, jobConfig);
+    public BiFunction<OnRequestJobConfig, JobDetail, JobDetail> jobStart = (onRequestJobConfig, jobDetail) -> {
+        log.info("start job config {} jobDetails {} ", jobDetail, onRequestJobConfig);
+            return this.jobRepository.getStartJob().apply(jobDetail, onRequestJobConfig);
     };
 
     public Function<String, JobDetail> jobStatusById = (jobId) ->{
@@ -40,9 +40,9 @@ public class JobService {
         return this.jobRepository.getJobStatusByName().apply(jobName);
     };
 
-    public BiFunction<JobConfig, String, JobDetail> jobAbort = (jobConfig, jobName) ->{
-        log.info("Abort job name {} jobDetails {} ",jobName, jobConfig);
-        return this.jobRepository.getJobAbort().apply(jobName, jobConfig);
+    public BiFunction<OnRequestJobConfig, String, JobDetail> jobAbort = (onRequestJobConfig, jobName) ->{
+        log.info("Abort job name {} jobDetails {} ",jobName, onRequestJobConfig);
+        return this.jobRepository.getJobAbort().apply(jobName, onRequestJobConfig);
     };
 
 }

@@ -5,7 +5,17 @@ spring:
 job:
   config:
     job-max-thread: 10
-    job-types:
+    on-schedule-job-types:
+      orphan-cleanup:
+        corn: "0 * * * * *"
+        job-types:
+          - data-load
+          - data-clean
+          - submit-daa
+          - resubmit-data
+          - fetch-details
+
+    on-request-job-types:
       data-load:
         max-run-time: 5
         exceptions: true
@@ -13,14 +23,20 @@ job:
         conflict: submit-data,resubmit-data,fetch-status
         action: ABORT
         message: Job can't be started due to depended job in execution (submit-data,resubmit-data,fetch-status)
+        orphan:
+          max-grace-time: 5
+          action: ABORT
       data-cleanup:
         max-run-time: 3
         exceptions: true
         abort: false
-        conflict: submit-data,resubmit-data,fetch-status
+        conflict: submit-data,resubmit-data,fetch-details
         action: WAITING
         wait-time: 10
-        message: Job can't be started moving to waiting due to depended job in execution (submit-data,resubmit-data,fetch-status)
+        message: Job can't be started moving to waiting due to depended job in execution (submit-data,resubmit-data,fetch-details)
+        orphan:
+          max-grace-time: 5
+          action: ABORT
       submit-data:
         max-run-time: 8
         exception: true
@@ -28,6 +44,9 @@ job:
         conflict: data-load, data-cleanup
         action: ABORT
         message: Job can't be started due to depended job in execution (data-load, data-cleanup)
+        orphan:
+          max-grace-time: 5
+          action: ABORT
       resubmit-data:
         max-run-time: 5
         exception: true
@@ -35,12 +54,18 @@ job:
         conflict: data-load, data-cleanup
         action: ABORT
         message: Job can't be started due to depended job in execution (data-load, data-cleanup)
-      fetch-status:
+        orphan:
+          max-grace-time: 5
+          action: ABORT
+      fetch-details:
         max-run-time: 7
         exception: true
         abort: true
         conflict: data-load, data-cleanup
         action: ABORT
         message: Job can't be started due to depended job in execution (data-load, data-cleanup)
+        orphan:
+          max-grace-time: 5
+          action: ABORT
 
 

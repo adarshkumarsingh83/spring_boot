@@ -2,7 +2,7 @@ package com.espark.adarsh.repository;
 
 import com.espark.adarsh.bean.JobDetail;
 import com.espark.adarsh.config.JobsConfigDetails;
-import com.espark.adarsh.config.JobConfig;
+import com.espark.adarsh.config.OnRequestJobConfig;
 import com.espark.adarsh.exception.InvalidJobAbortRequestException;
 import com.espark.adarsh.exception.InvalidJobRequestException;
 import com.espark.adarsh.exception.JobExistException;
@@ -113,8 +113,8 @@ public class JobRepository {
         throw new InvalidJobRequestException("Invalid Job type for Status Request " + jobName);
     };
 
-    public final BiFunction<String, JobConfig, JobDetail> jobAbort = (jobName, jobConfig) -> {
-        if (jobConfig.getAbort()) {
+    public final BiFunction<String, OnRequestJobConfig, JobDetail> jobAbort = (jobName, onRequestJobConfig) -> {
+        if (onRequestJobConfig.getAbort()) {
             throw new InvalidJobAbortRequestException("Requested Job can't be configured for abort operation ");
         }
 
@@ -212,33 +212,33 @@ public class JobRepository {
         });
     };
 
-    public final BiFunction<JobDetail, JobConfig, JobDetail> startJob = (jobDetail, jobConfig) -> {
+    public final BiFunction<JobDetail, OnRequestJobConfig, JobDetail> startJob = (jobDetail, onRequestJobConfig) -> {
 
         if (checkJobExistInQueue.test(jobDetail) || checkJobExistInStore.test(jobDetail)) {
             throw new JobExistException("Job Already Exist in Executing State " + jobDetail.getJobName());
         }
 
-        if (dependentJobExist.test(jobConfig.getConflict())) {
-            if(jobConfig.getAction().equals("ABORT")) {
-                throw new InvalidJobRequestException(jobConfig.getMessage());
+        if (dependentJobExist.test(onRequestJobConfig.getConflict())) {
+            if(onRequestJobConfig.getAction().equals("ABORT")) {
+                throw new InvalidJobRequestException(onRequestJobConfig.getMessage());
             }
 
-            if (jobConfig.getAction().equals("WAITING")) {
+            if (onRequestJobConfig.getAction().equals("WAITING")) {
                 boolean result = false;
                 do {
                     try {
-                        TimeUnit.MILLISECONDS.sleep(Duration.ofSeconds(jobConfig.getWaitTime()).toMillis());
+                        TimeUnit.MILLISECONDS.sleep(Duration.ofSeconds(onRequestJobConfig.getWaitTime()).toMillis());
                     } catch (InterruptedException e) {
                         log.error(e.getMessage());
                     }
-                    result = dependentJobExist.test(jobConfig.getConflict());
+                    result = dependentJobExist.test(onRequestJobConfig.getConflict());
                 } while(result);
             }
         }
 
         jobDetail.setJobId(generateJobId.get());
         jobDetail.setStartedOn(LocalDateTime.now().toString());
-        jobDetail.setExpectedCompletion(getJobExitTime.apply(jobConfig.getMaxRunTime()));
+        jobDetail.setExpectedCompletion(getJobExitTime.apply(onRequestJobConfig.getMaxRunTime()));
         jobDetail.setMessage("job is starting ");
         jobDetail.setStatus("IN-QUEUE");
         jobDetail.setAbortRequest(false);

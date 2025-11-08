@@ -12,6 +12,6 @@ import java.util.Map;
 @ConfigurationProperties("job.config")
 public class JobsConfigDetails {
 
-   private final Map<String, JobConfig> jobTypes = new HashMap<>();
+   private final Map<String, OnRequestJobConfig> onRequestJobTypes = new HashMap<>();
 
 }

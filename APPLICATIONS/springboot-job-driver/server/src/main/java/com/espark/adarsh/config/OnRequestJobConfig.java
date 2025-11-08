@@ -1,8 +1,6 @@
 package com.espark.adarsh.config;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobConfig implements Serializable {
+public class OnRequestJobConfig implements Serializable {
 
     String maxRunTime;
     Boolean exceptions;
@@ -19,5 +17,14 @@ public class JobConfig implements Serializable {
     String action;
     Integer waitTime;
     String message;
+    OrphanJobConfig orphan;
+
+
+    @Getter
+    @Setter
+    public static final class OrphanJobConfig {
+        Integer maxGraceTime;
+        String action;
+    }
 
 }
