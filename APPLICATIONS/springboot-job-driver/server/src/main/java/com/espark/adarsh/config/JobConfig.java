@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobDetails implements Serializable {
+public class JobConfig implements Serializable {
 
     String maxRunTime;
     Boolean exceptions;
@@ -18,5 +18,6 @@ public class JobDetails implements Serializable {
     List<String> conflict;
     String action;
     Integer waitTime;
+    String message;
 
 }

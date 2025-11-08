@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class JobConfig {
+public class JobDetail {
 
     String jobId;
     String jobName;
@@ -18,7 +18,7 @@ public class JobConfig {
     LocalDateTime expectedCompletion;
     String message;
 
-    public JobConfig() {
+    public JobDetail() {
     }
 
     @Override

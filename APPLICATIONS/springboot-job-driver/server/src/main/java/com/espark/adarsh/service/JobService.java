@@ -1,14 +1,13 @@
 package com.espark.adarsh.service;
 
-import com.espark.adarsh.bean.JobConfig;
+import com.espark.adarsh.bean.JobDetail;
 import com.espark.adarsh.config.JobsConfigDetails;
-import com.espark.adarsh.config.JobDetails;
+import com.espark.adarsh.config.JobConfig;
 import com.espark.adarsh.repository.JobRepository;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -26,24 +25,24 @@ public class JobService {
         this.jobsConfigDetails = jobsConfigDetails;
     }
 
-    public BiFunction<JobDetails,JobConfig, JobConfig> jobStart = (jobDetails,jobConfig) -> {
-        log.info("start job config {} jobDetails {} ",jobConfig, jobDetails);
-            return this.jobRepository.getStartJob().apply(jobConfig, jobDetails);
+    public BiFunction<JobConfig, JobDetail, JobDetail> jobStart = (jobConfig, jobDetail) -> {
+        log.info("start job config {} jobDetails {} ", jobDetail, jobConfig);
+            return this.jobRepository.getStartJob().apply(jobDetail, jobConfig);
     };
 
-    public Function<String,JobConfig> jobStatusById = (jobId) ->{
+    public Function<String, JobDetail> jobStatusById = (jobId) ->{
         log.info(" job status jobId {} ",jobId);
         return this.jobRepository.getJobStatusById().apply(jobId);
     };
 
-    public Function<String, List<JobConfig>>  jobStatusByName = (jobName) ->{
+    public Function<String, JobDetail>  jobStatusByName = (jobName) ->{
         log.info(" job status jobName {} ",jobName);
         return this.jobRepository.getJobStatusByName().apply(jobName);
     };
 
-    public BiFunction<JobDetails, String, List<JobConfig>> jobAbort = (jobDetails,jobName) ->{
-        log.info("Abort job name {} jobDetails {} ",jobName, jobDetails);
-        return this.jobRepository.getJobAbort().apply(jobName,jobDetails);
+    public BiFunction<JobConfig, String, JobDetail> jobAbort = (jobConfig, jobName) ->{
+        log.info("Abort job name {} jobDetails {} ",jobName, jobConfig);
+        return this.jobRepository.getJobAbort().apply(jobName, jobConfig);
     };
 
 }

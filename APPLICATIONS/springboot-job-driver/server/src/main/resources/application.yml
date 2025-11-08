@@ -12,6 +12,7 @@ job:
         abort: false
         conflict: submit-data,resubmit-data,fetch-status
         action: ABORT
+        message: Job can't be started due to depended job in execution (submit-data,resubmit-data,fetch-status)
       data-cleanup:
         max-run-time: 3
         exceptions: true
@@ -19,23 +20,27 @@ job:
         conflict: submit-data,resubmit-data,fetch-status
         action: WAITING
         wait-time: 10
+        message: Job can't be started moving to waiting due to depended job in execution (submit-data,resubmit-data,fetch-status)
       submit-data:
         max-run-time: 8
         exception: true
         abort : true
         conflict: data-load, data-cleanup
         action: ABORT
+        message: Job can't be started due to depended job in execution (data-load, data-cleanup)
       resubmit-data:
         max-run-time: 5
         exception: true
         abort: true
         conflict: data-load, data-cleanup
         action: ABORT
+        message: Job can't be started due to depended job in execution (data-load, data-cleanup)
       fetch-status:
         max-run-time: 7
         exception: true
         abort: true
         conflict: data-load, data-cleanup
         action: ABORT
+        message: Job can't be started due to depended job in execution (data-load, data-cleanup)
 
 

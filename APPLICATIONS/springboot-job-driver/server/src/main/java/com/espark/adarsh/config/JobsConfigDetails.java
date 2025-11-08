@@ -1,22 +1,17 @@
 package com.espark.adarsh.config;
 
+import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 @Component
 @ConfigurationProperties("job.config")
 public class JobsConfigDetails {
 
-   private  Map<String,JobDetails> jobTypes= new HashMap<>();
+   private final Map<String, JobConfig> jobTypes = new HashMap<>();
 
-    public Map<String, JobDetails> getJobTypes() {
-        return jobTypes;
-    }
-
-    public void setJobTypes(Map<String, JobDetails> jobTypes) {
-        this.jobTypes = jobTypes;
-    }
 }
