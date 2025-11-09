@@ -24,8 +24,11 @@ job:
         action: ABORT
         message: Job can't be started due to depended job in execution (submit-data,resubmit-data,fetch-status)
         orphan:
-          max-grace-time: 5
-          action: ABORT
+          -
+            max-grace-time: 5
+            action: ABORT
+            state:
+              - EXECUTING
       data-cleanup:
         max-run-time: 3
         exceptions: true
@@ -35,8 +38,16 @@ job:
         wait-time: 10
         message: Job can't be started moving to waiting due to depended job in execution (submit-data,resubmit-data,fetch-details)
         orphan:
-          max-grace-time: 5
-          action: ABORT
+          -
+            max-grace-time: 5
+            action: ABORT
+            state:
+              - EXECUTING
+          -
+            max-grace-time: 5
+            action: ABORT
+            state:
+              - WAITING
       submit-data:
         max-run-time: 8
         exception: true
@@ -45,8 +56,11 @@ job:
         action: ABORT
         message: Job can't be started due to depended job in execution (data-load, data-cleanup)
         orphan:
-          max-grace-time: 5
-          action: ABORT
+          -
+            max-grace-time: 5
+            action: ABORT
+            state:
+              - EXECUTING
       resubmit-data:
         max-run-time: 5
         exception: true
@@ -55,8 +69,11 @@ job:
         action: ABORT
         message: Job can't be started due to depended job in execution (data-load, data-cleanup)
         orphan:
-          max-grace-time: 5
-          action: ABORT
+          -
+            max-grace-time: 5
+            action: ABORT
+            state:
+              - EXECUTING
       fetch-details:
         max-run-time: 7
         exception: true
@@ -65,7 +82,10 @@ job:
         action: ABORT
         message: Job can't be started due to depended job in execution (data-load, data-cleanup)
         orphan:
-          max-grace-time: 5
-          action: ABORT
+          -
+            max-grace-time: 5
+            action: ABORT
+            state:
+              - EXECUTING
 
 

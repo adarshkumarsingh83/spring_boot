@@ -17,7 +17,7 @@ public class OnRequestJobConfig implements Serializable {
     String action;
     Integer waitTime;
     String message;
-    OrphanJobConfig orphan;
+    List<OrphanJobConfig> orphan;
 
 
     @Getter
@@ -25,6 +25,7 @@ public class OnRequestJobConfig implements Serializable {
     public static final class OrphanJobConfig {
         Integer maxGraceTime;
         String action;
+        List<String> state;
     }
 
 }

@@ -12,10 +12,11 @@ public class JobDetail {
     String jobId;
     String jobName;
     String startedBy;
-    String startedOn;
+    LocalDateTime startedOn;
     String status;
     Boolean abortRequest;
     LocalDateTime expectedCompletion;
+    LocalDateTime lastIteration;
     String message;
 
     public JobDetail() {

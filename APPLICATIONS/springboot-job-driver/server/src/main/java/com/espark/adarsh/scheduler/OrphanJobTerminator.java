@@ -5,13 +5,12 @@ import com.espark.adarsh.config.JobsConfigDetails;
 import com.espark.adarsh.config.OnRequestJobConfig;
 import com.espark.adarsh.config.ScheduleJobConfig;
 import jakarta.annotation.PostConstruct;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,8 @@ public class OrphanJobTerminator {
 
     private final JobsConfigDetails jobsConfigDetails;
     private final ScheduleJobConfig scheduleJobConfig;
-    private Map<String, OnRequestJobConfig.OrphanJobConfig> orphanJobConfigMap = new HashMap<>();
+
+    private Map<String, List<OnRequestJobConfig.OrphanJobConfig>> orphanJobConfigMap = new HashMap<>();
 
     public OrphanJobTerminator(JobsConfigDetails jobsConfigDetails,
                                ScheduleJobConfig scheduleJobConfig){
@@ -44,10 +44,7 @@ public class OrphanJobTerminator {
     @Scheduled(cron = "${job.config.on-schedule-job-types.orphan-cleanup.corn}")
     public void executeOrphanCleanup(){
         log.info("Orphan Job cleanup process executing");
+
     }
-
-
-
-
 
 }
