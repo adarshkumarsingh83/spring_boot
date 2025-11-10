@@ -75,6 +75,7 @@ public class JobExecutorService {
                                 if (LocalDateTime.now().isAfter(jobDetail.getExpectedCompletion())) {
                                     jobDetail.setStatus("COMPLETED");
                                     jobDetail.setMessage("job is completed ");
+                                    jobDetail.setCompletedOn(LocalDateTime.now());
                                     dataStore.getCompletedStoreSupplier().get().put(jobDetail.getJobId(), jobDetail);
                                     dataStore.getExecutingStoreSupplier().get().remove(jobDetail.getJobId());
                                     log.info("Job Details After Completion {}", jobDetail);
@@ -83,6 +84,7 @@ public class JobExecutorService {
                             case "ABORTED" -> {
                                 jobDetail.setStatus("ABORTED");
                                 jobDetail.setMessage("job is aborted ");
+                                jobDetail.setCompletedOn(LocalDateTime.now());
                                 dataStore.getFailedStoreSupplier().get().put(jobDetail.getJobId(), jobDetail);
                                 dataStore.getExecutingStoreSupplier().get().remove(jobDetail.getJobId());
                                 log.info("Job Details After Aborted {}", jobDetail);

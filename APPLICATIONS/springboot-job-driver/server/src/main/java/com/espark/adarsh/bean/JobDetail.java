@@ -17,6 +17,7 @@ public class JobDetail {
     Boolean abortRequest;
     LocalDateTime expectedCompletion;
     LocalDateTime lastIteration;
+    LocalDateTime completedOn;
     String message;
 
     public JobDetail() {
@@ -24,13 +25,16 @@ public class JobDetail {
 
     @Override
     public String toString() {
-        return "JobConfig{" +
+        return "JobDetail{" +
                 "jobId='" + jobId + '\'' +
                 ", jobName='" + jobName + '\'' +
                 ", startedBy='" + startedBy + '\'' +
-                ", startedOn='" + startedOn + '\'' +
+                ", startedOn=" + startedOn +
                 ", status='" + status + '\'' +
+                ", abortRequest=" + abortRequest +
                 ", expectedCompletion=" + expectedCompletion +
+                ", lastIteration=" + lastIteration +
+                ", completedOn=" + completedOn +
                 ", message='" + message + '\'' +
                 '}';
     }
