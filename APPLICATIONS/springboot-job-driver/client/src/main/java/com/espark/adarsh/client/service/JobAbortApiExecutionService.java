@@ -1,5 +1,6 @@
 package com.espark.adarsh.client.service;
 
+import com.espark.adarsh.client.annotaton.ApiExecution;
 import com.espark.adarsh.client.bean.ApiResponse;
 import com.espark.adarsh.client.bean.DefaultJobConfig;
 import com.espark.adarsh.client.bean.JobConfig;
@@ -29,15 +30,14 @@ import java.util.function.Predicate;
 
 @Slf4j
 @Getter
-@Service
-public class JobAbortApiExecutionService {
+@ApiExecution(name = Constants.ABORT)
+public class JobAbortApiExecutionService implements ApiExecutionService {
 
     @Value("${espark.job.scheduler.monitor.wait-time}")
     private int waitTime;
 
 
     private AbortApiConfigs abortApiConfigs;
-
 
     private HttpPutApiIntegrationServiceImpl<List<DefaultJobConfig>> httpPutApiIntegrationService;
 
@@ -54,12 +54,11 @@ public class JobAbortApiExecutionService {
     public JobAbortApiExecutionService(AbortApiConfigs abortApiConfigs,
                                        HttpPutApiIntegrationServiceImpl<List<DefaultJobConfig>> httpPutApiIntegrationService,
                                        HttpGetApiIntegrationServiceImpl<DefaultJobConfig> httpGetApiIntegrationService,
-                                       HttpPostApiIntegrationServiceImpl<DefaultJobConfig> httpPostApiIntegrationService, Function<String, Integer> processAbortApiRequest) {
+                                       HttpPostApiIntegrationServiceImpl<DefaultJobConfig> httpPostApiIntegrationService) {
         this.abortApiConfigs = abortApiConfigs;
         this.httpPutApiIntegrationService = httpPutApiIntegrationService;
         this.httpGetApiIntegrationService = httpGetApiIntegrationService;
         this.httpPostApiIntegrationService = httpPostApiIntegrationService;
-        this.processAbortApiRequest = processAbortApiRequest;
     }
 
     private final Predicate<JobConfig> exitStatus = (jobConfig) -> {
@@ -184,11 +183,16 @@ public class JobAbortApiExecutionService {
         throw new ResourceNotFoundException("Invalid Job Type Requested " + type);
     };
 
-    public Function<String, Integer> processAbortApiRequest = (type) -> {
+    private final Function<String, Integer> processAbortApiRequest = (type) -> {
         log.info("Processing Abort API request for type: {}", type);
         List<DefaultJobConfig>  response = requestRouter.apply(type);
         
-        log.info("Response received: for type {} status {} response {}", type, response.getJobStatus(), response);
-        return (exitStatus.test(response) ? 0 : 1);
+       // log.info("Response received: for type {} status {} response {}", type, response.getJobStatus(), response);
+       // return (exitStatus.test(response) ? 0 : 1);
+        return 0;
     };
+
+    public Integer executeApiRequest(String type){
+        return this.getProcessAbortApiRequest().apply(type);
+    }
 }

@@ -1,5 +1,6 @@
 package com.espark.adarsh.client.service;
 
+import com.espark.adarsh.client.annotaton.ApiExecution;
 import com.espark.adarsh.client.bean.ApiResponse;
 import com.espark.adarsh.client.bean.DefaultJobConfig;
 import com.espark.adarsh.client.bean.JobConfig;
@@ -18,7 +19,7 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.stereotype.Service;
+
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -26,8 +27,8 @@ import java.util.function.Predicate;
 
 @Slf4j
 @Getter
-@Service
-public class JobScheduleApiExecutionService {
+@ApiExecution(name = Constants.CREATE)
+public class JobScheduleApiExecutionService implements ApiExecutionService{
 
     @Value("${espark.job.scheduler.monitor.wait-time}")
     private int waitTime;
@@ -128,8 +129,7 @@ public class JobScheduleApiExecutionService {
             } else {
                 log.info("No Request Transformer found for type: {}", type);
             }
-            apiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<DefaultJobConfig>() {
-            });
+            apiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<DefaultJobConfig>() {});
             String httpMethod = apiDetails.getHttpMethod().name();
             ApiResponse<DefaultJobConfig> apiResponse = switch (httpMethod) {
                 case Constants.GET -> this.httpGetApiIntegrationService.getApiCallExecution(apiDetails, type);
@@ -169,10 +169,14 @@ public class JobScheduleApiExecutionService {
         throw new ResourceNotFoundException("Invalid Job Type Requested " + type);
     };
 
-    public Function<String, Integer> processApiRequest = (type) -> {
+    private final  Function<String, Integer> processExecuteApiRequest = (type) -> {
         log.info("Processing API request for type: {}", type);
         JobConfig response = requestRouter.apply(type);
         log.info("Response received: for type {} status {} response {}", type, response.getJobStatus(), response);
         return (exitStatus.test(response) ? 0 : 1);
     };
+
+    public Integer executeApiRequest(String type){
+         return this.getProcessExecuteApiRequest().apply(type);
+    }
 }

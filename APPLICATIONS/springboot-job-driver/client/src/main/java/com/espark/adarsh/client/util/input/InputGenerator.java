@@ -17,13 +17,13 @@ import java.util.function.Function;
 @Component
 public class InputGenerator {
 
-    public Function<String[],Map<String,String>> jsonInputGenerator = (String[] args) -> {
+    public Function<String[], Map<String, String>> jsonInputGenerator = (String[] args) -> {
         Map<String, String> inputMap = new HashMap<>();
         if (args != null && args.length > 0) {
-            try{
-                inputMap = new ObjectMapper().readValue(args[0], new TypeReference<Map<String, String>>() {
+            try {
+                inputMap = new ObjectMapper().readValue(args[1], new TypeReference<Map<String, String>>() {
                 });
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.error("Error while processing input arguments", e);
                 throw new InputTranslationException("Error while processing input arguments", e);
             }
@@ -32,11 +32,10 @@ public class InputGenerator {
     };
 
     public Function<String[], Map<String, String>> generateCmdLineInput = (String[] args) -> {
-       if(args == null || args.length == 0) {
-           return jsonInputGenerator.apply(args);
-       }else{
-           throw new InSufficientArgumentsException("Insufficient arguments provided. Please provide a JSON string as the first argument.");
-
-       }
+        if (args == null || args.length == 0) {
+            throw new InSufficientArgumentsException("Insufficient arguments provided. Please provide a JSON string as the first argument.");
+        } else {
+            return jsonInputGenerator.apply(args);
+        }
     };
 }

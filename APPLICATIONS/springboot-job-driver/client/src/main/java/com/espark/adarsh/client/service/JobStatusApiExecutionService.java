@@ -1,5 +1,6 @@
 package com.espark.adarsh.client.service;
 
+import com.espark.adarsh.client.annotaton.ApiExecution;
 import com.espark.adarsh.client.bean.AbstractApiDetails;
 import com.espark.adarsh.client.bean.ApiResponse;
 import com.espark.adarsh.client.bean.DefaultJobConfig;
@@ -7,15 +8,12 @@ import com.espark.adarsh.client.component.transformer.ApiRequestTransformer;
 import com.espark.adarsh.client.config.StatusApiConfigs;
 import com.espark.adarsh.client.exception.ApiOperationException;
 import com.espark.adarsh.client.exception.ResourceNotFoundException;
-import com.espark.adarsh.client.service.integration.HttpGetApiIntegrationServiceImpl;
 import com.espark.adarsh.client.service.integration.HttpPostApiIntegrationServiceImpl;
+import com.espark.adarsh.client.util.Constants;
 import com.espark.adarsh.client.util.transformer.TransformerProcessor;
-import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -23,8 +21,8 @@ import java.util.function.Function;
 
 @Slf4j
 @Getter
-@Service
-public class JobStatusApiExecutionService {
+@ApiExecution(name = Constants.STATUS)
+public class JobStatusApiExecutionService implements ApiExecutionService {
 
     private StatusApiConfigs statusApiConfigs;
 
@@ -67,7 +65,7 @@ public class JobStatusApiExecutionService {
         throw new ResourceNotFoundException("Invalid Job Type Requested " + type);
     };
 
-    public Function<String, Integer> processApiRequest = (type) -> {
+    public Function<String, Integer> processStatusApiRequest = (type) -> {
         log.info("Processing API request for type: {}", type);
         ApiResponse<List<DefaultJobConfig>> response = requestRouter.apply(type);
         if (response != null && response.getStatus()) {
@@ -77,4 +75,8 @@ public class JobStatusApiExecutionService {
         }
         throw new ApiOperationException("Failed to process API request for type: " + type);
     };
+
+    public Integer executeApiRequest(String type){
+        return this.getProcessStatusApiRequest().apply(type);
+    }
 }

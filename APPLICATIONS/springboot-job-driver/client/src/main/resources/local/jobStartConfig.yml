@@ -86,3 +86,23 @@ espark:
             monitor-wait-time: 30000
             headers:
               "accept": "application/json"
+        fetch-details:
+          server-url: http://localhost:8080
+          api-url: /job/start
+          http-method: POST
+          request-body: "{\"jobName\":\"fetch-details\"}"
+          headers:
+            "content-type": "application/json"
+          request-transformer: "espark-job-request-transformer"
+          response-transformer: "espark-job-response-transformer"
+          monitor-job-execution:
+            enable: true
+            server-url: http://localhost:8080
+            api-url: /job/status/{job-id}
+            http-method: GET
+            request-transformer: "espark-job-monitoring-request-transformer"
+            response-transformer: "espark-job-monitoring-response-transformer"
+            resolver: monitoring
+            monitor-wait-time: 30000
+            headers:
+              "accept": "application/json"

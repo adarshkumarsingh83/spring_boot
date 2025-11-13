@@ -16,6 +16,7 @@ import java.util.function.Supplier;
 @Getter
 @Component
 public class ConfigArgsResolverProcessor {
+
     private ConfigurableApplicationContext applicationContext;
     private static final Map<String, Object> configArgsResolvers = new HashMap<>();
 

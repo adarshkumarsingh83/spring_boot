@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static com.espark.adarsh.client.util.Constants.*;
@@ -13,7 +14,22 @@ import static com.espark.adarsh.client.util.Constants.*;
 @Getter
 @Component
 public class InputValidator {
-    public Predicate<Map<String, String>> validateCreateInput = (inputMap) -> {
+
+    public Function<Map<String, String>, String> validateInput = (inputMap) -> {
+        String key = "";
+        if (this.getValidateCreateInput().test(inputMap)) {
+            key = CREATE;
+        } else if (this.getValidateAbortInput().test(inputMap)) {
+            key = ABORT;
+        } else if (this.getValidateStatusInput().test(inputMap)) {
+            key = STATUS;
+        } else {
+            throw new IllegalArgumentException("Invalid Input Provided ");
+        }
+        return key;
+    };
+
+    private final Predicate<Map<String, String>> validateCreateInput = (inputMap) -> {
         return (!inputMap.isEmpty() &&
                 inputMap.containsKey(OPERATION) &&
                 inputMap.get(OPERATION).equals(CREATE) &&
@@ -21,7 +37,7 @@ public class InputValidator {
                 inputMap.get(JOB_TYPE) != null);
     };
 
-    public Predicate<Map<String, String>> validateStatusInput = (inputMap) -> {
+    private final Predicate<Map<String, String>> validateStatusInput = (inputMap) -> {
         return (!inputMap.isEmpty() &&
                 inputMap.containsKey(OPERATION) &&
                 inputMap.get(OPERATION).equals(STATUS) &&
@@ -29,7 +45,7 @@ public class InputValidator {
                 inputMap.get(JOB_TYPE) != null);
     };
 
-    public Predicate<Map<String, String>> validateAbortInput = (inputMap) -> {
+    private final Predicate<Map<String, String>> validateAbortInput = (inputMap) -> {
         return (!inputMap.isEmpty() &&
                 inputMap.containsKey(OPERATION) &&
                 inputMap.get(OPERATION).equals(ABORT) &&

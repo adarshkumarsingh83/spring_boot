@@ -15,10 +15,7 @@ public class JobApiRequestTransformer<T> implements ApiRequestTransformer<T> {
     public void transformRequest(AbstractApiDetails apiDetails, T config) {
         String transformer = apiDetails.getRequestTransformer();
         if (transformer != null && !transformer.isBlank()) {
-            ApiRequestTransformer apiRequestTransformer =
-                    TransformerProcessor.getRequestTransformer(transformer);
-            DefaultJobConfig defaultJobConfig = (DefaultJobConfig) config;
-            apiRequestTransformer.transformRequest(apiDetails, defaultJobConfig);
+
         }
     }
 }
