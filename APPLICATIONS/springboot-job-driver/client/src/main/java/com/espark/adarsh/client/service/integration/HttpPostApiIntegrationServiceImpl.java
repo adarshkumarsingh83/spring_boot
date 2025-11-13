@@ -38,7 +38,6 @@ public class HttpPostApiIntegrationServiceImpl<T> implements ApiIntegrationServi
     @RateLimiter(name = Constants.POST_API_RATE_LIMITER, fallbackMethod = "executeRateLimiterFallbackPost")
     public ApiResponse<T> postApiCallExecution(AbstractApiDetails apiDetails, String jobName) {
         try {
-
             final String url = apiDetails.getServerUrl() + apiDetails.getApiUrl();
             HttpHeaders httpHeaders = apiDetails.getHeaders();
             HttpEntity<String> httpEntity = new HttpEntity<>(apiDetails.getRequestBody(), httpHeaders);
@@ -47,8 +46,7 @@ public class HttpPostApiIntegrationServiceImpl<T> implements ApiIntegrationServi
                     httpEntity, apiDetails.getParameterizedTypeReference());
             log.info("postApiCallExecution request send from {} for url {}", jobName, url);
            if(statusResponseEntity.getStatusCode().equals(HttpStatus.OK)){
-               ApiResponse<T> apiResponse = new ApiResponse<>();
-               apiResponse.setData(statusResponseEntity.getBody());
+               ApiResponse<T> apiResponse = (ApiResponse<T>)statusResponseEntity.getBody();
                apiResponse.setStatus(Boolean.TRUE);
                return apiResponse;
            }

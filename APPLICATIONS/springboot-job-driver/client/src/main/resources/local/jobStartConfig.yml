@@ -10,7 +10,7 @@ espark:
           server-url: http://localhost:8080
           api-url: /job/start
           http-method: POST
-          request-body: "{\"jobName\":\"data-load\"}"
+          request-body: "{\"data\":{\"jobName\":\"data-load\"}}"
           headers:
             "content-type": "application/json"
           request-transformer: "espark-job-request-transformer"
@@ -30,7 +30,7 @@ espark:
           server-url: http://localhost:8080
           api-url: /job/start
           http-method: POST
-          request-body: "{\"jobName\":\"data-cleanup\"}"
+          request-body: "{\"data\":{\"jobName\":\"data-cleanup\"}}"
           headers:
             "content-type": "application/json"
           request-transformer: "espark-job-request-transformer"
@@ -50,7 +50,7 @@ espark:
           server-url: http://localhost:8080
           api-url: /job/start
           http-method: POST
-          request-body: "{\"jobName\":\"submit-data\"}"
+          request-body: "{\"data\":{\"jobName\":\"submit-data\"}}"
           headers:
             "content-type": "application/json"
           request-transformer: "espark-job-request-transformer"
@@ -70,7 +70,7 @@ espark:
           server-url: http://localhost:8080
           api-url: /job/start
           http-method: POST
-          request-body: "{\"jobName\":\"resubmit-data\"}"
+          request-body: "{\"data\":{\"jobName\":\"resubmit-data\"}}"
           headers:
             "content-type": "application/json"
           request-transformer: "espark-job-request-transformer"
@@ -90,7 +90,7 @@ espark:
           server-url: http://localhost:8080
           api-url: /job/start
           http-method: POST
-          request-body: "{\"jobName\":\"fetch-details\"}"
+          request-body: "{\"data\":{\"jobName\":\"fetch-details\"}}"
           headers:
             "content-type": "application/json"
           request-transformer: "espark-job-request-transformer"

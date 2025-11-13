@@ -46,8 +46,7 @@ public class HttpPutApiIntegrationServiceImpl<T> implements ApiIntegrationServic
                     httpEntity, apiDetails.getParameterizedTypeReference());
             log.info("putApiCallExecution request send from {} for url {}", jobName, url);
            if(statusResponseEntity.getStatusCode().equals(HttpStatus.OK)){
-               ApiResponse<T> apiResponse = new ApiResponse<>();
-               apiResponse.setData(statusResponseEntity.getBody());
+               ApiResponse<T> apiResponse = (ApiResponse<T>)statusResponseEntity.getBody();
                apiResponse.setStatus(Boolean.TRUE);
                return apiResponse;
            }

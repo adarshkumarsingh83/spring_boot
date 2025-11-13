@@ -69,7 +69,7 @@ public class JobScheduleApiExecutionService implements ApiExecutionService{
     private final Predicate<String> proceedIteration = (status) -> {
         if (status != null && !status.isEmpty()) {
             return switch (status) {
-                case Constants.START, Constants.EXECUTING, Constants.REQUEST_FOR_ABORT -> true;
+                case Constants.STARTING, Constants.WAITING, Constants.IN_QUEUE, Constants.REQUEST_FOR_ABORT, Constants.EXECUTING -> true;
                 case Constants.COMPLETED, Constants.FAILED, Constants.ABORT -> false;
                 default -> throw new IllegalStateException("Unexpected value: " + status);
             };
@@ -90,7 +90,7 @@ public class JobScheduleApiExecutionService implements ApiExecutionService{
                 do {
                     try {
                         String httpMethod = monitoringApiDetails.getHttpMethod().name();
-                        monitoringApiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<DefaultJobConfig>() {
+                        monitoringApiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<ApiResponse<DefaultJobConfig>>() {
                         });
                         ApiResponse<DefaultJobConfig> apiResponse = switch (httpMethod) {
                             case Constants.GET ->
@@ -129,7 +129,7 @@ public class JobScheduleApiExecutionService implements ApiExecutionService{
             } else {
                 log.info("No Request Transformer found for type: {}", type);
             }
-            apiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<DefaultJobConfig>() {});
+            apiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<ApiResponse<DefaultJobConfig>>() {});
             String httpMethod = apiDetails.getHttpMethod().name();
             ApiResponse<DefaultJobConfig> apiResponse = switch (httpMethod) {
                 case Constants.GET -> this.httpGetApiIntegrationService.getApiCallExecution(apiDetails, type);

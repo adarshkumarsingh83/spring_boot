@@ -30,7 +30,9 @@ public final class Constants {
     public static final String POST ="POST";
     public static final String PUT ="PUT";
 
-    public static final String STARTED ="STARTED";
+    public static final String WAITING ="WAITING";
+    public static final String IN_QUEUE ="IN-QUEUE";
+    public static final String STARTING ="STARTING";
     public static final String EXECUTING ="EXECUTING";
     public static final String FAILED ="FAILED";
     public static final String COMPLETED ="COMPLETED";

@@ -56,7 +56,7 @@ public class JobStatusApiExecutionService implements ApiExecutionService {
                 DefaultJobConfig jobConfig = new DefaultJobConfig();
                 apiResponseTransformer.transformRequest(abstractApiDetails, jobConfig);
             }
-            abstractApiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<List<DefaultJobConfig>>() {
+            abstractApiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<List<ApiResponse<DefaultJobConfig>>>() {
             });
             ApiResponse<List<DefaultJobConfig>> response = httpPostApiIntegrationService
                     .postApiCallExecution(abstractApiDetails, "job-status");

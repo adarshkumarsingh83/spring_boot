@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Data
 @ToString
@@ -13,11 +13,14 @@ public class DefaultJobConfig implements JobConfig {
 
     String jobId;
     String jobName;
-    OffsetDateTime jobStartedOn;
-    OffsetDateTime jobEndedOn;
+    LocalDateTime jobStartedOn;
+    LocalDateTime jobEndedOn;
+    LocalDateTime lastIteration;
+    LocalDateTime completedOn;
     String jobStatus;
     String jobMessage;
     String jobType;
+    String startedBy;
 
     @Override
     public String getJobId() {
@@ -30,18 +33,33 @@ public class DefaultJobConfig implements JobConfig {
     }
 
     @Override
-    public OffsetDateTime getJobStartedOn() {
+    public LocalDateTime getJobStartedOn() {
         return this.jobStartedOn;
     }
 
     @Override
-    public OffsetDateTime getJobEndedOn() {
+    public LocalDateTime getJobEndedOn() {
         return this.jobEndedOn;
     }
 
     @Override
     public String getJobStatus() {
         return this.jobStatus;
+    }
+
+    @Override
+    public String getStartedBy() {
+        return startedBy;
+    }
+
+    @Override
+    public LocalDateTime getCompletedOn(){
+       return this.completedOn;
+    }
+
+    @Override
+    public LocalDateTime getLastIteration() {
+        return lastIteration;
     }
 
     @Override

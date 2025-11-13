@@ -59,7 +59,7 @@ public class OrphanJobTerminator {
                     return LocalDateTime.now().isAfter(jobDetail.getExpectedCompletion());
                 }).map(entry -> {
                     JobDetail jobDetail = dataStore.getExecutingStoreSupplier().get().get(entry.getKey());
-                    jobDetail.setStatus("FORCED-ABORTED-CLEANUP");
+                    jobDetail.setJobStatus("FORCED-ABORTED-CLEANUP");
                     jobDetail.setCompletedOn(LocalDateTime.now());
                     return jobDetail.getJobName();
                 }).toList();

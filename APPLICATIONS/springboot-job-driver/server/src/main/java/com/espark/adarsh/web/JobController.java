@@ -29,7 +29,7 @@ public class JobController {
         if(jobsConfigDetails.getOnRequestJobTypes().containsKey(requestBean.getData().getJobName())){
               OnRequestJobConfig onRequestJobConfig = jobsConfigDetails.getOnRequestJobTypes().get(requestBean.getData().getJobName());
             JobDetail jobDetail = this.jobService.getJobStart().apply(onRequestJobConfig,requestBean.getData());
-            return new ResponseBean<JobDetail>().buildData(jobDetail).buildMessage(jobDetail.getMessage());
+            return new ResponseBean<JobDetail>().buildData(jobDetail).buildMessage(jobDetail.getJobMessage());
         }
         throw new JobConfigurationNotFoundException("Request Job configuration is not Found | Invalid job requested ");
     }
@@ -37,7 +37,7 @@ public class JobController {
     @GetMapping("/job/status/{jobId}")
     public ResponseBean<JobDetail> jobStatusById(@PathVariable("jobId") String jobId){
         JobDetail jobDetail =  this.jobService.jobStatusById.apply(jobId);
-        return new ResponseBean<JobDetail>().buildData(jobDetail).buildMessage(jobDetail.getMessage());
+        return new ResponseBean<JobDetail>().buildData(jobDetail).buildMessage(jobDetail.getJobMessage());
     }
 
 
@@ -49,7 +49,7 @@ public class JobController {
     }
 
     @PutMapping("/job/abort")
-    public ResponseBean< JobDetail> jobAbort(@RequestBody RequestBean<JobDetail> requestBean){
+    public ResponseBean<JobDetail> jobAbort(@RequestBody RequestBean<JobDetail> requestBean){
         if(jobsConfigDetails.getOnRequestJobTypes().containsKey(requestBean.getData().getJobName())) {
             OnRequestJobConfig onRequestJobConfig = jobsConfigDetails.getOnRequestJobTypes().get(requestBean.getData().getJobName());
             JobDetail jobDetail = this.jobService.getJobAbort().apply(onRequestJobConfig,requestBean.getData().getJobName());

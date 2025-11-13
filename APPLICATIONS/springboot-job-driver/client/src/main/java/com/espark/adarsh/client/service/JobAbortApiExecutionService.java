@@ -72,7 +72,7 @@ public class JobAbortApiExecutionService implements ApiExecutionService {
     private final Predicate<String> proceedIteration = (status) -> {
         if (status != null && !status.isEmpty()) {
             return switch (status) {
-                case Constants.REQUEST_FOR_ABORT, Constants.EXECUTING -> true;
+                case Constants.STARTING, Constants.WAITING, Constants.IN_QUEUE, Constants.REQUEST_FOR_ABORT, Constants.EXECUTING -> true;
                 case Constants.COMPLETED, Constants.FAILED, Constants.ABORT -> false;
                 default -> throw new IllegalStateException("Unexpected value: " + status);
             };
@@ -94,7 +94,7 @@ public class JobAbortApiExecutionService implements ApiExecutionService {
                 do {
                     try {
                         String httpMethod = monitoringApiDetails.getHttpMethod().name();
-                        monitoringApiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<DefaultJobConfig>() {
+                        monitoringApiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<ApiResponse<DefaultJobConfig>>() {
                         });
                         ApiResponse<DefaultJobConfig> apiResponse = switch (httpMethod) {
                             case Constants.GET ->
@@ -135,7 +135,7 @@ public class JobAbortApiExecutionService implements ApiExecutionService {
             } else {
                 log.info("No Request Transformer found for type: {}", type);
             }
-            apiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<DefaultJobConfig>() {
+            apiDetails.setParameterizedTypeReference(new ParameterizedTypeReference<ApiResponse<DefaultJobConfig>>() {
             });
             String httpMethod = apiDetails.getHttpMethod().name();
             ApiResponse<List<DefaultJobConfig>> apiResponse = switch (httpMethod) {

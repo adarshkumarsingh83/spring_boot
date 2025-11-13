@@ -11,7 +11,7 @@ espark:
           server-url: http://localhost:8080
           api-url: /job/abort
           http-method: PUT
-          request-body: "{\"jobName\":\"xxx\"}"
+          request-body: "{\"data\":{\"jobName\":\"xxx\"}}"
           headers:
             "content-type": "application/json"
           request-transformer: "espark-job-abort-request-transformer"

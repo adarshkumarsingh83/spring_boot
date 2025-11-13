@@ -91,8 +91,8 @@ public class JobRepository {
             if (dataStore.getExecutingStoreSupplier().get().containsKey(jobId)) {
                 JobDetail jobDetail = dataStore.getExecutingStoreSupplier().get().get(jobId);
                 jobDetail.setAbortRequest(true);
-                jobDetail.setStatus("REQUEST_FOR_ABORT");
-                jobDetail.setMessage("job is requested for abort ");
+                jobDetail.setJobStatus("REQUEST_FOR_ABORT");
+                jobDetail.setJobMessage("job is requested for abort ");
                 dataStore.getExecutingStoreSupplier().get().put(jobId, jobDetail);
                 return jobDetail;
             }
@@ -139,8 +139,8 @@ public class JobRepository {
         jobDetail.setJobId(generateJobId.get());
         jobDetail.setStartedOn(LocalDateTime.now());
         jobDetail.setExpectedCompletion(getJobExitTime.apply(onRequestJobConfig.getMaxRunTime()));
-        jobDetail.setMessage("job is starting ");
-        jobDetail.setStatus("IN-QUEUE");
+        jobDetail.setJobMessage("job is starting ");
+        jobDetail.setJobStatus("IN-QUEUE");
         jobDetail.setAbortRequest(false);
         jobDetail.setStartedBy(System.getProperty("user.name"));
         dataStore.getExecutingStoreSupplier().get().put(jobDetail.getJobId(), jobDetail);

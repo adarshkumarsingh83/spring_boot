@@ -60,8 +60,8 @@ public class JobExecutorService {
                 if (!isEmpty.test(concurrentLinkedQueue)) {
                     JobDetail jobDetail = concurrentLinkedQueue.poll();
                     log.info("Job Details Before Starting {}", jobDetail);
-                    jobDetail.setStatus("STARTING");
-                    jobDetail.setMessage("job is executing ");
+                    jobDetail.setJobStatus("STARTING");
+                    jobDetail.setJobMessage("job is executing ");
                     dataStore.getExecutingStoreSupplier().get().put(jobDetail.getJobId(), jobDetail);
                 } else if (!dataStore.getExecutingStoreSupplier().get().isEmpty()) {
                     log.info("executing jobs in job pools");
@@ -69,12 +69,12 @@ public class JobExecutorService {
                     keySet.stream().forEach(e -> {
                         JobDetail jobDetail = dataStore.getExecutingStoreSupplier().get().get(e);
                         log.info("Job Details while Executing {}", jobDetail);
-                        final String status = jobDetail.getStatus();
+                        final String status = jobDetail.getJobStatus();
                         switch (status) {
                             case "EXECUTING" -> {
                                 if (LocalDateTime.now().isAfter(jobDetail.getExpectedCompletion())) {
-                                    jobDetail.setStatus("COMPLETED");
-                                    jobDetail.setMessage("job is completed ");
+                                    jobDetail.setJobStatus("COMPLETED");
+                                    jobDetail.setJobMessage("job is completed ");
                                     jobDetail.setCompletedOn(LocalDateTime.now());
                                     dataStore.getCompletedStoreSupplier().get().put(jobDetail.getJobId(), jobDetail);
                                     dataStore.getExecutingStoreSupplier().get().remove(jobDetail.getJobId());
@@ -82,16 +82,16 @@ public class JobExecutorService {
                                 }
                             }
                             case "ABORTED" -> {
-                                jobDetail.setStatus("ABORTED");
-                                jobDetail.setMessage("job is aborted ");
+                                jobDetail.setJobStatus("ABORTED");
+                                jobDetail.setJobMessage("job is aborted ");
                                 jobDetail.setCompletedOn(LocalDateTime.now());
                                 dataStore.getFailedStoreSupplier().get().put(jobDetail.getJobId(), jobDetail);
                                 dataStore.getExecutingStoreSupplier().get().remove(jobDetail.getJobId());
                                 log.info("Job Details After Aborted {}", jobDetail);
                             }
                             case "STARTING" -> {
-                                jobDetail.setStatus("EXECUTING");
-                                jobDetail.setMessage("job is executing ");
+                                jobDetail.setJobStatus("EXECUTING");
+                                jobDetail.setJobMessage("job is executing ");
                                 jobDetail.setLastIteration(LocalDateTime.now());
                                 dataStore.getExecutingStoreSupplier().get().put(jobDetail.getJobId(), jobDetail);
                                 log.info("Job Details before Executing job {} threadName {}", jobDetail, Thread.currentThread().getName());

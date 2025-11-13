@@ -30,12 +30,5 @@ public class JobMonitoringApiRequestTransformer<T> implements ApiRequestTransfor
             configArgumentsResolver.resolveQueryParam(apiDetails, defaultJobConfig);
         }
 
-        String transformer = apiDetails.getRequestTransformer();
-        if (transformer != null && !transformer.isBlank()) {
-            ApiRequestTransformer apiRequestTransformer =
-                    TransformerProcessor.getRequestTransformer(transformer);
-            DefaultJobConfig defaultJobConfig = (DefaultJobConfig) config;
-            apiRequestTransformer.transformRequest(apiDetails, defaultJobConfig);
-        }
     }
 }
