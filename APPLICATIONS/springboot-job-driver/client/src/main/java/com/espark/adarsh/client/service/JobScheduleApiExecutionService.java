@@ -86,7 +86,7 @@ public class JobScheduleApiExecutionService implements ApiExecutionService{
                 } else {
                     log.info("Monitoring Job Transformer not found for type: {}", jobConfig.getJobType());
                 }
-                int waitTime = monitoringApiDetails.getMonitorWaitTime() != null ? monitoringApiDetails.getMonitorWaitTime() : this.waitTime;
+                waitTime = monitoringApiDetails.getMonitorWaitTime() != null ? monitoringApiDetails.getMonitorWaitTime() : this.waitTime;
                 do {
                     try {
                         String httpMethod = monitoringApiDetails.getHttpMethod().name();
