@@ -1,0 +1,16 @@
+espark:
+  parallel:
+    job:
+      scheduler:
+        execution-config:
+          submit-job:
+            - name: submit-data
+              parallel-execution: true
+              dependencies:
+                - data-load
+                - data-cleanup
+            - name: fetch-details
+              parallel-execution: true
+              dependencies:
+                - data-load
+                - data-cleanup

@@ -1,11 +1,15 @@
 spring:
   application:
     name: client
+  main:
+    web-application-type: none
   config:
     import:
-      - classpath:local/jobStartConfig.yml
       - classpath:local/jobAbortConfig.yml
       - classpath:local/jobStatusConfig.yml
+      - classpath:local/jobExecutionConfig.yml
+      - classpath:local/parallelJobExecutionConfig.yml
+      - classpath:local/sequentialJobExecutionConfig.yml
 
 resiliency4j:
   retry:

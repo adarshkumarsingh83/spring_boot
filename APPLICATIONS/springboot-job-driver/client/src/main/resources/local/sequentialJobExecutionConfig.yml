@@ -1,0 +1,8 @@
+espark:
+  sequential:
+    job:
+      scheduler:
+        execution-config:
+          data-load-sequential:
+            - data-load
+            - submit-data

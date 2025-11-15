@@ -14,9 +14,9 @@ import java.util.Map;
 @Setter
 @Component
 @ConfigurationProperties(prefix = "espark.job.abort")
-public class AbortApiConfigs {
+public class AbortJobConfigs {
 
-    private Map<String, AbortApiConfigs.ApiDetails> apiConfigs = new HashMap();
+    private Map<String, AbortJobConfigs.ApiDetails> apiConfigs = new HashMap();
 
     @Getter
     @Setter

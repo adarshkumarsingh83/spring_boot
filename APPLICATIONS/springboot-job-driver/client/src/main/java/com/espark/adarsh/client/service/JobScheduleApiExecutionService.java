@@ -7,11 +7,12 @@ import com.espark.adarsh.client.bean.JobConfig;
 import com.espark.adarsh.client.component.transformer.ApiRequestTransformer;
 import com.espark.adarsh.client.component.transformer.ApiResponseTransformer;
 import com.espark.adarsh.client.config.MonitoringApiDetails;
-import com.espark.adarsh.client.config.ScheduleApiConfigs;
+import com.espark.adarsh.client.config.ScheduleJobConfigs;
 import com.espark.adarsh.client.exception.ApiSchdulerException;
 import com.espark.adarsh.client.exception.ResourceNotFoundException;
 import com.espark.adarsh.client.service.integration.HttpGetApiIntegrationServiceImpl;
 import com.espark.adarsh.client.service.integration.HttpPostApiIntegrationServiceImpl;
+import com.espark.adarsh.client.service.util.ServiceUtil;
 import com.espark.adarsh.client.util.Constants;
 import com.espark.adarsh.client.util.transformer.TransformerProcessor;
 import jakarta.annotation.PostConstruct;
@@ -27,14 +28,15 @@ import java.util.function.Predicate;
 
 @Slf4j
 @Getter
-@ApiExecution(name = Constants.CREATE)
+@ApiExecution(name = Constants.EXECUTE)
 public class JobScheduleApiExecutionService implements ApiExecutionService{
 
     @Value("${espark.job.scheduler.monitor.wait-time}")
     private int waitTime;
 
+    private ServiceUtil serviceUtil;
 
-    private ScheduleApiConfigs scheduleApiConfigs;
+    private ScheduleJobConfigs scheduleJobConfigs;
 
     private TransformerProcessor transformerProcessor;
 
@@ -48,23 +50,19 @@ public class JobScheduleApiExecutionService implements ApiExecutionService{
         log.info("JobScheduleApiExecutionService initialized with waitTime: {}", this.waitTime);
     }
 
-    public JobScheduleApiExecutionService(ScheduleApiConfigs scheduleApiConfigs,
+    public JobScheduleApiExecutionService(ServiceUtil serviceUtil,
+                                          ScheduleJobConfigs scheduleJobConfigs,
                                           TransformerProcessor transformerProcessor,
                                           HttpPostApiIntegrationServiceImpl<DefaultJobConfig> httpPostApiIntegrationService,
                                           HttpGetApiIntegrationServiceImpl<DefaultJobConfig> httpGetApiIntegrationService) {
-        this.scheduleApiConfigs = scheduleApiConfigs;
+        this.serviceUtil = serviceUtil;
+        this.scheduleJobConfigs = scheduleJobConfigs;
         this.transformerProcessor = transformerProcessor;
         this.httpPostApiIntegrationService = httpPostApiIntegrationService;
         this.httpGetApiIntegrationService = httpGetApiIntegrationService;
     }
 
-    private final Predicate<JobConfig> exitStatus = (jobConfig) -> {
-        return switch (jobConfig.getJobStatus()) {
-            case Constants.COMPLETED -> true;
-            case Constants.FAILED, Constants.ABORT -> false;
-            default -> throw new IllegalStateException("Unexpected value: " + jobConfig.getJobStatus());
-        };
-    };
+
 
     private final Predicate<String> proceedIteration = (status) -> {
         if (status != null && !status.isEmpty()) {
@@ -121,7 +119,7 @@ public class JobScheduleApiExecutionService implements ApiExecutionService{
 
     private final Function<String, DefaultJobConfig> processJobRequest = (type) -> {
         log.info("Processing job request for type: {}", type);
-        ScheduleApiConfigs.ApiDetails apiDetails = scheduleApiConfigs.getApiConfigs().get(type);
+        ScheduleJobConfigs.ApiDetails apiDetails = scheduleJobConfigs.getApiConfigs().get(type);
         if (apiDetails != null) {
             ApiRequestTransformer<DefaultJobConfig> apiRequestTransformer = transformerProcessor.getRequestTransformer(apiDetails.getRequestTransformer());
             if (apiRequestTransformer != null) {
@@ -162,7 +160,7 @@ public class JobScheduleApiExecutionService implements ApiExecutionService{
     final private Function<String, JobConfig> requestRouter = (type) -> {
         log.info("Request Router invoked for type: {}", type);
 
-        if (scheduleApiConfigs.getApiConfigs().containsKey(type)) {
+        if (scheduleJobConfigs.getApiConfigs().containsKey(type)) {
             log.info("Processing request for type: {}", type);
             return processJobRequest.apply(type);
         }
@@ -173,9 +171,10 @@ public class JobScheduleApiExecutionService implements ApiExecutionService{
         log.info("Processing API request for type: {}", type);
         JobConfig response = requestRouter.apply(type);
         log.info("Response received: for type {} status {} response {}", type, response.getJobStatus(), response);
-        return (exitStatus.test(response) ? 0 : 1);
+        return (this.serviceUtil.getExecuteExitStatus().test(response) ? 0 : 1);
     };
 
+    @Override
     public Integer executeApiRequest(String type){
          return this.getProcessExecuteApiRequest().apply(type);
     }

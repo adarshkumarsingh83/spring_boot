@@ -12,16 +12,9 @@ import java.util.Map;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties(prefix = "espark.job.scheduler")
-public class ScheduleApiConfigs {
+@ConfigurationProperties(prefix = "espark.job.status")
+public class StatusJobConfigs {
 
-    private Map<String, ApiDetails> apiConfigs = new HashMap();
-
-    @Getter
-    @Setter
-    public static class ApiDetails extends AbstractApiDetails{
-        MonitoringApiDetails monitorJobExecution;
-    }
-
+    private Map<String, AbstractApiDetails> apiConfigs = new HashMap();
 
 }

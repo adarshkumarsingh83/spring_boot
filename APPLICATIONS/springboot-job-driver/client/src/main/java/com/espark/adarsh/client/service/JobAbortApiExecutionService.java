@@ -3,17 +3,16 @@ package com.espark.adarsh.client.service;
 import com.espark.adarsh.client.annotaton.ApiExecution;
 import com.espark.adarsh.client.bean.ApiResponse;
 import com.espark.adarsh.client.bean.DefaultJobConfig;
-import com.espark.adarsh.client.bean.JobConfig;
 import com.espark.adarsh.client.component.transformer.ApiRequestTransformer;
 import com.espark.adarsh.client.component.transformer.ApiResponseTransformer;
-import com.espark.adarsh.client.config.AbortApiConfigs;
+import com.espark.adarsh.client.config.AbortJobConfigs;
 import com.espark.adarsh.client.config.MonitoringApiDetails;
-import com.espark.adarsh.client.config.ScheduleApiConfigs;
 import com.espark.adarsh.client.exception.ApiSchdulerException;
 import com.espark.adarsh.client.exception.ResourceNotFoundException;
 import com.espark.adarsh.client.service.integration.HttpGetApiIntegrationServiceImpl;
 import com.espark.adarsh.client.service.integration.HttpPostApiIntegrationServiceImpl;
 import com.espark.adarsh.client.service.integration.HttpPutApiIntegrationServiceImpl;
+import com.espark.adarsh.client.service.util.ServiceUtil;
 import com.espark.adarsh.client.util.Constants;
 import com.espark.adarsh.client.util.transformer.TransformerProcessor;
 import jakarta.annotation.PostConstruct;
@@ -21,7 +20,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.function.BiFunction;
@@ -36,8 +34,9 @@ public class JobAbortApiExecutionService implements ApiExecutionService {
     @Value("${espark.job.scheduler.monitor.wait-time}")
     private int waitTime;
 
+    private ServiceUtil serviceUtil;
 
-    private AbortApiConfigs abortApiConfigs;
+    private AbortJobConfigs abortJobConfigs;
 
     private HttpPutApiIntegrationServiceImpl<List<DefaultJobConfig>> httpPutApiIntegrationService;
 
@@ -51,23 +50,19 @@ public class JobAbortApiExecutionService implements ApiExecutionService {
         log.info("JobScheduleApiExecutionService initialized with waitTime: {}", this.waitTime);
     }
 
-    public JobAbortApiExecutionService(AbortApiConfigs abortApiConfigs,
+    public JobAbortApiExecutionService( ServiceUtil serviceUtil,
+                                        AbortJobConfigs abortJobConfigs,
                                        HttpPutApiIntegrationServiceImpl<List<DefaultJobConfig>> httpPutApiIntegrationService,
                                        HttpGetApiIntegrationServiceImpl<DefaultJobConfig> httpGetApiIntegrationService,
                                        HttpPostApiIntegrationServiceImpl<DefaultJobConfig> httpPostApiIntegrationService) {
-        this.abortApiConfigs = abortApiConfigs;
+        this.serviceUtil = serviceUtil;
+        this.abortJobConfigs = abortJobConfigs;
         this.httpPutApiIntegrationService = httpPutApiIntegrationService;
         this.httpGetApiIntegrationService = httpGetApiIntegrationService;
         this.httpPostApiIntegrationService = httpPostApiIntegrationService;
     }
 
-    private final Predicate<JobConfig> exitStatus = (jobConfig) -> {
-        return switch (jobConfig.getJobStatus()) {
-            case Constants.COMPLETED ,Constants.ABORT-> true;
-            case Constants.FAILED -> false;
-            default -> throw new IllegalStateException("Unexpected value: " + jobConfig.getJobStatus());
-        };
-    };
+
 
     private final Predicate<String> proceedIteration = (status) -> {
         if (status != null && !status.isEmpty()) {
@@ -126,7 +121,7 @@ public class JobAbortApiExecutionService implements ApiExecutionService {
 
     private final Function<String, List<DefaultJobConfig>> processJobRequest = (type) -> {
         log.info("Processing job request for type: {}", type);
-        AbortApiConfigs.ApiDetails apiDetails = abortApiConfigs.getApiConfigs().get(type);
+        AbortJobConfigs.ApiDetails apiDetails = abortJobConfigs.getApiConfigs().get(type);
         if (apiDetails != null) {
             ApiRequestTransformer<DefaultJobConfig> apiRequestTransformer
                     = TransformerProcessor.getRequestTransformer(apiDetails.getRequestTransformer());
@@ -175,7 +170,7 @@ public class JobAbortApiExecutionService implements ApiExecutionService {
     final private Function<String, List<DefaultJobConfig>> requestRouter = (type) -> {
         log.info("Request Router invoked for type: {}", type);
 
-        if (abortApiConfigs.getApiConfigs().containsKey(type)) {
+        if (abortJobConfigs.getApiConfigs().containsKey(type)) {
             log.info("Processing request for type: {}", type);
             List<DefaultJobConfig> list =  processJobRequest.apply(type);
             return list;
@@ -188,10 +183,11 @@ public class JobAbortApiExecutionService implements ApiExecutionService {
         List<DefaultJobConfig>  response = requestRouter.apply(type);
         
        // log.info("Response received: for type {} status {} response {}", type, response.getJobStatus(), response);
-       // return (exitStatus.test(response) ? 0 : 1);
+        // return (this.serviceUtil.getAbortExitStatus().test(response) ? 0 : 1);
         return 0;
     };
 
+    @Override
     public Integer executeApiRequest(String type){
         return this.getProcessAbortApiRequest().apply(type);
     }

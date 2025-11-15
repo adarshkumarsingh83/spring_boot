@@ -21,11 +21,6 @@ public final class Constants {
     public static final String PUT_API_RETRY ="putApiRetry";
     public static final String GET_API_RETRY ="getApiRetry";
 
-    public static final String DATA_LOAD ="data-load";
-    public static final String DATA_CLEANUP ="data-cleanup";
-    public static final String SUBMIT_DATA ="submit-data";
-    public static final String RESUBMIT_DATA ="resubmit-data";
-
     public static final String GET ="GET";
     public static final String POST ="POST";
     public static final String PUT ="PUT";
@@ -42,6 +37,8 @@ public final class Constants {
     public static final String ABORT = "abort";
     public static final String JOB_TYPE = "jobType";
     public static final String OPERATION = "operation";
-    public static final String CREATE = "create";
+    public static final String EXECUTE = "execute";
+    public static final String EXECUTE_SEQUENTIAL = "execute-sequential";
+    public static final String EXECUTE_PARALLEL = "execute-parallel";
     public static final String REQUEST_FOR_ABORT = "request-for-abort";
 }

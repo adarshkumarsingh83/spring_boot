@@ -5,7 +5,7 @@ import com.espark.adarsh.client.bean.AbstractApiDetails;
 import com.espark.adarsh.client.bean.ApiResponse;
 import com.espark.adarsh.client.bean.DefaultJobConfig;
 import com.espark.adarsh.client.component.transformer.ApiRequestTransformer;
-import com.espark.adarsh.client.config.StatusApiConfigs;
+import com.espark.adarsh.client.config.StatusJobConfigs;
 import com.espark.adarsh.client.exception.ApiOperationException;
 import com.espark.adarsh.client.exception.ResourceNotFoundException;
 import com.espark.adarsh.client.service.integration.HttpPostApiIntegrationServiceImpl;
@@ -24,16 +24,16 @@ import java.util.function.Function;
 @ApiExecution(name = Constants.STATUS)
 public class JobStatusApiExecutionService implements ApiExecutionService {
 
-    private StatusApiConfigs statusApiConfigs;
+    private StatusJobConfigs statusJobConfigs;
 
     private TransformerProcessor transformerProcessor;
 
     private HttpPostApiIntegrationServiceImpl<List<DefaultJobConfig>> httpPostApiIntegrationService;
 
-    public JobStatusApiExecutionService(StatusApiConfigs statusApiConfigs,
+    public JobStatusApiExecutionService(StatusJobConfigs statusJobConfigs,
                                         TransformerProcessor transformerProcessor,
                                         HttpPostApiIntegrationServiceImpl<List<DefaultJobConfig>> httpPostApiIntegrationService) {
-        this.statusApiConfigs = statusApiConfigs;
+        this.statusJobConfigs = statusJobConfigs;
         this.transformerProcessor = transformerProcessor;
         this.httpPostApiIntegrationService = httpPostApiIntegrationService;
     }
@@ -48,7 +48,7 @@ public class JobStatusApiExecutionService implements ApiExecutionService {
 
     final private Function<String, ApiResponse<List<DefaultJobConfig>>> requestRouter = (type) -> {
         log.info("Request Router invoked for type: {}", type);
-        AbstractApiDetails abstractApiDetails = this.statusApiConfigs.getApiConfigs().get(type);
+        AbstractApiDetails abstractApiDetails = this.statusJobConfigs.getApiConfigs().get(type);
         if (abstractApiDetails != null) {
             log.info("processing for status request for type: {}", type);
             ApiRequestTransformer apiResponseTransformer = TransformerProcessor.getRequestTransformer(abstractApiDetails.getRequestTransformer());
@@ -76,6 +76,7 @@ public class JobStatusApiExecutionService implements ApiExecutionService {
         throw new ApiOperationException("Failed to process API request for type: " + type);
     };
 
+    @Override
     public Integer executeApiRequest(String type){
         return this.getProcessStatusApiRequest().apply(type);
     }

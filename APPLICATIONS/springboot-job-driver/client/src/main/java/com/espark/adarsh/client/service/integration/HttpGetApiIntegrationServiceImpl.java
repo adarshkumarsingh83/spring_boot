@@ -55,10 +55,10 @@ public class HttpGetApiIntegrationServiceImpl<T> implements ApiIntegrationServic
         } catch (HttpClientErrorException.Unauthorized | HttpClientErrorException.Forbidden |
                  HttpServerErrorException.ServiceUnavailable | HttpClientErrorException.TooManyRequests |
                  ResourceAccessException e) {
-            log.error("GetApiCallExecution Retryable {}", e.getMessage());
+            log.error("GetApiCallExecution Re-tryable {}", e.getMessage());
             throw e;
         } catch (HttpClientErrorException | HttpServerErrorException e) {
-            log.error("GetApiCallExecution Non-Retryable {}", e.getMessage());
+            log.error("GetApiCallExecution Non-Re-tryable {}", e.getMessage());
             return errorResponse.apply(null, e.getMessage());
         } catch (Exception e) {
             log.error("GetApiCallExecution Exception Occurred {}", e.getMessage());
