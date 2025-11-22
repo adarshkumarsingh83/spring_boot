@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: springboot-events
+  datasource:
+    url: jdbc:postgresql://localhost:5432/esparkdb
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Options: none, validate, update, create, create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+  modulith:
+    detection-strategy: explicitly-annotated
+  modules:
+    events:
+      handler:
+        enabled: true
+      republish-outstanding-events-on-restart: true
+      jdbc:
+        schema-initialization-enabled: true
