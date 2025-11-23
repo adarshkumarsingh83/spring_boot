@@ -12,7 +12,6 @@ public class MyService {
 
     private final ServiceUtil serviceUtil;
 
-
     public String getWish(String name) {
         String response = serviceUtil.getWishFunction().apply(name);
         log.info("Response from Service : {}", response);

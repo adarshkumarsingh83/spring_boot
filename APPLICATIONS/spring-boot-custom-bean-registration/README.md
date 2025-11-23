@@ -9,3 +9,16 @@
 
 ### To Test the Application
 *  curl -X GET http://localhost:8080/wish
+
+* curl -X GET http://localhost:8080/communicate/message
+````
+  Email Message Sent: Hello, adarshkumar! Welcome to Espark Application.% 
+````
+* curl -X GET http://localhost:8080/communicate/message
+```
+SMS Message Sent: Hello, adarshkumar! Welcome to Espark Application.% 
+```
+* curl -X GET http://localhost:8080/communicate/message
+```
+  Default Message Sent: Hello, adarshkumar! Welcome to Espark Application.% 
+```

@@ -1,0 +1,8 @@
+
+espark:
+  application:
+    email:
+      enable: false
+    sms:
+      enable: false
+

@@ -11,7 +11,7 @@ import java.util.function.Function;
 @Component
 public class ServiceUtil {
 
-    private Function<String, String> wishFunction =
+    private final Function<String, String> wishFunction =
             (name) -> {
                 String response = "Hello, " + name + "! Welcome to Espark Application.";
                 log.info("Response from ServiceUtil : {}", response);
