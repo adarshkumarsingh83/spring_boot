@@ -14,19 +14,19 @@ import java.util.List;
 @Component
 public interface EmployeeApiIntegrationService {
 
-    @PostExchange("http://localhost:8080/employee")
+    @PostExchange(value = "http://localhost:8080/employee")
     Employee saveEmployee(@RequestBody Employee employee);
 
-    @GetExchange("http://localhost:8080/employees")
+    @GetExchange(value = "http://localhost:8080/employees")
     List<Employee> getEmployees();
 
-    @GetExchange("http://localhost:8080/employee/{id}")
+    @GetExchange(value = "http://localhost:8080/employee/{id}")
     Employee getEmployeeById(@PathVariable Long id);
 
-    @PutExchange("http://localhost:8080/employee/{id}")
+    @PutExchange(value = "http://localhost:8080/employee/{id}")
     Employee updateEmployee(@PathVariable Long id,@RequestBody Employee employee);
 
-    @DeleteExchange("http://localhost:8080/employee/{id}")
+    @DeleteExchange(value = "http://localhost:8080/employee/{id}")
     Employee deleteEmployeeById(@PathVariable Long id);
 
 

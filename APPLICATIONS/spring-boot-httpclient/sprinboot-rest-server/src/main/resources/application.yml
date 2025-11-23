@@ -22,6 +22,11 @@ spring:
         web-allow-others: true # Allow remote access to console (set to true for remote)
         trace: false # Enable/disable trace output in console
 
+  mvc:
+    api-version:
+      use-query-parameter: v
+      default: 1.0
+
 logging:
   level:
     org.hibernate.SQL: DEBUG

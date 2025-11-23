@@ -1,8 +1,8 @@
 package com.espark.adarsh.web;
 
+import com.espark.adarsh.bean.ApiResponse;
 import com.espark.adarsh.entities.Employee;
 import com.espark.adarsh.service.EmployeeService;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,33 +16,41 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping(path = "/employee/{id}" ,version = "1.0")
     public Employee getEmployeeById(@PathVariable("id") Long id) {
         log.info("Request Received For Get Employee By Id :: {}", id);
         return this.employeeService.getEmployeeByIdFunction().apply(id);
     }
 
-    @GetMapping("/employees")
+    @GetMapping(path  = "/employees",version = "1.0")
     public Iterable<Employee> getAllEmployees() {
         log.info("Request Received For Get All Employees");
         return this.employeeService.getEmployeesFunction().get();
     }
 
-    @PostMapping("/employee")
+    @PostMapping(path = "/employee" ,version = "1.0")
     public Employee saveEmployee(@RequestBody Employee employee) {
         log.info("Request Received For Save Employee :: {}", employee);
         return this.employeeService.getSaveEmployeeFunction().apply(employee);
     }
 
-    @PutMapping("/employee/{id}")
+    @PutMapping(path = "/employee/{id}",version = "1.0")
     public Employee updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
         log.info("Request Received For Update Employee Id :: {} Data :: {}", id, employee);
         return this.employeeService.getUpdateEmployeeFunction().apply(id, employee);
     }
 
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping(path = "/employee/{id}" ,version = "1.0")
     public Employee deleteEmployee(@PathVariable("id") Long id) {
         log.info("Request Received For Delete Employee By Id :: {}", id);
         return this.employeeService.getDeleteEmployeeByIdFunction().apply(id);
+    }
+
+    @GetMapping(path  = "/employees", version = "1.1")
+    public ApiResponse<Iterable<Employee>> getAllEmployee() {
+        log.info("Request Received For Get All Employees");
+        ApiResponse<Iterable<Employee>> response = new ApiResponse();
+        response.setData(this.employeeService.getEmployeesFunction().get());
+        return response;
     }
 }

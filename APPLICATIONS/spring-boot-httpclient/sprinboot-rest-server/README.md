@@ -9,3 +9,4 @@
 * mvn spring-boot:run
 
 ### Api Endpoints
+*  sh ./doc/test.sh

@@ -7,7 +7,8 @@ BASE_URL="http://localhost:8080"
 ID=1
 
 echo "GET all employees"
-curl -s -X GET "${BASE_URL}/employees" -H "Accept: application/json" | jq .
+curl -s -X GET "${BASE_URL}/employees?v=1.0" -H "Accept: application/json" | jq .
+
 
 echo
 echo "GET employee by id (${ID})"
@@ -32,3 +33,7 @@ curl -s -X PUT "${BASE_URL}/employee/${ID}" \
       "name": "Adarsh kumar Updated",
       "email": "adarsh.kumar@updated.com"
     }' | jq .
+
+
+echo "GET all employees"
+curl -s -X GET "${BASE_URL}/employees?v=1.1" -H "Accept: application/json" | jq .
