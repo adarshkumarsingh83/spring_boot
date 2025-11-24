@@ -1,5 +1,7 @@
 spring:
   application:
-    name=: prinboot-rest-httclient
-  #main:
- #   web-application-type: servlet
+    name=: sprinboot-rest-httclient
+
+
+server:
+  port: 9090
