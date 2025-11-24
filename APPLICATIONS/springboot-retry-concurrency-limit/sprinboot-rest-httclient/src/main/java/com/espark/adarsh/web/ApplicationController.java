@@ -23,4 +23,10 @@ public class ApplicationController {
         log.info("Received request to fetch all employees");
        return this.employeeService.fetchEmployees();
     }
+
+    @GetMapping("/employee/{empId}")
+    public Employee getEmployeeById(Long empId) {
+        log.info("Received request to fetch employee with ID: {}", empId);
+        return this.employeeService.fetchEmployeeById(empId);
+    }
 }
