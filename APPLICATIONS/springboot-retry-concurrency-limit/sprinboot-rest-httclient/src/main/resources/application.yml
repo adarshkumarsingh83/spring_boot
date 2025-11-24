@@ -1,0 +1,5 @@
+spring:
+  application:
+    name=: prinboot-rest-httclient
+  #main:
+ #   web-application-type: servlet

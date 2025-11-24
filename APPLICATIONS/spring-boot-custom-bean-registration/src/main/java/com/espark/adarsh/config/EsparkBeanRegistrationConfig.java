@@ -11,8 +11,10 @@ public class EsparkBeanRegistrationConfig implements BeanRegistrar {
 
     @Override
     public void register(BeanRegistry registry, Environment environment) {
+
         //registry.registerBean(ServiceUtil.class);
         // or
+        
         registry.registerBean(MyService.class,
                 p -> p.supplier(supplierContext ->
                         new MyService(supplierContext.bean(ServiceUtil.class))));

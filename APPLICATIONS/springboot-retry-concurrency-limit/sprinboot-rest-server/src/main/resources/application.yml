@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: sprinboot-rest-server
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE # In-memory database, keeps open until JVM exit
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update # Options: none, validate, update, create, create-drop
+    show-sql: true # Log SQL queries to the console
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true # Defer initialization until after JPA is set up
+  h2:
+    console:
+      enabled: true # Enable H2 console
+      path: /h2-console # Console access path
+      settings:
+        web-allow-others: true # Allow remote access to console (set to true for remote)
+        trace: false # Enable/disable trace output in console
+
+  mvc:
+    api-version:
+      use-query-parameter: v
+      default: 1.0
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
