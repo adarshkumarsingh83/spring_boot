@@ -6,8 +6,12 @@ import org.springframework.beans.factory.BeanRegistrar;
 import org.springframework.beans.factory.BeanRegistry;
 import org.springframework.core.env.Environment;
 
+import java.util.List;
+import java.util.Map;
+
 
 public class EsparkBeanRegistrationConfig implements BeanRegistrar {
+
 
     @Override
     public void register(BeanRegistry registry, Environment environment) {
@@ -19,29 +23,44 @@ public class EsparkBeanRegistrationConfig implements BeanRegistrar {
                 p -> p.supplier(supplierContext ->
                         new MyService(supplierContext.bean(ServiceUtil.class))));
 
-       String operation =  Boolean.parseBoolean(environment.getProperty("espark.application.email.enable")) ? "email" :
-               Boolean.parseBoolean(environment.getProperty("espark.application.sms.enable")) ? "sms" : "none";
+        Map<String,Boolean> config = Map.of(
+                "email",Boolean.parseBoolean(environment.getProperty("espark.application.communication.email.enable")) ,
+                "smd",Boolean.parseBoolean(environment.getProperty("espark.application.communication.sms.enable")),
+                "default",Boolean.parseBoolean(environment.getProperty("espark.application.communication.default.enable"))
+        );
 
-       switch (operation) {
-           case "email":
-                 registry.registerBean(com.espark.adarsh.service.EmailCommunicationService.class,
-                       p -> p.supplier(supplierContext ->
-                               new com.espark.adarsh.service.EmailCommunicationService(
-                                       supplierContext.bean(ServiceUtil.class))));
-               break;
-           case "sms":
-                registry.registerBean(com.espark.adarsh.service.SmsCommunicationService.class,
-                       p -> p.supplier(supplierContext ->
-                               new com.espark.adarsh.service.SmsCommunicationService(
-                                       supplierContext.bean(ServiceUtil.class))));
-               break;
-           default:
-               registry .registerBean(com.espark.adarsh.service.DefaultCommunicationService.class,
-                       p -> p.supplier(supplierContext ->
-                               new com.espark.adarsh.service.DefaultCommunicationService(
-                                       supplierContext.bean(ServiceUtil.class))));
-               break;
-       }
+          config.entrySet()
+                 .stream()
+                 .forEach(e -> {
+                     switch (e.getKey()) {
+                         case "email":
+                             if(!e.getValue()) {
+                                 registry.registerBean("email",com.espark.adarsh.service.EmailCommunicationService.class,
+                                         p -> p.supplier(supplierContext ->
+                                                 new com.espark.adarsh.service.EmailCommunicationService(
+                                                         supplierContext.bean(ServiceUtil.class))));
+                             }
+                             break;
+                         case "sms":
+                             if(!e.getValue()) {
+                                 registry.registerBean("sms",com.espark.adarsh.service.SmsCommunicationService.class,
+                                         p -> p.supplier(supplierContext ->
+                                                 new com.espark.adarsh.service.SmsCommunicationService(
+                                                         supplierContext.bean(ServiceUtil.class))));
+                             }
+                             break;
+                         default:
+                             if(!e.getValue()) {
+                                 registry.registerBean("default",com.espark.adarsh.service.DefaultCommunicationService.class,
+                                         p -> p.supplier(supplierContext ->
+                                                 new com.espark.adarsh.service.DefaultCommunicationService(
+                                                         supplierContext.bean(ServiceUtil.class))));
+                             }
+                             break;
+                     }
+                 });
+
+
 
     }
 }

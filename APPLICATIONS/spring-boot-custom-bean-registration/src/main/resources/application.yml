@@ -1,8 +1,14 @@
 
 espark:
   application:
-    email:
-      enable: false
-    sms:
-      enable: false
+    communication:
+      default:
+        name: "defaultService"
+        enable: true
+      email:
+        name: "emailService"
+        enable: false
+      sms:
+        name: "smsService"
+        enable: false
 

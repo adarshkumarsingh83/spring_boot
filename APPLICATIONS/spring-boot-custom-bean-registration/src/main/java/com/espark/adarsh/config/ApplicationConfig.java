@@ -6,4 +6,5 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import(EsparkBeanRegistrationConfig.class)
 public class ApplicationConfig {
+
 }
