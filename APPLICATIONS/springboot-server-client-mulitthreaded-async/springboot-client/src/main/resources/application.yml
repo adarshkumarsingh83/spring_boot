@@ -1,0 +1,6 @@
+
+
+espark:
+  config:
+    api-url: "http://localhost:9090/api"
+    request-count: 10000
