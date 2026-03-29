@@ -21,6 +21,7 @@ public class ApplicationController {
     @GetMapping("/request/{number}")
     public String sendRequests(@org.springframework.web.bind.annotation.PathVariable int number) throws InterruptedException {
         log.info("Received home request to send {} requests", number);
-        return this.jobProcessingService.startJob(number);
+         this.jobProcessingService.doProcessJob(number);
+        return "Requests are being processed asynchronously.for " + number + " users.";
     }
 }

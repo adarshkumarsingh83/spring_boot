@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,7 +32,7 @@ public class ApplicationService {
     private PoolObjectFactory <User> userPoolObjectFactory;
     private RestTemplate restTemplate ;
 
-    ConcurrentLinkedQueue<List<User>> dataQueue = new ConcurrentLinkedQueue<>();
+  static ConcurrentLinkedQueue<List<User>> dataQueue = new ConcurrentLinkedQueue<>();
     JobState jobState = JobState.NOJOB;
 
     public ApplicationService(ApplicationProps applicationProps,
@@ -46,10 +47,11 @@ public class ApplicationService {
         dataQueue.add(users);
     }
 
+    @Scheduled(cron = "* * * * * *")
     public void sendRequest(){
         List<Future<String>> futureList = new
                 LinkedList<>();
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+        ExecutorService executor = Executors.newFixedThreadPool(10);
         int batch =1;
         do {
             List<User> userList = dataQueue.poll();

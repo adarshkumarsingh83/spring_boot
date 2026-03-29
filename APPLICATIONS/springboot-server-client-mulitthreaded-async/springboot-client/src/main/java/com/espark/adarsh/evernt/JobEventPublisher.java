@@ -8,14 +8,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class JobEventPublisher {
 
-    private ApplicationEventPublisher publisher;
+    private final ApplicationEventPublisher publisher;
 
     public JobEventPublisher(ApplicationEventPublisher publisher) {
         this.publisher = publisher;
     }
 
-    public void publishEvent(JobEvent jobEvent){
+    public String publishEvent(JobEvent jobEvent){
         publisher.publishEvent(jobEvent);
         log.info("Published Event {}",jobEvent);
+        return "done";
     }
 }

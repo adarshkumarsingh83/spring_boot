@@ -29,22 +29,19 @@ public class JobProcessingService {
         this.dataRepository = dataRepository;
     }
 
-    public String startJob(int number){
-          this.doProcessJob(number);
-        return "Requests are being processed asynchronously.for " + number + " users.";
-    }
-
     @Async
     public void doProcessJob(int number) {
         int i = random.nextInt(100);
         // todo throw event to start the data processing for queue
-        jobEventPublisher.publishEvent(new StartJobEvent());
-        while(i>0){
-            List<User> dataList = dataRepository.generateData(number);
+       // jobEventPublisher.publishEvent(new StartJobEvent());
+        log.info("Started processing for {} users",number);
+        while(i > 0){
+            List<User> dataList = dataRepository.generateData("_"+i+"_",number);
             applicationService.setData(dataList);
           i--;
         }
         // todo throw event to change the flag to process data
-        jobEventPublisher.publishEvent(new StopJobEvent());
+      //  jobEventPublisher.publishEvent(new StopJobEvent());
+        log.info("Completed processing for {} users",number);
     }
 }

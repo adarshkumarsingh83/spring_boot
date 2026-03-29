@@ -22,14 +22,14 @@ public class DataRepository {
         this.userPoolObjectFactory = userPoolObjectFactory;
     }
 
-    public  List<User>  generateData(int size){
+    public  List<User>  generateData(String batch ,int size){
         List<User> data =  IntStream.range(1,size)
                 .mapToObj(i ->{
                     User user = null;
                     try {
                         user = userPoolObjectFactory.getObject();
-                        user.setName("adarsh"+i);
-                        user.setEmail("adarsh"+i+"@espark.com");
+                        user.setName("adarsh"+batch+i);
+                        user.setEmail("adarsh"+batch+i+"@espark.com");
                     } catch (InterruptedException e) {
                        log.error(e.getMessage());
                     }
